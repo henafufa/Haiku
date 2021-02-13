@@ -6,7 +6,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
   # 
   def setup
     @admin = users(:michael)
-    @non_admin = users(:archer)
+    @non_admin = users(:archer) 
   end
   test "index including pagination" do
     log_in_as(@non_admin)
