@@ -7,7 +7,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @other_user = users(:archer)
   end
 
-  test "should get new" do
+  test "shouldsd get new" do
     get signup_path
     assert_response :success
   end
