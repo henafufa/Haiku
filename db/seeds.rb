@@ -29,3 +29,15 @@ following = users[2..50]
 followers = users[3..40]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
+# Creating comment
+users = User.all
+microposts = Micropost.all
+commentors = users[3..10]
+commented_microposted = microposts[1..20]
+
+commentors.each  do |commentor|
+    commented_microposted.each do |m|
+        commentor.comments.create!(content: Faker::Lorem.sentence(word_count: 3), micropost_id: m.id)
+    end
+end
+

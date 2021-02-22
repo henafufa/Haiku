@@ -4,10 +4,13 @@ class MicropostsController < ApplicationController
     def create
         @micropost = current_user.microposts.build(micropost_params)
         @micropost.image.attach(params[:micropost][:image])
+        
         if @micropost.save
             flash[:success] = "Micropost created!"
             redirect_to root_url
         else
+
+            @comment = Comment.new
             @feed_items = current_user.feed.paginate(page: params[:page])
             render 'static_pages/home'
         end
