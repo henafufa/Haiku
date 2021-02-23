@@ -41,3 +41,12 @@ commentors.each  do |commentor|
     end
 end
 
+reactors = users[3..10]
+reacted_micropostes = microposts[1..20]
+
+reactors.each do |reactor|
+    reacted_micropostes.each do |m|
+        reactor.reactions.create!(micropost_id: m.id)
+    end
+end
+

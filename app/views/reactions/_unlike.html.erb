@@ -1,0 +1,3 @@
+<%= form_with(model: current_user.reactions.find_by(micropost_id: micropost_id), html: { method: :delete }, local: true) do |f| %>
+<%= f.submit "Unlike", class: "btn" %>
+<% end %>

@@ -5,7 +5,7 @@ class User < ApplicationRecord
     has_many :following, through: :active_relationships, source: :followed
     has_many :followers, through: :passive_relationships, source: :follower
     has_many :comments, dependent: :destroy
-    # has_many :reactions, class_name: "Reaction", foreign_key: "reactor_id"
+    has_many :reactions, dependent: :destroy
     attr_accessor :remember_token, :activation_token, :reset_token
     before_save :downcase_email
     before_create :create_activation_digest
@@ -88,17 +88,14 @@ class User < ApplicationRecord
         following.include?(other_user)
     end
     # React to micropost.
-    def react(micropost)
-        
+    def reacted?(micropost_id)
+        if(Micropost.find_by(id: micropost_id) && self.reactions.find_by(micropost_id: micropost_id))
+            return true
+        else
+            return false
+        end
     end
     # unreact  a micropost.
-    def unreact(micropost)
-        
-    end
-    # Returns true if the current user is reacted to the micropost.
-    def following?(micropost)
-        
-    end
     private
         def downcase_email
             self.email = email.downcase

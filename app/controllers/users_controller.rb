@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   end
   def show
     @comment = Comment.new
+    @reaction = Reaction.new
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
     @microposts = @user.microposts.paginate(page: params[:page])
