@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
 	before_action :logged_in_user, only: [:create, :destroy]
 	before_action :correct_post, only: :create
+	before_action :correct_user, only: :destroy
 
 	def create
 			# @microposts = @user.microposts.paginate(page:params[:page])
@@ -18,7 +19,7 @@ class CommentsController < ApplicationController
 		end
 	end
 	def destroy
-			# @comment.destroy
+		@comment.destroy
 		flash[:success] = "comment deleted"
 		redirect_to request.referrer || root_url
 	end
@@ -33,9 +34,12 @@ class CommentsController < ApplicationController
 			redirect_to root_url if @micropost.nil?
 		end
 
-	# def correct_user
-	#     @comment = current_user.comments.find_by(id: params[:micropost_id])
-	#     redirect_to root_url if @comment.nil?
-	# end
+		def correct_user
+			p '==============================='
+			p "under correct user method"
+			p '==============================='
+			@comment = current_user.comments.find_by(id: params[:id])
+			redirect_to root_url if @comment.nil?
+		end
 			
 end
