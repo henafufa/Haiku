@@ -6,6 +6,7 @@
             </div>
             <div class="col-sm-3">
             <%= link_to micropost.user.name, micropost.user %>
+            <br>
             <%= micropost.content %>
         <%= image_tag micropost.display_image if micropost.image.attached? %>
              </div>
