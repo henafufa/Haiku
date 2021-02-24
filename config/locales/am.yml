@@ -23,6 +23,7 @@ am:
       like: "ተመችቶኛል"
       sure: "እርግጠኛ ነዎት?"
       delete: "ሰርዝ"
+      posted_at: "የተጻፈበት ሰዓት"
   static_pages:
     home:
       micropost_feed: "ዝርዝር ሃይኩ"

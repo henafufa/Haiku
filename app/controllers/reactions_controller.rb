@@ -6,19 +6,19 @@ class ReactionsController < ApplicationController
         # @user = @reaction.user
 		@reaction = current_user.reactions.build(micropost_id: @micropost.id)
 		if @reaction.save
-			flash[:success] = "liked successfuly!"
+			# flash[:success] = "liked successfuly!"
 			redirect_to request.referrer
 		else
 			@user = @micropost.user
 			@microposts = @user.microposts.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
-			flash[:danger] = "Invalid reaction"
+			# flash[:danger] = "Invalid reaction"
 			redirect_to request.referrer 
 		end
     end
 
     def destroy
         @reaction.destroy
-        flash[:success] = "comment deleted"
+        # flash[:success] = "comment deleted"
 		redirect_to request.referrer || root_url
     end
     private

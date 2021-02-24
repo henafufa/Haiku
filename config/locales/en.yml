@@ -19,10 +19,11 @@ en:
     micropost:
       posted: "Posted"
       ago: "ago"
-      comment:  "commment"
+      comment:  "Read commments"
       like: "like"
       sure: "Are you sure?"
       delete: "delete"
+      posted_at: "Posted at"
   static_pages:
     home:
       micropost_feed: "Haiku Feeds"

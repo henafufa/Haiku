@@ -69,7 +69,12 @@ class UsersController < ApplicationController
     @users = @user.followers.paginate(:page => params[:page], :per_page => 10, :total_entries => 50)
     render 'show_follow'
   end
-  
+  def search
+    # Friend.where(["email LIKE ?", "% {params[:q]} %"])
+    @users = User.where("email LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
+    render 'index'
+    # @friends = Friend.search(params[:search])
+  end
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
