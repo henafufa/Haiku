@@ -66,15 +66,13 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
-  # test "should follow and unfollow a user" do
-  #   michael = users(:michael)
-  #   archer = users(:archer)
-  #   assert_not michael.following?(archer)
-  #   michael.follow(archer)
-  #   assert michael.following?(archer)
-  #   michael.unfollow(archer)
-  #   assert_not michael.following?(archer)
-  # end
+  test "associated comment should be destroyed" do
+    @user.save
+    @user.comments.create!(content: "Lorem ipsum", micropost_id: microposts(:orange).id)
+    assert_difference 'Comment.count', -1 do
+      @user.destroy
+    end
+  end
   test "should follow and unfollow a user" do
     michael = users(:michael)
     archer = users(:archer)
@@ -85,4 +83,15 @@ class UserTest < ActiveSupport::TestCase
     michael.unfollow(archer)
     assert_not michael.following?(archer)
   end
+  # test "should react and unreact a micropost" do
+  #   michael = users(:michael)
+  #   orange = microposts(:orange)
+  #   assert_not michael.react?(orange)
+  #   michael.react(orange)
+  #   assert michael.react?(orange)
+  #   # assert archer.followers.include?(michael)
+  #   # michael.unfollow(archer)
+  #   # assert_not michael.following?(archer)
+  # end
+  
 end

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :show]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :show, :followers, :following ]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
 
@@ -9,9 +9,11 @@ class UsersController < ApplicationController
     @users = User.where(activated: true).paginate(page: params[:page])
   end
   def show
+    @comment = Comment.new
+    @reaction = Reaction.new
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = @user.microposts.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
     # debugger
   end
   def new
@@ -57,17 +59,22 @@ class UsersController < ApplicationController
   def following
     @title = "Following"
     @user = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page])
+    @users = @user.following.paginate(:page => params[:page], :per_page => 10, :total_entries => 50)
     render 'show_follow'
   end
   
   def followers
     @title = "Followers"
     @user = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page])
+    @users = @user.followers.paginate(:page => params[:page], :per_page => 10, :total_entries => 50)
     render 'show_follow'
   end
-  
+  def search
+    # Friend.where(["email LIKE ?", "% {params[:q]} %"])
+    @users = User.where("email LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
+    render 'index'
+    # @friends = Friend.search(params[:search])
+  end
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
