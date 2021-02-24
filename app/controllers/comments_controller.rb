@@ -11,7 +11,8 @@ class CommentsController < ApplicationController
 			redirect_to request.referrer 
 		else
 			@user = @micropost.user
-			@microposts = @user.microposts.paginate(page:params[:page])
+			# @microposts = @user.microposts.paginate(page:params[:page])
+			@microposts = @user.microposts.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
 			flash[:danger] = "Invalid comment"
 			redirect_to request.referrer 
 		end

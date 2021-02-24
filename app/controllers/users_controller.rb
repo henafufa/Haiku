@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @reaction = Reaction.new
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = @user.microposts.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
     # debugger
   end
   def new
@@ -59,14 +59,14 @@ class UsersController < ApplicationController
   def following
     @title = "Following"
     @user = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page])
+    @users = @user.following.paginate(:page => params[:page], :per_page => 10, :total_entries => 50)
     render 'show_follow'
   end
   
   def followers
     @title = "Followers"
     @user = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page])
+    @users = @user.followers.paginate(:page => params[:page], :per_page => 10, :total_entries => 50)
     render 'show_follow'
   end
   

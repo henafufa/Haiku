@@ -6,22 +6,22 @@
         <%= image_tag micropost.display_image if micropost.image.attached? %>
     </span>
     <span class="timestamp">
-    
-        Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+        <%= t 'microposts.micropost.posted_by' %>
+         <%= tag.time micropost.created_at %> <%= t 'microposts.micropost.ago' %>
         <% if current_user?(micropost.user) %>
-            <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>
+            <%= link_to t('microposts.micropost.delete'), micropost, method: :delete, data: { confirm: t('microposts.micropost.sure') } %>
         <% end %>
     </span>
     <span class="reaction">
         <span class="comment">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Comment <%= micropost.comments.count %>
+                    <%= t 'microposts.micropost.comment' %> <%= micropost.comments.count %>
                 </button>
-                <span><%= micropost.reactions.count%> Likes</span>
+                <span><%= micropost.reactions.count%> <%= t 'microposts.micropost.like' %> </span>
                
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <h3>Comments</h3>
+                    <h3><%= t 'microposts.micropost.comment' %></h3>
                     <%= render 'comments/comment_form', micropost_id: micropost.id %>
                     <% if micropost.comments.any? %>
                         <ol class="microposts">
