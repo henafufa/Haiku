@@ -1,33 +1,37 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  layout: 
+    header:
+      title: "Micro-post"
+      home: "Home"
+      help: "Help"
+      users: "Users"
+      account: "Account"
+      profile: "Profile"
+      settings: "Settings"
+      logout: "Logout"
+    footer:
+      description: "micropost idea sharing platform."
+  shared:
+    error_messages:
+      from_contains:  "The form contains"
+      errors: "error"
+  microposts:
+    micropost:
+      posted: "Posted"
+      ago: "ago"
+      comment:  "Read commments"
+      like: "like"
+      sure: "Are you sure?"
+      delete: "delete"
+      posted_at: "Posted at"
+  static_pages:
+    home:
+      micropost_feed: "Micro-post Feeds"
+  users:
+    edit_profile: "Update your profile"
+    edit_profile_picture: "change picture"
+    save_changes: "Save changes"
+    name: "Name"
+    email: "Email"
+    password: "Password"
+    confirm_password: "Confirmation"

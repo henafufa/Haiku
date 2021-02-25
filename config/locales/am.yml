@@ -1,0 +1,38 @@
+am:
+  layout: 
+    header:
+      title: "መልመጃ መተግበሪያ"
+      home: "መነሻ ገጽ"
+      help: "አጠቃቅም"
+      users: "ተጠቃሚዎች"
+      account: "አካውንት"
+      profile: "ግለ-ማህደር"
+      settings: "መቼት"
+      logout: "ዘግተው ይውጡ"
+    footer:
+      description: "መልመጃ መተግበርያ"
+  shared:
+    error_messages:
+      from_contains:  "የሞሉት ፎርም"
+      errors: "ስህተቶች አሉት!!"
+  microposts:
+    micropost:
+      posted_by: "የተጻፈው"
+      ago: ""
+      comment:  "አስተያየት"
+      like: "ተመችቶኛል"
+      sure: "እርግጠኛ ነዎት?"
+      delete: "ሰርዝ"
+      posted_at: "የተጻፈበት ሰዓት"
+  static_pages:
+    home:
+      micropost_feed: "ዝርዝር ሀሳብ"
+  users:
+    edit_profile: "ግለ ማህደሮን ያሻሽሉ"
+    edit_profile_picture: "ፎቶ ቀይር"
+    save_changes: "ለውጡን መዝግብ"
+    name: "ስም"
+    email: "ኢማዕል"
+    password: "የይለፍ ቃል"
+    confirm_password: "የይለፍ ቃል አረጋግጥ"
+    

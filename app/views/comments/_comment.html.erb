@@ -1,0 +1,10 @@
+<li id="comment-<%= comment.id %>">
+    <%= link_to gravatar_for(comment.user, size: 20), comment.user %>
+    <span class="user"><%= link_to comment.user.name, comment.user %></span>
+    <span class="content">
+    <%= comment.content %>
+    <% if current_user?(comment.user) %>
+        <%= link_to t('microposts.micropost.delete'), comment, method: :delete, data: { confirm: t('microposts.micropost.sure') } %>
+    <% end %>
+    </span>
+</li>
