@@ -1,7 +1,7 @@
 en:
   layout: 
     header:
-      title: "Haiku"
+      title: "Micro-post"
       home: "Home"
       help: "Help"
       users: "Users"
@@ -10,7 +10,7 @@ en:
       settings: "Settings"
       logout: "Logout"
     footer:
-      description: "Haiku learning platform."
+      description: "micropost idea sharing platform."
   shared:
     error_messages:
       from_contains:  "The form contains"
@@ -26,4 +26,12 @@ en:
       posted_at: "Posted at"
   static_pages:
     home:
-      micropost_feed: "Haiku Feeds"
+      micropost_feed: "Micro-post Feeds"
+  users:
+    edit_profile: "Update your profile"
+    edit_profile_picture: "change picture"
+    save_changes: "Save changes"
+    name: "Name"
+    email: "Email"
+    password: "Password"
+    confirm_password: "Confirmation"
