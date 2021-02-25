@@ -70,10 +70,8 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
   def search
-    # Friend.where(["email LIKE ?", "% {params[:q]} %"])
     @users = User.where("email LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
     render 'index'
-    # @friends = Friend.search(params[:search])
   end
   private
     def user_params
