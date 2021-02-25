@@ -12,5 +12,5 @@ class RelationshipsControllerTest < ActionDispatch::IntegrationTest
       delete relationship_path(relationships(:one))
     end
     assert_redirected_to login_url
-    end
+  end
 end

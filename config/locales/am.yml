@@ -1,7 +1,7 @@
 am:
   layout: 
     header:
-      title: "ሃይኩ መተግበሪያ"
+      title: "መልመጃ መተግበሪያ"
       home: "መነሻ ገጽ"
       help: "አጠቃቅም"
       users: "ተጠቃሚዎች"
@@ -10,7 +10,7 @@ am:
       settings: "መቼት"
       logout: "ዘግተው ይውጡ"
     footer:
-      description: "ሃይኩ መልመጃ መተግበርያ"
+      description: "መልመጃ መተግበርያ"
   shared:
     error_messages:
       from_contains:  "የሞሉት ፎርም"
@@ -26,4 +26,13 @@ am:
       posted_at: "የተጻፈበት ሰዓት"
   static_pages:
     home:
-      micropost_feed: "ዝርዝር ሃይኩ"
+      micropost_feed: "ዝርዝር ሀሳብ"
+  users:
+    edit_profile: "ግለ ማህደሮን ያሻሽሉ"
+    edit_profile_picture: "ፎቶ ቀይር"
+    save_changes: "ለውጡን መዝግብ"
+    name: "ስም"
+    email: "ኢማዕል"
+    password: "የይለፍ ቃል"
+    confirm_password: "የይለፍ ቃል አረጋግጥ"
+    
