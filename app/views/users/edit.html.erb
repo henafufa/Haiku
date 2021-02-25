@@ -1,7 +1,13 @@
 <% provide(:title, "Edit user") %>
 <h1><%= t 'users.edit_profile' %></h1>
 <div class="row">
-    <div  class="col-md-12 col-md-offset-3">
+    <div  class="col-md-12">
+    <div class="col-md-4">
+    <div class="row">
+            <%= gravatar_for @user %>
+            <a href="https://gravatar.com/emails"><%= t 'users.edit_profile_picture' %></a>
+    </div>
+    </div>
     <div class="col-md-4">
         <%= form_with(model: @user, local: true) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
@@ -18,10 +24,7 @@
         <% end %>
         </div>
     <div class="gravatar_edit col-md-4">
-        <div class="row">
-        <%= gravatar_for @user %>
-        <a href="https://gravatar.com/emails"><%= t 'users.edit_profile_picture' %></a>
-        </div>
+       
         <h2>Change language</h2>
         <div style="padding-left: 7em;">
         <li><%= link_to 'English', edit_user_path(locale: :en) %></li>
