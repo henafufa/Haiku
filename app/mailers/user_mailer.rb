@@ -41,16 +41,16 @@ class UserMailer < ApplicationMailer
   
   def send_notification(user)
     @user = user
-    api_key = ENV['MAILGUN_API_KEY']
-    mg_client = Mailgun::Client.new api_key
-    mail_from = "swengineer1.whizkids@gmail.com"
-    mail_to = user.email
-    message_params = {:from => mail_from,
-                      :to => mail_to,
-                      :subject => "Micropost User Activation",
-                      :text => "click link #{edit_account_activation_url(@user., email: @user.email)}"}
-    domain = ENV['MAILGUN_DOMAIN']
-    mg_client.send_message domain, message_params
+    # api_key = ENV['MAILGUN_API_KEY']
+    # mg_client = Mailgun::Client.new api_key
+    # mail_from = "swengineer1.whizkids@gmail.com"
+    # mail_to = user.email
+    # message_params = {:from => mail_from,
+    #                   :to => mail_to,
+    #                   :subject => "Micropost User Activation",
+    #                   :text => "click link #{edit_account_activation_url(@user., email: @user.email)}"}
+    # domain = ENV['MAILGUN_DOMAIN']
+    # mg_client.send_message domain, message_params
   end
   
 end
