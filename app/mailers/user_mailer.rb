@@ -15,14 +15,7 @@ class UserMailer < ApplicationMailer
     message_params = {:from => mail_from,
                       :to => mail_to,
                       :subject => "Micropost User Activation",
-                      :html => " <h1>Micropost App</h1>
-                      <p>Hi <%= @user.name %>,</p>
-                        <p>
-                        Welcome to the Micropost App! Click on the link below to activate
-                        your account:
-                        </p>
-                        <a href=#{edit_account_activation_url(@user.activation_token, email: @user.email)}>Activate</a>
-                      click here"}
+                      :text => "Hello, #{@user.name} please click here #{edit_account_activation_url(@user.activation_token, email: @user.email)} to acticvate your micro-post account"}
     domain = ENV['MAILGUN_DOMAIN']
     mg_client.send_message domain, message_params
   end
