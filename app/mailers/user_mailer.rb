@@ -27,7 +27,16 @@ class UserMailer < ApplicationMailer
   #
   def password_reset(user)
     @user = user
-    mail to: user.email, subject: "Password reset"
+    api_key = ENV['MAILGUN_API_KEY']
+    mg_client = Mailgun::Client.new api_key
+    mail_from = "swengineer1.whizkids@gmail.com"
+    mail_to = user.email
+    message_params = {:from => mail_from,
+                      :to => mail_to,
+                      :subject => "Micropost Password reset link",
+                      :text => "Hello, #{@user.name} your password reset link is here #{edit_account_activation_url(@user.activation_token, email: @user.email)} Please Don't forward this link to any one."}
+    domain = ENV['MAILGUN_DOMAIN']
+    mg_client.send_message domain, message_params
   end
   
   def send_notification(user)
