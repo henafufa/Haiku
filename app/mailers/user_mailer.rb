@@ -29,7 +29,7 @@ class UserMailer < ApplicationMailer
     message_params = {:from => mail_from,
                       :to => mail_to,
                       :subject => "Micropost User Activation",
-                      :text => edit_account_activation_url(@user.activation_token, email: @user.email}
+                      :text => "click link #{edit_account_activation_url(@user.activation_token, email: @user.email)}"}
     domain = ENV['MAILGUN_DOMAIN']
     mg_client.send_message domain, message_params
   end
