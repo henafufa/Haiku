@@ -63,9 +63,9 @@ class User < ApplicationRecord
     end
     # Sends activation email.
     def send_activation_email
-        # UserMailer.account_activation(self).deliver_now
+        UserMailer.account_activation(self).deliver_now
 
-        UserMailer.send_notification(self).deliver_now
+        # UserMailer.send_notification(self).deliver_now
     end
     #Returns true if a password reset has expired.
     def password_reset_expired?
