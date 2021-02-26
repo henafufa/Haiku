@@ -21,6 +21,7 @@ class UserMailer < ApplicationMailer
   end
   
   def send_notification(user)
+    @user = user
     api_key = ENV['MAILGUN_API_KEY']
     mg_client = Mailgun::Client.new api_key
     mail_from = "swengineer1.whizkids@gmail.com"
@@ -28,7 +29,7 @@ class UserMailer < ApplicationMailer
     message_params = {:from => mail_from,
                       :to => mail_to,
                       :subject => "Micropost User Activation",
-                      :text => "Dear Admin, a new customer has just been registered."}
+                      :text => edit_account_activation_url(@user.activation_token, email: @user.email}
     domain = ENV['MAILGUN_DOMAIN']
     mg_client.send_message domain, message_params
   end
