@@ -34,7 +34,7 @@ class UserMailer < ApplicationMailer
     message_params = {:from => mail_from,
                       :to => mail_to,
                       :subject => "Micropost Password reset link",
-                      :text => "Hello, #{@user.name} your password reset link is here #{edit_account_activation_url(@user.activation_token, email: @user.email)} Please Don't forward this link to any one."}
+                      :text => "Hello, #{@user.name} your password reset link is here #{edit_password_reset_url(@user.reset_token, email: @user.email)} Please Don't forward this link to any one."}
     domain = ENV['MAILGUN_DOMAIN']
     mg_client.send_message domain, message_params
   end
@@ -48,7 +48,7 @@ class UserMailer < ApplicationMailer
     message_params = {:from => mail_from,
                       :to => mail_to,
                       :subject => "Micropost User Activation",
-                      :text => "click link #{edit_account_activation_url(@user.activation_token, email: @user.email)}"}
+                      :text => "click link #{edit_account_activation_url(@user., email: @user.email)}"}
     domain = ENV['MAILGUN_DOMAIN']
     mg_client.send_message domain, message_params
   end
