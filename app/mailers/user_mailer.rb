@@ -21,7 +21,8 @@ class UserMailer < ApplicationMailer
                         Welcome to the Micropost App! Click on the link below to activate
                         your account:
                         </p>
-                      <%= link_to "Activate", edit_account_activation_url(@user.activation_token, email: @user.email) %>click here"}
+                        <a href=#{edit_account_activation_url(@user.activation_token, email: @user.email)}>Activate</a>
+                      click here"}
     domain = ENV['MAILGUN_DOMAIN']
     mg_client.send_message domain, message_params
   end
