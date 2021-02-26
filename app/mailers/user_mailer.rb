@@ -21,9 +21,9 @@ class UserMailer < ApplicationMailer
   end
   
   def send_notification(user)
-    # api_key = ENV['MAILGUN_API_KEY']
-    mg_client = Mailgun::Client.new 'cf19e4bfdda9c04ad883582473c25234-6e0fd3a4-9206e612'
-    mail_from = "tv.tsehai@gmail.com"
+    api_key = ENV['MAILGUN_API_KEY']
+    mg_client = Mailgun::Client.new api_key
+    mail_from = "swengineer1.whizkids@gmail.com"
     mail_to = user.email
     message_params = {:from => mail_from,
                       :to => mail_to,
