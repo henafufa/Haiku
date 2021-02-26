@@ -10,7 +10,7 @@ class UserMailer < ApplicationMailer
     # mail to: user.email, subject: "Account activation"
     api_key = ENV['MAILGUN_API_KEY']
     mg_client = Mailgun::Client.new api_key
-    mail_from = "Micropost"
+    mail_from = "swengineer1.whizkids@gmail.com"
     mail_to = user.email
     message_params = {:from => mail_from,
                       :to => mail_to,
