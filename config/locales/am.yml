@@ -1,0 +1,29 @@
+am:
+  layout: 
+    header:
+      title: "ሃይኩ መተግበሪያ"
+      home: "መነሻ ገጽ"
+      help: "አጠቃቅም"
+      users: "ተጠቃሚዎች"
+      account: "አካውንት"
+      profile: "ግለ-ማህደር"
+      settings: "መቼት"
+      logout: "ዘግተው ይውጡ"
+    footer:
+      description: "ሃይኩ መልመጃ መተግበርያ"
+  shared:
+    error_messages:
+      from_contains:  "የሞሉት ፎርም"
+      errors: "ስህተቶች አሉት!!"
+  microposts:
+    micropost:
+      posted_by: "የተጻፈው"
+      ago: ""
+      comment:  "አስተያየት"
+      like: "ተመችቶኛል"
+      sure: "እርግጠኛ ነዎት?"
+      delete: "ሰርዝ"
+      posted_at: "የተጻፈበት ሰዓት"
+  static_pages:
+    home:
+      micropost_feed: "ዝርዝር ሃይኩ"
