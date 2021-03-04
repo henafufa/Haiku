@@ -11,8 +11,8 @@
         <p><%= haiku.verse_3 %></p>
       </div>
     </div>
-  </div>
-  <div class="container">
+
+    
     <div class="row">
       <div class="col-sm-1"> </div>
       <div class="col-sm-2">
@@ -25,7 +25,19 @@
         <%= time_ago_in_words(haiku.created_at) %>
         <% if current_user?(haiku.user) %>
           <%= link_to "delete", haiku, method: :delete, data: { confirm: "Are you sure?" } %>
-        <% end %></div>
+        <% end %>
+      </div>
+    </div>
+      <div class="row">
+      <div class="col-sm-1"> </div>
+      <div class="col-sm-2"> 
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target=<%= "#micropost-collapse-#{haiku.id}" %> >
+        Comments
+        </button>
+      </div>
+      <div class="col-sm-2">
+      <%= render 'reactions/react_form', micropost_id: haiku.id %>
+      </div>
     </div>
   </div>
 </li>

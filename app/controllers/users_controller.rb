@@ -20,14 +20,12 @@ class UsersController < ApplicationController
     @user = User.new
   end
   def private_post
-    p '..........................................................'
-    p params[:id]
     @comment = Comment.new
     @reaction = Reaction.new
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
     # @microposts = @user.microposts.find(:all, :conditions => { :id => 2 }).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
-    @microposts = Haiku.where("user_id = ? and public = ?", @user.id, false).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+    @haiku = Haiku.where("user_id = ? and public = ?", @user.id, false).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
 
   end
   def create
