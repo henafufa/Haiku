@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'password_resets/it'
   get 'sessions/new'
   get 'users/new'
+  get 'users/:id/private_post', to: 'users#private_post'
   # root 'static_pages#home'
   # root 'post#index'
   # get 'static_pages/home'

@@ -1,34 +1,33 @@
 <li id="micropost-<%= micropost.id %>">
-    <div class="container">
-        <div class="row">
+    <div class="container" style="border: 1px solid red">
+        <div class="row" style="border: 1px solid red">
             <div class="col-sm-1">
-                <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
+                <%= link_to gravatar_for(micropost.user, size: 25), micropost.user %>
             </div>
             <div class="col-sm-3">
-            <%= link_to micropost.user.name, micropost.user %>
-            <%= micropost.content %>
-        <%= image_tag micropost.display_image if micropost.image.attached? %>
-             </div>
+                <%= link_to micropost.user.name, micropost.user %>
+                <%= micropost.content %>
+                <%= image_tag micropost.display_image if micropost.image.attached? %>
+            </div>
         </div>
     
-    </div>
-    <div class="container">
-    <div class="row">
-        <div class="col-sm-1"> </div>
-        <div class="col-sm-2">
-        <%= micropost.comments.count %> Comments
-         </div>
-        <div class="col-sm-2">
-        <%= micropost.reactions.count %> Likes
+    
+        <div class="row">
+            <div class="col-sm-1"> </div>
+            <div class="col-sm-2">
+            <%= micropost.comments.count %> Comments
+            </div>
+            <div class="col-sm-2">
+            <%= micropost.reactions.count %> Likes
+            </div>
+            <div class="col-sm-3">
+            <%= time_ago_in_words(micropost.created_at) %>
+            <% if current_user?(micropost.user) %>
+                <%= link_to "delete", micropost, method: :delete, data: { confirm: "Are you sure?" } %>
+            <% end %></div>
         </div>
-        <div class="col-sm-3">
-         <%= time_ago_in_words(micropost.created_at) %>
-        <% if current_user?(micropost.user) %>
-            <%= link_to "delete", micropost, method: :delete, data: { confirm: "Are you sure?" } %>
-        <% end %></div>
-    </div>
      <div class="row">
-     <div class="col-sm-1"> </div>
+        <div class="col-sm-1"> </div>
         <div class="col-sm-2"> 
             <button type="button" class="btn btn-primary" data-toggle="collapse" data-target=<%= "#micropost-collapse-#{micropost.id}" %> >
             Comments

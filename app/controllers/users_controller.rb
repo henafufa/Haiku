@@ -19,6 +19,17 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
+  def private_post
+    p '..........................................................'
+    p params[:id]
+    @comment = Comment.new
+    @reaction = Reaction.new
+    @user = User.find(params[:id])
+    redirect_to root_url and return unless @user.activated?
+    # @microposts = @user.microposts.find(:all, :conditions => { :id => 2 }).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+    @microposts = Micropost.where("user_id = ? and id = ?", @user.id, 1).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+
+  end
   def create
     # @user = User.new(params[:user]) # Not the final
     # implementation!
