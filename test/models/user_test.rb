@@ -66,6 +66,15 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test "associated haikus should be destroyed" do
+    @user.save
+    @user.haikus.create!(verse_1: "Lorem ipsum", verse_2: "Lorem ipsum", verse_3: "Lorem ipsum", user_id: @user.id)
+    assert_difference 'Haiku.count', -1 do
+      @user.destroy
+    end
+  end
+
   test "associated comment should be destroyed" do
     @user.save
     @user.comments.create!(content: "Lorem ipsum", micropost_id: microposts(:orange).id)
