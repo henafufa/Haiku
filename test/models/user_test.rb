@@ -82,6 +82,15 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test "associated haiku-comment should be destroyed" do
+    @user.save
+    @user.haiku_comments.create!(verse_1: "Lorem ipsum", verse_2: "Lorem ipsum", verse_3: "Lorem ipsum", haiku_id: haikus(:defualt_haiku).id )
+    assert_difference 'HaikuComment.count', -1 do
+      @user.destroy
+    end
+  end
+
   test "should follow and unfollow a user" do
     michael = users(:michael)
     archer = users(:archer)
