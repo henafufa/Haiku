@@ -35,9 +35,6 @@ class CommentsController < ApplicationController
 		end
 
 		def correct_user
-			p '==============================='
-			p "under correct user method"
-			p '==============================='
 			@comment = current_user.comments.find_by(id: params[:id])
 			redirect_to root_url if @comment.nil?
 		end
