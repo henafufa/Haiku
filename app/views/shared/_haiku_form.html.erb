@@ -1,0 +1,10 @@
+<%= form_with(model: @haiku, local: true) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_field :verse_1, placeholder: "First Verse" %>
+    <%= f.text_field :verse_2, placeholder: "Second Verse" %>
+    <%= f.text_field :verse_3, placeholder: "Third Verse" %>
+  </div>
+  <%= f.submit "Post", class: "btn btn-primary" %>
+<% end %>
+

@@ -1,0 +1,31 @@
+<li id="haiku-<%= haiku.id %>">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-1">
+        <%= link_to gravatar_for(haiku.user, size: 50), haiku.user %>
+      </div>
+      <div class="col-sm-3">
+        <%= link_to haiku.user.name, haiku.user %>
+        <p><%= haiku.verse_1 %></p>
+        <p><%= haiku.verse_2 %></p>
+        <p><%= haiku.verse_3 %></p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-1"> </div>
+      <div class="col-sm-2">
+       Comments
+      </div>
+      <div class="col-sm-2">
+         Likes
+      </div>
+      <div class="col-sm-3">
+        <%= time_ago_in_words(haiku.created_at) %>
+        <% if current_user?(haiku.user) %>
+          <%= link_to "delete", haiku, method: :delete, data: { confirm: "Are you sure?" } %>
+        <% end %></div>
+    </div>
+  </div>
+</li>

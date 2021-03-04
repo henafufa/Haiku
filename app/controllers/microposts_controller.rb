@@ -9,9 +9,10 @@ class MicropostsController < ApplicationController
             flash[:success] = "Micropost created!"
             redirect_to root_url
         else
-
             @comment = Comment.new
+            @haiku = Haiku.new
             # @feed_items = current_user.feed.paginate(page: params[:page])
+            @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
             @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
             render 'static_pages/home'
         end
