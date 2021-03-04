@@ -4,6 +4,7 @@ class StaticPagesController < ApplicationController
       @reaction = Reaction.new
       @comment = Comment.new
       @micropost = current_user.microposts.build
+      @haiku = current_user.haikus.build
       @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
     end
   end
