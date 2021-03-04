@@ -1,0 +1,2 @@
+module HaikuCommentsHelper
+end

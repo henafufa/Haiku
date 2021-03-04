@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   resources :microposts, only: [ :create, :destroy ]
   resources :haikus, only: [ :create, :destroy ]
   resources :relationships, only: [:create, :destroy]
+  resources :haiku_comments
 
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
