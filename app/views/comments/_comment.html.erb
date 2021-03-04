@@ -4,7 +4,7 @@
     <span class="content">
     <%= comment.content %>
     <% if current_user?(comment.user) %>
-        <%= link_to t('microposts.micropost.delete'), comment, method: :delete, data: { confirm: t('microposts.micropost.sure') } %>
+        <%= link_to "delete", comment, method: :delete, data: { confirm: "Are you sure?" } %>
     <% end %>
     </span>
 </li>

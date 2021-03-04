@@ -19,8 +19,8 @@ module SampleApp
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     # Include the authenticity token in remote forms.
-    config.i18n.available_locales = [:en, :am]
-    config.i18n.default_locale = :am
-    config.action_view.embed_authenticity_token_in_remote_forms = true
+    # config.i18n.available_locales = [:en, :am]
+    # config.i18n.default_locale = :am
+    # config.action_view.embed_authenticity_token_in_remote_forms = true
   end
 end
