@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_22_182012) do
+ActiveRecord::Schema.define(version: 2021_03_04_115425) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -49,6 +49,30 @@ ActiveRecord::Schema.define(version: 2021_02_22_182012) do
     t.index ["micropost_id"], name: "index_comments_on_micropost_id"
     t.index ["user_id", "micropost_id", "created_at"], name: "index_comments_on_user_id_and_micropost_id_and_created_at"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "haiku_comments", force: :cascade do |t|
+    t.text "verse_1"
+    t.text "verse_2"
+    t.text "verse_3"
+    t.integer "user_id", null: false
+    t.integer "haiku_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["haiku_id"], name: "index_haiku_comments_on_haiku_id"
+    t.index ["user_id"], name: "index_haiku_comments_on_user_id"
+  end
+
+  create_table "haikus", force: :cascade do |t|
+    t.text "verse_1"
+    t.text "verse_2"
+    t.text "verse_3"
+    t.boolean "public", default: true
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "created_at"], name: "index_haikus_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_haikus_on_user_id"
   end
 
   create_table "microposts", force: :cascade do |t|
@@ -100,6 +124,9 @@ ActiveRecord::Schema.define(version: 2021_02_22_182012) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "microposts"
   add_foreign_key "comments", "users"
+  add_foreign_key "haiku_comments", "haikus"
+  add_foreign_key "haiku_comments", "users"
+  add_foreign_key "haikus", "users"
   add_foreign_key "microposts", "users"
   add_foreign_key "reactions", "microposts"
   add_foreign_key "reactions", "users"

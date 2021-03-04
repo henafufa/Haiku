@@ -1,12 +1,53 @@
 <%= form_with(model: @micropost, local: true) do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
-<div class="field">
-<%= f.text_area :content,  required: true, class: "form form-control", placeholder: "Compose new
-micropost..." %>
-</div><%= f.submit "Post", class: "btn btn-primary" %>
-<span class="image">
-<%= f.file_field :image, accept: "image/jpeg,image/gif,image/png" %>
-</span>
+
+<div class="col-md-12" style="">
+<section class="user_info">
+    <h3>
+        <%= link_to gravatar_for(current_user, size: 25), current_user %>
+        <%= @user.name %>
+    </h3>
+</section>
+</div>
+<div class="col-md-4">
+  <div class="form-group">
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>Public</option>
+      <option>private</option>
+    </select>
+  </div>
+</div>
+<div class="col-md-8">
+<input class="form-control form-control-lg" id="formFileLg" type="file" />
+</div>
+<div class="col-md-12">
+    <div class="mb-3">
+     <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="first line">
+    </div>
+    <div class="mb-3">
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="second line">
+    </div>
+    <div class="mb-3">
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="third line">
+    </div>
+</div>
+<div class="col-md-6">
+</div>
+<div class="col-md-6" style="padding-bottom: 1em;">
+    <a>make it challenge</a>
+</div>
+<div class="col-md-12" style="border-bottom: 1px solid #eeeeee">
+    
+</div>
+<div class="col-md-8" style="padding-top: 1em;">
+    <label for="inputPassword" class="col-sm-1 col-form-label" style="padding-top:0.5em;">#</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputPassword" placeholder="Add hash tag ...">
+    </div>
+</div>
+<div class="col-md-4" style="padding-top: 1em;">
+    <button type="submit" class="btn btn-primary mb-3">Post</button>
+</div>
 <% end %>
 <script type="text/javascript">
 $("#micropost_image").bind("change", function() {

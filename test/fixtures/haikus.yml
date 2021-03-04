@@ -1,0 +1,47 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+defualt_haiku:
+  verse_1: MyText
+  verse_2: MyText
+  verse_3: MyText
+  public: true
+  created_at: <%= 10.minutes.ago %>
+
+  user: michael
+
+archer_haiku:
+  verse_1: MyText
+  verse_2: MyText
+  verse_3: MyText
+  public: false
+  created_at: <%= 10.hours.ago %>
+  user: archer
+
+old:
+  verse_1: MyText
+  verse_2: MyText
+  verse_3: MyText
+  public: false
+  user: michael
+  created_at: <%= 10.years.ago %>
+
+
+most_recent:
+  verse_1: MyText
+  verse_2: MyText
+  verse_3: MyText
+  public: false
+  user: michael
+  created_at: <%= Time.zone.now %>
+
+
+public:
+  verse_1: MyText
+  verse_2: MyText
+  verse_3: MyText
+  public: true
+  user: michael
+  created_at: <%= 2.days.ago %>
+
+
+
