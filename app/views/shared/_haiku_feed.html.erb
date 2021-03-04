@@ -1,0 +1,6 @@
+<% if @haiku_feed_items.any? %>
+  <ol class="microposts">
+    <%= render @haiku_feed_items %>
+  </ol>
+  <%= will_paginate @haiku_feed_items, params: { controller: :static_pages, action: :home } %>
+<% end %>
