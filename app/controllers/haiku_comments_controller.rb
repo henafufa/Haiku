@@ -17,7 +17,7 @@ class HaikuCommentsController < ApplicationController
 			@user = @haiku.user
 			# @microposts = @user.microposts.paginate(page:params[:page])
 			@microposts = @user.microposts.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
-			flash[:danger] = "Invalid comment"
+			flash[:danger] = "Invalid Haiku comment, comment should be follow a haiku format"
 			redirect_to request.referrer 
 		end
 	end

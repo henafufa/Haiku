@@ -16,16 +16,39 @@
     <div class="row">
       <div class="col-sm-1"> </div>
       <div class="col-sm-2">
-       Comments
+        <%= haiku.haiku_comments.count %> Comments
       </div>
       <div class="col-sm-2">
-         Likes
+        Likes
       </div>
       <div class="col-sm-3">
-        <%= time_ago_in_words(haiku.created_at) %>
+        <%= time_ago_in_words(haiku.created_at) %> ago.
         <% if current_user?(haiku.user) %>
           <%= link_to "delete", haiku, method: :delete, data: { confirm: "Are you sure?" } %>
         <% end %></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"> </div>
+      <div class="col-sm-2">
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target=<%= "#haiku-collapse-#{haiku.id}" %> >
+          Comments
+        </button>
+      </div>
+    </div>
+    <div row>
+        <div class="col-sm-8">
+            <div id=<%= "haiku-collapse-#{haiku.id}" %> class="collapse comment_list">
+                <h3>Comments</h3>
+                <%= render 'haiku_comments/haiku_comment_form', haiku_id: haiku.id %>
+                <% if haiku.haiku_comments.any? %>
+                    <ol class="microposts">
+                        <% haiku.haiku_comments.each do |comment|%>
+                            <%= render 'haiku_comments/haiku_comment', haiku_comment: comment %>
+                        <% end %>
+                    </ol>
+                <% end %>
+            </div>
+        </div>
     </div>
   </div>
 </li>

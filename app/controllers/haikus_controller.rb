@@ -17,6 +17,7 @@ class HaikusController < ApplicationController
             redirect_to root_url
         else
             @comment = Comment.new
+            @haiku_comment = HaikuComment.new
             @micropost = Micropost.new
 
             @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
@@ -33,9 +34,6 @@ class HaikusController < ApplicationController
 
     private
         def haiku_params
-            p 'parmas'
-            p '00000000000000000000000000000000000000000000000000000122'
-            
             params.require(:haiku).permit(:verse_1, :verse_2, :verse_3, :visibility)
         end
         def correct_user

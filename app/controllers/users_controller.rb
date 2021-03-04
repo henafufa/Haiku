@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   end
   def show
     @comment = Comment.new
+    @haiku_comment = HaikuComment.new
     @reaction = Reaction.new
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
@@ -23,6 +24,7 @@ class UsersController < ApplicationController
     p '..........................................................'
     p params[:id]
     @comment = Comment.new
+    @haiku_comment = HaikuComment.new
     @reaction = Reaction.new
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?

@@ -1,0 +1,13 @@
+<li id="haiku-comment-<%= haiku_comment.id %>">
+  <%= link_to gravatar_for(haiku_comment.user, size: 20), haiku_comment.user %>
+  <span class="user"><%= link_to haiku_comment.user.name, haiku_comment.user %></span>
+  <span class="content">
+    <p><%= haiku_comment.verse_1 %></p>
+    <p><%= haiku_comment.verse_2 %></p>
+    <p><%= haiku_comment.verse_3 %></p>
+    <%= time_ago_in_words(haiku_comment.created_at) %> ago.
+    <% if current_user?(haiku_comment.user) %>
+      <%= link_to "delete", haiku_comment, method: :delete, data: { confirm: "Are you sure?" } %>
+    <% end %>
+  </span>
+</li>
