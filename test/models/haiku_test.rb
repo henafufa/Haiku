@@ -63,12 +63,11 @@ class HaikuTest < ActiveSupport::TestCase
   end
   
 
-
-  # test "associated comment should be destroyed" do
-  #   @micropost.save
-  #   @micropost.comments.create!(content: "Lorem ipsum", user_id: users(:michael).id)
-  #   assert_difference 'Comment.count', -1 do
-  #     @micropost.destroy
-  #   end
-  # end
+  test "associated comment should be destroyed" do
+    @haiku.save
+    @haiku.haiku_comments.create!(verse_1: "Lorem ipsum", verse_2: "Lorem ipsum", verse_3: "Lorem ipsum", user_id: users(:michael).id)
+    assert_difference 'HaikuComment.count', -1 do
+      @haiku.destroy
+    end
+  end
 end

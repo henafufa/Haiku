@@ -1,15 +1,50 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+comment_default:
   verse_1: MyText
   verse_2: MyText
   verse_3: MyText
-  user: one
-  haiku: one
+  user: michael
+  haiku: defualt_haiku
+  created_at: <%= 10.hours.ago %>
 
-two:
+
+old_comments:
   verse_1: MyText
   verse_2: MyText
   verse_3: MyText
-  user: two
-  haiku: two
+  user: michael
+  haiku: defualt_haiku
+  created_at: <%= 10.years.ago %>
+
+nice_comment:
+  verse_1: Nice Haiku
+  verse_2: That Rhymes
+  verse_3: With My Rhyme
+  user: michael
+  haiku: defualt_haiku
+  created_at: <%= 10.days.ago %>
+
+most_recent:
+  verse_1: Hey Haiku
+  verse_2: That Rhymes
+  verse_3: With My Rhyme
+  user: michael
+  haiku: defualt_haiku
+  created_at: <%= Time.zone.now %>
+
+archer_comment:
+  verse_1: MyText
+  verse_2: MyText
+  verse_3: MyText
+  user: archer
+  haiku: defualt_haiku
+  created_at: <%= 10.minutes.ago %>
+
+lana_comments:
+  verse_1: MyText
+  verse_2: MyText
+  verse_3: MyText
+  user: lana
+  haiku: defualt_haiku
+  created_at: <%= 2.days.ago %>
