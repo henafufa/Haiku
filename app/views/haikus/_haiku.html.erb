@@ -9,7 +9,12 @@
         <p><%= haiku.verse_1 %></p>
         <p><%= haiku.verse_2 %></p>
         <p><%= haiku.verse_3 %></p>
+        <% if haiku.tag ? %>
+        <p class="text-primary">#<%= haiku.tag %></p>
+        <% else %>
+        <% end %>
       </div>
+      <p>this is hash tag</p>
       <div class="col-md-4">
       <div class="col-md-4">
       <% if haiku.public? %>
