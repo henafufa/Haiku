@@ -20,6 +20,10 @@
             <option>Public</option>
           </select>
         </div>
+        <%= form_with(model: @haiku, local: true) do |f| %>
+        <%= hidden_field_tag :public, micropost_id %>
+        <%= f.submit "Save changes", class: "btn btn-primary" %>
+        <%end%>
       <% end %>
 </div>
       </div>

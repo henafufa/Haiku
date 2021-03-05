@@ -25,8 +25,10 @@ class HaikusController < ApplicationController
             render 'static_pages/home'
         end
     end
+    def update
 
-     def destroy
+    end
+    def destroy
         @haiku.destroy
         flash[:success] = "Haiku deleted"
         redirect_to request.referrer || root_url
@@ -34,9 +36,6 @@ class HaikusController < ApplicationController
 
     private
         def haiku_params
-            p 'parmas'
-            p '00000000000000000000000000000000000000000000000000000122'
-            
             params.require(:haiku).permit(:verse_1, :verse_2, :verse_3, :visibility)
         end
         def correct_user
