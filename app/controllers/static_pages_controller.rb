@@ -20,4 +20,8 @@ class StaticPagesController < ApplicationController
 
   def contact
   end
+
+  def test
+    render 'test'
+  end
 end

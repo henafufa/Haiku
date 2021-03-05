@@ -1,10 +1,25 @@
 <%= form_with(model: @haiku_comment, local: true) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
-    <%= f.text_field :verse_1, placeholder: "First Verse", class: "form-control" %>
-    <%= f.text_field :verse_2, placeholder: "Second Verse",  class: "form-control" %>
-    <%= f.text_field :verse_3, placeholder: "Third Verse",  class: "form-control" %>
-    <%= hidden_field_tag :haiku_id, haiku_id %>
+  <div style="margin-bottom: 10px; margin-top:10px;">
+    <div class="row">
+      <div class="col-md-1">
+        <%= link_to gravatar_for(current_user, size: 20), current_user %>
+      </div>
+      <div class="col-md-10">
+        <div class="comment-section" style="padding: 10px">
+          <div>
+            <h5 class="card-subtitle mb-2 strong"><b><%= link_to current_user.name, current_user, style:"color:black" %></b></h5>
+          </div>
+          <div>
+            <%= f.text_field :verse_1, placeholder: "First Verse", class: "form-control haiku_input_field comment-form" %>
+            <%= f.text_field :verse_2, placeholder: "Second Verse",  class: "form-control haiku_input_field comment-form" %>
+            <%= f.text_field :verse_3, placeholder: "Third Verse",  class: "form-control haiku_input_field comment-form" %>
+            <%= hidden_field_tag :haiku_id, haiku_id %>
+          </div>
+        </div>
+        <div class="col-md-3" style="margin: 5px">
+        <%= f.submit "Comment", class: "btn btn-primary" %>
+      </div>
+      </div>
+    </div>
   </div>
-  <%= f.submit "Comment", class: "btn btn-primary" %>
 <% end %>

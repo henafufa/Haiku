@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get 'search', to:'users#search'
+  get '/test', to: 'static_pages#test'
   resources :users do
     member do
       get :following, :followers
