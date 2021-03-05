@@ -1,6 +1,6 @@
 <li id="micropost-<%= micropost.id %>">
-    <div class="container" style="border: 1px solid red">
-        <div class="row" style="border: 1px solid red">
+    <div class="container">
+        <div class="row" >
             <div class="col-sm-1">
                 <%= link_to gravatar_for(micropost.user, size: 25), micropost.user %>
             </div>
@@ -26,31 +26,31 @@
                 <%= link_to "delete", micropost, method: :delete, data: { confirm: "Are you sure?" } %>
             <% end %></div>
         </div>
-     <div class="row">
-        <div class="col-sm-1"> </div>
-        <div class="col-sm-2"> 
-            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target=<%= "#micropost-collapse-#{micropost.id}" %> >
-            Comments
-            </button>
-        </div>
-        <div class="col-sm-2">
-        <%= render 'reactions/react_form', micropost_id: micropost.id %>
-        </div>
-    </div>
-    <div row>
-        <div class="col-sm-8">
-            <div id=<%= "micropost-collapse-#{micropost.id}" %> class="collapse comment_list">
-                <h3>Comments</h3>
-                <%= render 'comments/comment_form', micropost_id: micropost.id %>
-                <% if micropost.comments.any? %>
-                    <ol class="microposts">
-                        <% micropost.comments.each do |comment|%>
-                            <%= render 'comments/comment', comment: comment %>
-                        <% end %>
-                    </ol>
-                <% end %>
+        <div class="row">
+            <div class="col-sm-1"> </div>
+            <div class="col-sm-2"> 
+                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target=<%= "#micropost-collapse-#{micropost.id}" %> >
+                Comments
+                </button>
+            </div>
+            <div class="col-sm-2">
+            <%= render 'reactions/react_form', micropost_id: micropost.id %>
             </div>
         </div>
-    </div>
+        <div row>
+            <div class="col-sm-8">
+                <div id=<%= "micropost-collapse-#{micropost.id}" %> class="collapse comment_list">
+                    <h3>Comments</h3>
+                    <%= render 'comments/comment_form', micropost_id: micropost.id %>
+                    <% if micropost.comments.any? %>
+                        <ol class="microposts">
+                            <% micropost.comments.each do |comment|%>
+                                <%= render 'comments/comment', comment: comment %>
+                            <% end %>
+                        </ol>
+                    <% end %>
+                </div>
+            </div>
+        </div>
     </div>
 </li>
