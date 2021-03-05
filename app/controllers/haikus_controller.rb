@@ -20,7 +20,8 @@ class HaikusController < ApplicationController
             @micropost = Micropost.new
 
             @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
-            @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+            # @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+            @haiku_feed_items = Haiku.where("user_id = ? and public = ?", current_user.id, true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
             render 'static_pages/home'
         end
     end

@@ -10,33 +10,35 @@
         <p><%= haiku.verse_2 %></p>
         <p><%= haiku.verse_3 %></p>
       </div>
+      <div class="col-md-4">
+      <div class="col-md-4">
+      <% if haiku.public? %>
+      <% else %>
+        <div class="form-group">
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option>Private</option>
+            <option>Public</option>
+          </select>
+        </div>
+      <% end %>
+</div>
+      </div>
     </div>
 
-    
-    <div class="row">
-      <div class="col-sm-1"> </div>
-      <div class="col-sm-2">
-       Comments
-      </div>
-      <div class="col-sm-2">
-         Likes
-      </div>
-      <div class="col-sm-3">
-        <%= time_ago_in_words(haiku.created_at) %>
-        <% if current_user?(haiku.user) %>
-          <%= link_to "delete", haiku, method: :delete, data: { confirm: "Are you sure?" } %>
-        <% end %>
-      </div>
-    </div>
       <div class="row">
       <div class="col-sm-1"> </div>
+      <div class="col-sm-2">
+      <%= render 'reactions/react_form', micropost_id: haiku.id %>
+      </div>
       <div class="col-sm-2"> 
-        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target=<%= "#micropost-collapse-#{haiku.id}" %> >
+        <button type="button" class="btn" data-toggle="collapse" data-target=<%= "#micropost-collapse-#{haiku.id}" %> >
         Comments
         </button>
       </div>
-      <div class="col-sm-2">
-      <%= render 'reactions/react_form', micropost_id: haiku.id %>
+      <div class="col-sm-2"> 
+        <button type="button" class="btn" data-toggle="collapse" data-target=<%= "#micropost-collapse-#{haiku.id}" %> >
+        Share
+        </button>
       </div>
     </div>
   </div>
