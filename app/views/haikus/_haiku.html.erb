@@ -14,17 +14,11 @@
       <div class="col-md-4">
       <% if haiku.public? %>
       <% else %>
-        <div class="form-group">
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>Private</option>
-            <option>Public</option>
-          </select>
-        </div>
-        <%= form_with(model: @haiku, local: true) do |f| %>
-        <%= hidden_field_tag :public, micropost_id %>
-        <%= f.submit "Save changes", class: "btn btn-primary" %>
+         <%= form_with(model: haiku, html: { method: :patch }, local: true) do |f| %>
+        <%= f.submit "Public", class: "btn" %>
         <%end%>
       <% end %>
+      
 </div>
       </div>
     </div>

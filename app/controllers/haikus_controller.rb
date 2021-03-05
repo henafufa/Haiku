@@ -1,6 +1,6 @@
 class HaikusController < ApplicationController
-    before_action :logged_in_user, only: [:create, :destroy]
-    before_action :correct_user, only: :destroy
+    before_action :logged_in_user, only: [:create, :destroy, :update]
+    before_action :correct_user, only: [:destroy, :update]
 
     def create
         verse_1 = params[:haiku][:verse_1]
@@ -27,7 +27,13 @@ class HaikusController < ApplicationController
         end
     end
     def update
-
+        if !@haiku.public?
+            @haiku.update(public: true)
+            redirect_to request.referrer || root_url
+        else
+            redirect_to request.referrer || root_url
+        end
+        
     end
     def destroy
         @haiku.destroy
