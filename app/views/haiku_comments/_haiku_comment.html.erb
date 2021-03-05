@@ -1,7 +1,7 @@
 <div style="margin-bottom: 10px; margin-top:10px;"  id="haiku-comment-<%= haiku_comment.id %>">
   <div class="row" >
-    <div class="col-md-1">
-      <%= link_to gravatar_for(haiku_comment.user, size: 20), haiku_comment.user %>
+    <div class="col">
+      <%= link_to gravatar_for(haiku_comment.user, size: 25), haiku_comment.user %>
     </div>
     <div class="col-md-10 comment-section">
       <div>
@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="row" style="margin-top: 10px">
-    <div class="col-md-1">
+    <div class="col-">
     </div>
     <div class="col-md-10">
       <% if current_user?(haiku_comment.user) %>

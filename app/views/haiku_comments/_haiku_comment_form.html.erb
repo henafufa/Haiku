@@ -1,8 +1,8 @@
 <%= form_with(model: @haiku_comment, local: true) do |f| %>
   <div style="margin-bottom: 10px; margin-top:10px;">
     <div class="row">
-      <div class="col-md-1">
-        <%= link_to gravatar_for(current_user, size: 20), current_user %>
+      <div class="col">
+        <%= link_to gravatar_for(current_user, size: 25), current_user %>
       </div>
       <div class="col-md-10">
         <div class="comment-section" style="padding: 10px">
@@ -17,7 +17,8 @@
           </div>
         </div>
         <div class="col-md-3" style="margin: 5px">
-        <%= f.submit "Comment", class: "btn btn-primary" %>
+        <br/>
+        <%= f.submit "Comment", class: "btn btn-primary", style: "display:none;" %>
       </div>
       </div>
     </div>

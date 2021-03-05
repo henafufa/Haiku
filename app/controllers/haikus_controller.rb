@@ -27,7 +27,12 @@ class HaikusController < ApplicationController
         end
     end
 
-     def destroy
+    def show
+        @haiku_comment = HaikuComment.new
+        @haiku = Haiku.find(params[:id])
+    end
+
+    def destroy
         @haiku.destroy
         flash[:success] = "Haiku deleted"
         redirect_to request.referrer || root_url
