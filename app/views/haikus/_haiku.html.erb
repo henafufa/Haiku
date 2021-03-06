@@ -1,17 +1,41 @@
 <div style="margin-bottom: 30px;">
   <div class="row">
-    <div class="card container col-md-12" style="border:solid 1px #eee; padding: 5px;">
+    <div class="card container col-md-12" style="border:solid 1px #eee; padding: 13px;">
       <div class="card-body col-md-12">
-        <h5 class="card-title">
-          <%= link_to gravatar_for(haiku.user, size: 30), haiku.user %>
-        </h5>
-        <h6 class="card-subtitle mb-2 text-muted"><%= link_to haiku.user.name, haiku.user, class:"text-muted" %></h6>
-        <h6 class="card-subtitle mb-2 text-muted"><%= time_ago_in_words(haiku.created_at) %> </h6>
-        <p class="card-text text-center"><%= haiku.verse_1 %></p>
-        <p class="card-text text-center"><%= haiku.verse_2 %></p>
-        <p class="card-text text-center"><%= haiku.verse_3 %></p>
-        <h6><a href="#" class="card-link">#funny</a></h6>
-        <h6><a href="#" class="card-link mb-2 text-muted">16 Likes</a></h6>
+        <div class="row">
+          <h5 class="card-title">
+            <%= link_to gravatar_for(haiku.user, size: 30), haiku.user %>
+          </h5>
+          <div class="col-md-9">
+            <h6 class="card-subtitle  text-muted"><%= link_to haiku.user.name, haiku.user, class:"text-muted" %></h6>
+            <h6 class="card-subtitle text-muted"><%= time_ago_in_words(haiku.created_at) %> </h6>
+          </div>
+          <div class="dropdown col-md-2">
+            <span class="btn btn-secondary dropdown-toggle"  id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+              </svg>
+            </span>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <%= link_to  "View", haiku_path(haiku), class: "dropdown-item" %>
+              </li>
+              <% if current_user?(haiku.user) %>
+                <li>
+                  <%= link_to "delete", haiku, method: :delete, data: { confirm: "Are you sure?" }, class: "dropdown-item"  %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <p class="card-text text-center"><%= haiku.verse_1 %></p>
+          <p class="card-text text-center"><%= haiku.verse_2 %></p>
+          <p class="card-text text-center"><%= haiku.verse_3 %></p>
+          <h6><a href="#" class="card-link">#funny</a></h6>
+          <h6><a href="#" class="card-link mb-2 text-muted">16 Likes</a></h6>
+        </div>
+        <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
         <div class="card-footer">
           <div class= "row">
             <div class="col-md-4">
@@ -40,15 +64,14 @@
       </div>
     </div>
   </div>
-  
 </div>
 <div id=<%= "haiku-collapse-#{haiku.id}" %> class="collapse">
-    <%= render 'haiku_comments/haiku_comment_form', haiku_id: haiku.id %>
-    <% if haiku.haiku_comments.any? %>
-      <ol class="microposts">
-        <% haiku.haiku_comments.each do |comment|%>
-          <%= render 'haiku_comments/haiku_comment', haiku_comment: comment %>
-        <% end %>
-      </ol>
-    <% end %>
-  </div>
+  <%= render 'haiku_comments/haiku_comment_form', haiku_id: haiku.id %>
+  <% if haiku.haiku_comments.any? %>
+    <ol class="microposts">
+      <% haiku.haiku_comments.each do |comment|%>
+        <%= render 'haiku_comments/haiku_comment', haiku_comment: comment %>
+      <% end %>
+    </ol>
+  <% end %>
+</div>
