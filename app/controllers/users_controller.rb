@@ -81,10 +81,34 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
   def search
-    # Friend.where(["email LIKE ?", "% {params[:q]} %"])
-    @users = User.where("email LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
-    render 'index'
-    # @friends = Friend.search(params[:search])
+    @reaction = Reaction.new
+    @comment = Comment.new
+    @haiku_comment = HaikuComment.new
+    @micropost = current_user.microposts.build
+    @haiku = current_user.haikus.build
+    # @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+    @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+    if params[:filter] && params[:filter] === 'Haiku'
+      # @users = User.where("name LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
+      @haiku_feed_items = Haiku.where("user_id = ? and public = ? and verse_1 LIKE ?", current_user.id, true, "%"+params[:search]+"%").paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+      p '==============================================Haiku==================================='
+      render '/static_pages/home'
+    elsif params[:filter] && params[:filter] === 'Users'
+      # Friend.where(["email LIKE ?", "% {params[:q]} %"])
+      
+      @users = User.where("email LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
+      render 'index'
+      # @friends = Friend.search(params[:search])
+      p '==============================================Users==================================='
+    elsif params[:filter] && params[:filter] === 'Haiku by tag'
+      # @users = User.where("name LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
+      @haiku_feed_items = Haiku.where("user_id = ? and public = ? and tag LIKE ?", current_user.id, true, "%"+params[:search]+"%").paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+      p '==============================================Haiku by tag==================================='
+      render '/static_pages/home'
+    else
+      @haiku_feed_items = Haiku.where("user_id = ? and public = ?", current_user.id, true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+      render '/static_pages/home'
+    end
   end
   private
     def user_params
@@ -104,5 +128,9 @@ class UsersController < ApplicationController
     end
     def admin_user
       redirect_to(root_url) unless current_user.admin?
+    end
+    def search_params
+      params.require(:search).permit(:filter, :search_value)
+    
     end
 end
