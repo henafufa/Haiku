@@ -291,6 +291,38 @@ span.image {
 .comment_list {
   padding-left: 6em;
 }
+// search bar styling
+
+#search_bar_container {
+  display: flex;
+  padding-top: 0.5em;
+  padding-left: 5em;
+  #search_bar_form_container {
+    border: 1px solid;
+    display: flex;
+    flex-direction: horizontal;
+  }
+  #search_param {
+    border-right: none;
+    border-top-left-radius: 0.25em;
+    border-bottom-left-radius: 0.25em;
+    width: 7em;
+    border-bottom: none;
+    margin-left: 0.5em;
+  }
+  #input {
+    width: 25em;
+    border-radius: 0px;
+    margin-left: 7em;
+  }
+  #button {
+    margin-left: -0.1em;
+    border-left: none;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+  
+}
 .haiku_input_field {
   border-top: none;
   box-shadow: none;
@@ -356,3 +388,4 @@ span.image {
 .haiku-image-card:hover {
   box-shadow: 0 4px 8px 0 rgba(245, 222, 222, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+

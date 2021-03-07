@@ -6,7 +6,7 @@ class HaikuTest < ActiveSupport::TestCase
   # end
   def setup
     @user = users(:michael)
-    @haiku = @user.haikus.build(verse_1: "Lorem ipsum", verse_2: "Lorem ipsum", verse_3: "Lorem ipsum", user_id: @user.id)
+    @haiku = @user.haikus.build(verse_1: "Lorem ipsum", verse_2: "Lorem ipsum", verse_3: "Lorem ipsum", user_id: @user.id, tag:"funny")
     # This code is not idiomatically correct.
     # @haiku = Haiku.new(verse_1: "Lorem ipsum", verse_2: "Lorem ipsum", verse_3: "Lorem ipsum", user_id: @user.id)
   end
@@ -43,6 +43,11 @@ class HaikuTest < ActiveSupport::TestCase
 
   test "verse_3 should be at most 40 characters" do
     @haiku.verse_3 = "a" * 41
+    assert_not @haiku.valid?
+  end
+  
+  test "tag should be at most 15 character" do
+    @haiku.tag = "a" * 16
     assert_not @haiku.valid?
   end
 

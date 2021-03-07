@@ -5,6 +5,7 @@ class Haiku < ApplicationRecord
   validates :verse_1, presence: true, length: { maximum: 40 }
   validates :verse_2, presence: true, length: { maximum: 40 }
   validates :verse_3, presence: true, length: { maximum: 40 }
+  validates :tag, length: { maximum: 15 }
   has_many :haiku_comments, dependent: :destroy
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png], message: "must be a valid image format" }, size: { less_than: 5.megabytes, message: "should be less than 5MB" }
 
