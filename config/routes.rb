@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get 'search', to:'users#search'
+  get '/test', to: 'static_pages#test'
   resources :users do
     member do
       get :following, :followers
@@ -32,7 +33,7 @@ Rails.application.routes.draw do
   resources :comments
   resources :reactions, only: [ :create, :destroy ]
   resources :microposts, only: [ :create, :destroy ]
-  resources :haikus, only: [ :create, :destroy, :update ]
+  resources :haikus, only: [ :create, :destroy, :update, :show ]
   resources :relationships, only: [:create, :destroy]
   resources :haiku_comments
 
