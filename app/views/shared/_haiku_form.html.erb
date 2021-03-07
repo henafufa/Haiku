@@ -22,6 +22,9 @@
         <p class="card-text text-center"><%= f.text_field :verse_1, placeholder: "First Verse", class: "form-control haiku_input_field", required:true %></p>
         <p class="card-text text-center"><%= f.text_field :verse_2, placeholder: "Second Verse",  class: "form-control haiku_input_field", required: true %></p>
         <p class="card-text text-center"><%= f.text_field :verse_3, placeholder: "Third Verse",  class: "form-control haiku_input_field", required: true %></p>
+        <span class="image form-control form-control-sm haiku_input_field haiku-image-field">
+          <%= f.file_field :image %>
+        </span>
         <div class="col-md-6" style="padding-bottom: 1em;">
           <a>make it challenge</a>
         </div>

@@ -11,7 +11,8 @@ class HaikusController < ApplicationController
             is_public = false
         end
 
-        @haiku = current_user.haikus.build(verse_1: verse_1, verse_2: verse_2, verse_3: verse_3, public: is_public)        
+        @haiku = current_user.haikus.build(verse_1: verse_1, verse_2: verse_2, verse_3: verse_3, public: is_public)
+        @haiku.image.attach(params[:haiku][:image])
         if @haiku.save
             flash[:success] = "Haiku created!"
             redirect_to root_url
@@ -49,7 +50,7 @@ class HaikusController < ApplicationController
 
     private
         def haiku_params
-            params.require(:haiku).permit(:verse_1, :verse_2, :verse_3, :visibility)
+            params.require(:haiku).permit(:verse_1, :verse_2, :verse_3, :visibility, :image)
         end
         def correct_user
             @haiku = current_user.haikus.find_by(id: params[:id])
