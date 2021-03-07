@@ -91,7 +91,6 @@ class UsersController < ApplicationController
     if params[:filter] && params[:filter] === 'Haiku'
       # @users = User.where("name LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
       @haiku_feed_items = Haiku.where("user_id = ? and public = ? and verse_1 LIKE ?", current_user.id, true, "%"+params[:search]+"%").paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
-      p '==============================================Haiku==================================='
       render '/static_pages/home'
     elsif params[:filter] && params[:filter] === 'Users'
       # Friend.where(["email LIKE ?", "% {params[:q]} %"])
@@ -99,11 +98,9 @@ class UsersController < ApplicationController
       @users = User.where("email LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
       render 'index'
       # @friends = Friend.search(params[:search])
-      p '==============================================Users==================================='
     elsif params[:filter] && params[:filter] === 'Haiku by tag'
       # @users = User.where("name LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
       @haiku_feed_items = Haiku.where("user_id = ? and public = ? and tag LIKE ?", current_user.id, true, "%"+params[:search]+"%").paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
-      p '==============================================Haiku by tag==================================='
       render '/static_pages/home'
     else
       @haiku_feed_items = Haiku.where("user_id = ? and public = ?", current_user.id, true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
