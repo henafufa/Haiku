@@ -288,6 +288,35 @@ span.image {
     border: 0;
   }
 }
-.comment_list{
+.comment_list {
   padding-left: 6em;
+}
+// search bar styling
+
+#search_bar_container {
+  display: flex;
+  padding-top: 0.5em;
+  padding-left: 5em;
+  #search_bar_form_container {
+    border: 1px solid;
+    display: flex;
+    flex-direction: horizontal;
+  }
+  #search_param {
+    border-right: none;
+    width: 7em;
+    border-bottom: none;
+    margin-left: 0.5em;
+  }
+  #input {
+    width: 25em;
+    border-radius: 0px;
+    margin-left: 7em;
+  }
+  #button {
+    margin-left: -0.1em;
+    border-left: none;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
 }
