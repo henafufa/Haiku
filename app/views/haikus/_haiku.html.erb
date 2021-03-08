@@ -32,7 +32,11 @@
           <p class="card-text text-center"><%= haiku.verse_1 %></p>
           <p class="card-text text-center"><%= haiku.verse_2 %></p>
           <p class="card-text text-center"><%= haiku.verse_3 %></p>
-          <h6><a href="#" class="card-link">#funny</a></h6>
+          <% if haiku.tag? %>
+        <h6><a href="#" class="card-link">#<%= haiku.tag %></a></h6>
+        <% else %>
+        <% end %>
+          
           <h6><a href="#" class="card-link mb-2 text-muted">16 Likes</a></h6>
         </div>
         <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
