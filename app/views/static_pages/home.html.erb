@@ -20,14 +20,25 @@
             <div class="col-md-2" style="">
             </div>
             <div class="col-md-12" style="border: 1px solid #ddd; margin-top:50px">
-            <section class="micropost_form">
-                <%= render 'shared/haiku_form' %>
-            </section>
+            <% if !@is_on_search %>
+                <section class="micropost_form">
+                    <%= render 'shared/haiku_form' %>
+                </section>
+            <% end %>
             </div>
             <div class="col-md-2" style="">
             </div>
             <div class="col-md-12" style="padding-top: 2em;">
-            <%= render 'shared/haiku_feed' %>
+            <% if @is_on_search %>
+                <h1> Search results...</h1>
+                <% if @haiku_feed_items.length == 0 %>
+                    <h1>haiku not found</h1>
+                <% else %>
+                    <%= render 'shared/haiku_feed' %>
+                <% end %>
+            <% else %>
+                <%= render 'shared/haiku_feed' %>
+            <% end %>
             </div>
             
         </div>
