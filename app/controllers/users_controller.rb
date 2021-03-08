@@ -17,6 +17,25 @@ class UsersController < ApplicationController
     @microposts = @user.microposts.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
     # debugger
   end
+
+  # challenge handler
+  def dailyChallenge
+    @dailyChallenge=DailyChallenge.new
+    # @user = User.find(params[:id])
+    if current_user.update_columns(challenge_mode: true, challenge_start_date: Time.zone.now)
+      flash[:success] = "Challnege Started!! post your first day challenge"
+      redirect_to daily_challenges_url
+    else
+      flash[:danger] = "Unable to start challenge"
+    end
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url
+  end
+
   def new
     @user = User.new
   end

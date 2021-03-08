@@ -120,6 +120,5 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
-    
   
 end

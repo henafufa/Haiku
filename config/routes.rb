@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  
-  get 'thirty_day_challenges/index'
+
+  get 'daily_challenges/index'
   get 'password_resets/new'
   get 'password_resets/ed'
   get 'password_resets/it'
@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get 'search', to:'users#search'
+  patch "challenge", to:'users#dailyChallenge'
+  patch "track", to:'daily_challenges#index'
   get '/test', to: 'static_pages#test'
   resources :users do
     member do
@@ -37,7 +39,7 @@ Rails.application.routes.draw do
   resources :haikus, only: [ :create, :destroy, :update, :show ]
   resources :relationships, only: [:create, :destroy]
   resources :haiku_comments
-
+  resources :daily_challenges
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
 end

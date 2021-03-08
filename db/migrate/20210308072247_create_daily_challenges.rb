@@ -3,7 +3,7 @@ class CreateDailyChallenges < ActiveRecord::Migration[6.1]
     create_table :daily_challenges do |t|
       t.references :user, null: false, foreign_key: true
       t.references :haiku, null: false, foreign_key: true
-      t.boolean :postStatus
+      t.boolean :postStatus, default: false
       t.datetime :thirtyDates
 
       t.timestamps
