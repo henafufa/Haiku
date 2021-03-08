@@ -23,12 +23,26 @@ class HaikusController < ApplicationController
                 flash[:success] = "Haiku created!"
                 # redirect_to root_url
             if current_user.challenge_mode
-                redirect_to daily_challenges_url
-                # micropost date > start_date
-                # find the daily challenge, date, user_id
-                # update posted = tru
+                if @haiku.created_at >= current_user.challenge_start_date
+                    p "haiku--------------------#{@haiku.created_at}"
+                    # find the daily challenge by user_id and date  
+                    # update posted = tru
+                    "2021-03-08 14:23:02.383848"
+                    # @postedDate = DailyChallenge.where("user_id = ? and thirtyDates = ? ", current_user.id,  "2021-03-08 14:23:02.383848")
+                    @postedDate = DailyChallenge.where("user_id = ? and thirtyDates LIKE ? ", current_user.id, "%#{@haiku.created_at.to_date}%")
+                    p "#######################====================#{@postedDate.length}"
+                    if  @postedDate && @postedDate.length >= 0 && !@postedDate.first.postStatus?
+                        @postedDate.first.update_columns(postStatus: true)
+                        # @postedDate = DailyChallenge.update('postStatus').where("user_id = ? and thirtyDates = ? ", current_user.id, @haiku.created_at)
+                    else
+                        p "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    end
+                    
+                
+                end
                 
             end
+            redirect_to daily_challenges_url
         else
             @comment = Comment.new
             @haiku_comment = HaikuComment.new
