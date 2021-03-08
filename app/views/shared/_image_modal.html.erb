@@ -1,0 +1,21 @@
+<div class="modal fade" id="image-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add background image</h5>
+      </div>
+      <div class="modal-body">
+        <p class="card-text text-center"><%= f.text_field :verse_1, placeholder: "First Verse", class: "form-control haiku_input_field", required:true %></p>
+        <p class="card-text text-center"><%= f.text_field :verse_2, placeholder: "Second Verse",  class: "form-control haiku_input_field", required: true %></p>
+        <p class="card-text text-center"><%= f.text_field :verse_3, placeholder: "Third Verse",  class: "form-control haiku_input_field", required: true %></p>
+        <span class="image">
+          <%= f.file_field :image %>
+        </span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Preview</button>
+      </div>
+    </div>
+  </div>
+</div>

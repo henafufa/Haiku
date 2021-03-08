@@ -69,7 +69,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "associated haikus should be destroyed" do
     @user.save
-    @user.haikus.create!(verse_1: "Lorem ipsum", verse_2: "Lorem ipsum", verse_3: "Lorem ipsum", user_id: @user.id)
+    @user.haikus.create!(verse_1: "cafe patio", verse_2: "above the cacophony", verse_3: "cafe patio", user_id: @user.id)
     assert_difference 'Haiku.count', -1 do
       @user.destroy
     end
@@ -84,8 +84,9 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "associated haiku-comment should be destroyed" do
+    
     @user.save
-    @user.haiku_comments.create!(verse_1: "Lorem ipsum", verse_2: "Lorem ipsum", verse_3: "Lorem ipsum", haiku_id: haikus(:defualt_haiku).id )
+    @user.haiku_comments.create!(verse_1: "cafe patio", verse_2: "above the cacophony", verse_3: "cafe patio", haiku_id: haikus(:defualt_haiku).id )
     assert_difference 'HaikuComment.count', -1 do
       @user.destroy
     end

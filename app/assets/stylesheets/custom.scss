@@ -321,6 +321,7 @@ span.image {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
   }
+  
 }
 .haiku_input_field {
   border-top: none;
@@ -369,3 +370,22 @@ span.image {
 .comment-form {
   background-color: whitesmoke;
 }
+.haiku-image-field {
+  border-bottom: none
+
+}
+.haiku-image-card {
+  padding: 25px;
+  border-bottom-left-radius:10px;
+  border-bottom-right-radius:10px;
+
+  color:white; font-size:large;
+  font-weight: bold;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  opacity: 1;
+}
+.haiku-image-card:hover {
+  box-shadow: 0 4px 8px 0 rgba(245, 222, 222, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+

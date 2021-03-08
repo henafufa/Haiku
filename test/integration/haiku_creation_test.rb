@@ -12,9 +12,9 @@ class HaikuCreationTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get root_path
 
-    verse_1 = "My first verse"
-    verse_2 = "My second verse"
-    verse_3 = "My third verse"
+    verse_1 = "cafe patio"
+    verse_2 = "above the cacophony"
+    verse_3 = "cafe patio"
 
     assert_difference 'Haiku.count', 1 do
       post haikus_path, params: { haiku: { verse_1: verse_1, verse_2: verse_2, verse_3: verse_3 } }
