@@ -24,6 +24,15 @@ class UsersController < ApplicationController
     # @user = User.find(params[:id])
     if current_user.update_columns(challenge_mode: true, challenge_start_date: Time.zone.now)
       flash[:success] = "Challnege Started!! post your first day challenge"
+      @challengeDates = Time.zone.now
+      # @challenge = current_user.daily_challenges.create(thirtyDates: Time.zone.now)
+      # @challenge = current_user.daily_challenges.create!(thirtyDates: @challengeDates, haiku_id: Haiku.new)
+      # if @challenge.save
+      #   flash[:success] = "challenge setted!"
+      #   redirect_to request.referrer 
+      # else
+      #   flash[:success] = "couldnt set challenge!"
+      # end
       redirect_to daily_challenges_url
     else
       flash[:danger] = "Unable to start challenge"

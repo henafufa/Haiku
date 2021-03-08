@@ -17,11 +17,18 @@ class HaikusController < ApplicationController
         @haiku.image.attach(params[:haiku][:image])
         if @haiku.save
             p "verse1:#{SyllableCount(verse_1)}................................"
-            p verse_1_haiku?(verse_1)
-            p "verse1:#{SyllableCount(verse_2)}................................"
-            p "verse1:#{SyllableCount(verse_3)}................................"
-            flash[:success] = "Haiku created!"
-            redirect_to root_url
+                p verse_1_haiku?(verse_1)
+                p "verse1:#{SyllableCount(verse_2)}................................"
+                p "verse1:#{SyllableCount(verse_3)}................................"
+                flash[:success] = "Haiku created!"
+                # redirect_to root_url
+            if current_user.challenge_mode
+                redirect_to daily_challenges_url
+                # micropost date > start_date
+                # find the daily challenge, date, user_id
+                # update posted = tru
+                
+            end
         else
             @comment = Comment.new
             @haiku_comment = HaikuComment.new
