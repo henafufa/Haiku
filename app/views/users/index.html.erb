@@ -1,13 +1,20 @@
 <% provide(:title, 'All users') %>
-<h1>All users</h1>
-<div>
-    <%= form_tag search_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search"%>
-    <% end %>
-</div>
+
 <%= will_paginate %>
-    <ul class="users">
-        <%= render @users %>
-    </ul>
+    <% if @is_on_search %>
+        <h1> Search results...</h1>
+        <% if !@users.any? %>
+            <h1>user not found!</h1>
+        <% else %>
+        <ul class="users">
+            <%= render @users %>
+        </ul>
+        <% end %>
+    <% else%>
+        <h1>All users</h1>
+        <ul class="users">
+            <%= render @users %>
+        </ul>
+    <% end %>
+    
 <%= will_paginate %>

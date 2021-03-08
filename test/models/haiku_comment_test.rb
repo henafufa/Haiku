@@ -6,9 +6,9 @@ class HaikuCommentTest < ActiveSupport::TestCase
   # end
 
   def setup
-    verse_1 = "First Lorem"
-    verse_2 = "Second Lorem"
-    verse_3 = "Third Lorem"
+    verse_1 = "cafe patio"
+    verse_2 = "above the cacophony"
+    verse_3 = "cafe patio"
     @haiku_comment = HaikuComment.new(user_id: users(:michael).id, haiku_id: haikus(:public).id, verse_1: verse_1, verse_2: verse_2, verse_3:verse_3 )
   end
   test "should be valid" do
