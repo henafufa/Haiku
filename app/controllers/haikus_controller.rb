@@ -46,6 +46,7 @@ class HaikusController < ApplicationController
     def show
         @haiku_comment = HaikuComment.new
         @haiku = Haiku.find(params[:id])
+        p "#{@haiku.user.email}==============================================================''''''''"
     end
 
     def destroy
