@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2021_03_08_081351) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["haiku_id"], name: "index_daily_challenges_on_haiku_id"
+    t.index ["user_id", "haiku_id", "created_at"], name: "index_daily_challenges_on_user_id_and_haiku_id_and_created_at"
     t.index ["user_id"], name: "index_daily_challenges_on_user_id"
   end
 

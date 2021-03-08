@@ -6,14 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 # Create a main sample user.
-User.create!(name: "Mihreteab", email: "mihreteabdemeke@gmail.com", password: "password", password_confirmation: "password", admin: true, activated: true, activated_at: Time.zone.now)
-User.create!(name: "Hena", email: "hena@gmail.com", password: "password", password_confirmation: "password", admin: false, activated: true, activated_at: Time.zone.now)
+User.create!(name: "Mihreteab", email: "mihreteabdemeke@gmail.com", password: "password", password_confirmation: "password", admin: true,challenge_mode: false,challenge_start_date: nil, activated: true, activated_at: Time.zone.now)
+User.create!(name: "Hena", email: "hena@gmail.com", password: "password", password_confirmation: "password", admin: false,challenge_mode: false,challenge_start_date: nil, activated: true, activated_at: Time.zone.now)
 # Generate a bunch of additional users.
 35.times do |n|
     name = Faker::Name.name
     email = "example-#{n+1}@railstutorial.org"
     password = "password"
-    User.create!(name: name, email: email, password: password, password_confirmation: password, activated: true, activated_at: Time.zone.now)
+    User.create!(name: name, email: email, password: password, password_confirmation: password,challenge_mode: false, challenge_start_date: nil, activated: true, activated_at: Time.zone.now)
 end
 
 #Generate microposts for a subset of users.
