@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'thirty_day_challenges/index'
   get 'password_resets/new'
   get 'password_resets/ed'
   get 'password_resets/it'

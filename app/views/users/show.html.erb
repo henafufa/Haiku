@@ -11,6 +11,7 @@
             <%= render 'shared/stats' %>
         </section>
         <li><%= link_to "Private Post", "#{root_url}/users/#{@user.id}/private_post"%></li>
+        <%= render 'shared/start_challenge' %>
     </aside>
     <div class="col-md-6">
     <%= render 'users/follow_form' if logged_in? %>
