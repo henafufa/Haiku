@@ -109,7 +109,7 @@ footer {
       }
     }
   }
-}
+} 
 
 $gray-medium-light: #eaeaea;
 @mixin box_sizing {
@@ -321,6 +321,7 @@ span.image {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
   }
+}
 .haiku_input_field {
   border-top: none;
   box-shadow: none;
@@ -367,5 +368,4 @@ span.image {
 }
 .comment-form {
   background-color: whitesmoke;
-}
 }
