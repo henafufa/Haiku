@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'rails',                      '6.1.0'
 gem 'bcrypt',                     '3.1.13'
 gem 'rails-i18n'
+gem 'shareable'
 gem 'prettier'
 gem 'mailgun-ruby',             '~>1.1.6'
 gem 'image_processing',           '1.9.3'
