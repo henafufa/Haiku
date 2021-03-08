@@ -3,7 +3,7 @@ require "test_helper"
 class DailyChallengeTest < ActiveSupport::TestCase
   # setup for creating new challenge
   def setup
-    @dayChallenge = DailyChallenge.new(user_id: users(:michael).id, haiku_id: haikus(:public).id, postStatus: true, thirtyDates: Time.zone.now)
+    @dayChallenge = DailyChallenge.new(user_id: users(:michael).id, postStatus: true, thirtyDates: Time.zone.now)
   end
 
   # check created challenge vaid

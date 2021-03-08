@@ -26,13 +26,18 @@ class UsersController < ApplicationController
       flash[:success] = "Challnege Started!! post your first day challenge"
       @challengeDates = Time.zone.now
       # @challenge = current_user.daily_challenges.create(thirtyDates: Time.zone.now)
-      @challenge = current_user.daily_challenges.create!(thirtyDates: @challengeDates)
-      if @challenge.save
-        flash[:success] = "challenge setted!"
-        redirect_to request.referrer 
-      else
-        flash[:success] = "couldnt set challenge!"
+      30.times do |n|
+        @challenge = current_user.daily_challenges.create!(thirtyDates: @challengeDates)
+        if @challenge.save
+          flash[:success] = "challenge setted!"
+        else
+          flash[:success] = "couldnt set challenge!"
+        end
       end
+      redirect_to request.referrer 
+
+     
+     
       # redirect_to daily_challenges_url
     else
       flash[:danger] = "Unable to start challenge"

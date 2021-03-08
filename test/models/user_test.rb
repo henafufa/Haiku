@@ -115,7 +115,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "associated challenges should be destroyed" do
     @user.save
-    @user.daily_challenges.create!(haiku_id: haikus(:public).id, postStatus: true, thirtyDates: Time.zone.now)
+    @user.daily_challenges.create!(postStatus: true, thirtyDates: Time.zone.now)
     assert_difference 'DailyChallenge.count', -1 do
       @user.destroy
     end
