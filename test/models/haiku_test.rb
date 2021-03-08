@@ -6,7 +6,7 @@ class HaikuTest < ActiveSupport::TestCase
   # end
   def setup
     @user = users(:michael)
-    @haiku = @user.haikus.build(verse_1: "Lorem ipsum", verse_2: "Lorem ipsum", verse_3: "Lorem ipsum", user_id: @user.id, tag:"funny")
+    @haiku = @user.haikus.build(verse_1: "cafe patio", verse_2: "above the cacophony", verse_3: "cafe patio", user_id: @user.id, tag:"funny")
     # This code is not idiomatically correct.
     # @haiku = Haiku.new(verse_1: "Lorem ipsum", verse_2: "Lorem ipsum", verse_3: "Lorem ipsum", user_id: @user.id)
   end
@@ -68,9 +68,10 @@ class HaikuTest < ActiveSupport::TestCase
   end
   
 
-  test "associated comment should be destroyed" do
+  test "associated comment should be destroyed" do\
+    
     @haiku.save
-    @haiku.haiku_comments.create!(verse_1: "Lorem ipsum", verse_2: "Lorem ipsum", verse_3: "Lorem ipsum", user_id: users(:michael).id)
+    @haiku.haiku_comments.create!(verse_1: "cafe patio", verse_2: "above the cacophony", verse_3: "cafe patio", user_id: users(:michael).id)
     assert_difference 'HaikuComment.count', -1 do
       @haiku.destroy
     end
