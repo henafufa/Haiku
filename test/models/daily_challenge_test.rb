@@ -18,16 +18,16 @@ class DailyChallengeTest < ActiveSupport::TestCase
   end
 
   # check that haiku_id required
-  test "should require a haiku_id" do
-    @dayChallenge.haiku_id = nil
-    assert_not @dayChallenge.valid?
-  end
+  # test "should require a haiku_id" do
+  #   @dayChallenge.haiku_id = nil
+  #   assert_not @dayChallenge.valid?
+  # end
 
    # check that postStatus required
-  test "should require a post status" do
-    @dayChallenge.postStatus = nil
-    assert_not @dayChallenge.valid?
-  end
+  # test "should require a post status" do
+  #   @dayChallenge.postStatus = nil
+  #   assert_not @dayChallenge.valid?
+  # end
 
   # check that thirtyDates required
   test "should require a thirtyDates" do
