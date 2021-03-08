@@ -34,11 +34,11 @@
         <div class="col-md-8">
           <label for="inputPassword" class="col-sm-1 col-form-label" style="padding-right:2px;padding-top:0.5em;">#</label>
           <div class="col-md-8">
-            <%= f.text_field :tag, placeholder: "Add hash tag ...", class: "form-control tag-input", id:"inputPassword" %>
+            <!--<%= f.text_field :tag, placeholder: "Add hash tag ...", class: "form-control tag-input", id:"inputPassword" %> -->
           </div>
         </div>
         <div div class="col-md-3">
-          <%= f.submit "Post", class: "btn small btn-primary" %>
+          <%= f.submit "Post", class: "btn small btn-primary", name: "post_button",value: "Post" %>
         </div>
       </div>
     </div>

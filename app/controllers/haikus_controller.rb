@@ -8,7 +8,7 @@ class HaikusController < ApplicationController
         verse_2 = params[:haiku][:verse_2]
         verse_3 = params[:haiku][:verse_3]
         tag = params[:haiku][:tag]
-
+        
         is_public = true
         if params[:visibility] && params[:visibility] === 'Private'
             is_public = false
