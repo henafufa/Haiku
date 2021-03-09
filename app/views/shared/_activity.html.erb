@@ -1,6 +1,5 @@
 <% provide(:title, "Start Challenge") %>
-<%= form_with(local: true, method: :patch, url: track_path) do |f| %>
-    <%= hidden_field_tag :start_date, Time.zone.now %>
+<%= form_with(local: true, method: :get, url: user_path) do |f| %>
     <div style="margin-top:40px;"></div>
     <%= f.button " Activities", class: "btn createAccount", style: "width:100px" %>
 <% end %>
