@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :show, :followers, :following ]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
+  before_action :challengeSummery
   # before_action :getActivities
 
   def index
@@ -46,6 +47,22 @@ class UsersController < ApplicationController
       # redirect_to daily_challenges_url
     else
       flash[:danger] = "Unable to start challenge"
+    end
+  end
+
+  def challengeSummery
+    @dialyChallenge = DailyChallenge.new
+    @challenges = current_user.daily_challenges
+    @challenger = DailyChallenge.where("user_id = ?", current_user.id)
+    @challengePostStatus =  @challenges .where("user_id = ? and postStatus = ?  ",current_user.id, true)
+    # @challengePostStatus =  @challenges .where("postStatus = ?  ", true)
+   
+    if current_user.challenge_mode
+      @daysUntilNow= @challengePostStatus.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now).count
+      @postedDaysCount =  @challenges .where("postStatus = ?  ",true).count
+      # @postedDaysCount =  @challenger .where("postStatus = ?  ",true).count
+      @postedInRow= @challengePostStatus.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now).count
+      @totalDays= @challenges.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now).count
     end
   end
 

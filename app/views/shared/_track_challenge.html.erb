@@ -18,7 +18,12 @@
           <div class="modal-body">
             <%= render 'shared/calender_form'%>
           </div>
-          <div style="text-align: center;">
+          <div style="margin-left: 60px; color:grey">
+            <p >Maximum number of times you have done until now <%= @postedDaysCount %> / <%= @daysUntilNow%></p>
+            <p>Maximum number of times you have done it in a row <%= @postedDaysCount %>/ <%= @totalDays%></p>
+            <p>Number of days you write in the past 30 days: <%= @postedDaysCount %>/ <%= @totalDays%></p>
+          </div>
+          <div style="text-align: center;margin-top:40px;">
             <h4 style="color: gold;">Total number of coins you collected</h4>
           </div>
           <div style="display: flex;margin-left:200px;margin-bottom:20px;">
