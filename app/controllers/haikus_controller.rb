@@ -8,29 +8,50 @@ class HaikusController < ApplicationController
         verse_2 = params[:haiku][:verse_2]
         verse_3 = params[:haiku][:verse_3]
         tag = params[:haiku][:tag]
-        
-        is_public = true
-        if params[:visibility] && params[:visibility] === 'Private'
-            is_public = false
-        end
-        @haiku = current_user.haikus.build(verse_1: verse_1, verse_2: verse_2, verse_3: verse_3,tag: tag, public: is_public)        
-        @haiku.image.attach(params[:haiku][:image])
-        if @haiku.save
-            p "verse1:#{SyllableCount(verse_1)}................................"
-            p verse_1_haiku?(verse_1)
-            p "verse1:#{SyllableCount(verse_2)}................................"
-            p "verse1:#{SyllableCount(verse_3)}................................"
-            flash[:success] = "Haiku created!"
-            redirect_to root_url
-        else
-            @comment = Comment.new
-            @haiku_comment = HaikuComment.new
-            @micropost = Micropost.new
+    
+        if(params[:post_button] == "Post")
+            is_public = true
+            if params[:visibility] && params[:visibility] === 'Private'
+                is_public = false
+            end
+            
+            @haiku = current_user.haikus.build(verse_1: verse_1, verse_2: verse_2, verse_3: verse_3,tag: tag, public: is_public)        
+            @haiku.image.attach(params[:haiku][:image])
+            if @haiku.save
+                p "verse1:#{SyllableCount(verse_1)}................................"
+                p verse_1_haiku?(verse_1)
+                p "verse1:#{SyllableCount(verse_2)}................................"
+                p "verse1:#{SyllableCount(verse_3)}................................"
+                flash[:success] = "Haiku created!"
+                redirect_to root_url
+            else
+                @comment = Comment.new
+                @haiku_comment = HaikuComment.new
+                @micropost = Micropost.new
 
-            @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
-            # @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
-            @haiku_feed_items = Haiku.where("public = ?", true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
-            render 'static_pages/home'
+                @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+                # @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+                @haiku_feed_items = Haiku.where("public = ?", true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+                render 'static_pages/home'
+            end
+        else
+            @challenge = current_user.challenges.build(verse_1: verse_1, verse_2: verse_2)
+            if @challenge.save
+                p "verse1:#{SyllableCount(verse_1)}................................"
+                p verse_1_haiku?(verse_1)
+                p "verse1:#{SyllableCount(verse_2)}................................"
+                flash[:success] = "Challenge created!"
+                redirect_to root_url
+            else
+                @comment = Comment.new
+                @haiku_comment = HaikuComment.new
+                @micropost = Micropost.new
+
+                @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+                # @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+                @haiku_feed_items = Haiku.where("public = ?", true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+                render 'static_pages/home'
+            end
         end
     end
     def update
@@ -61,5 +82,8 @@ class HaikusController < ApplicationController
         def correct_user
             @haiku = current_user.haikus.find_by(id: params[:id])
             redirect_to root_url if @haiku.nil?
+        end
+        def challenge_params
+            params.require(:haiku).permit(:verse_1, :verse_2)
         end
 end

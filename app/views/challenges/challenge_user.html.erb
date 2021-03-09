@@ -1,0 +1,57 @@
+<% if logged_in? %>
+<div class="row container">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-8">
+  
+        <aside class="col-md-4" style="display:none">
+            <section class="user_info">
+                <%= render 'shared/user_info' %>
+            </section>
+            <section class="stats" style="display:none">
+                <%= render 'shared/stats' %>
+            </section>
+            <section class="micropost_form">
+                <%= render 'shared/micropost_form' %>
+            </section>
+        </aside>
+        <div class="col-md-12" style="">
+            <div class="col-md-2" style="">
+            </div>
+            <div class="col-md-12" style="border: 1px solid #ddd; margin-top:50px">
+            <% if !@is_on_search %>
+                <section class="micropost_form">
+                    <%= render 'shared/haiku_form' %>
+                </section>
+            <% end %>
+            </div>
+            <div class="col-md-2" style="">
+            </div>
+            <div class="col-md-12" style="padding-top: 2em;">
+            <% if @is_on_search %>
+                <h1> Search results...</h1>
+                <% if @haiku_feed_items.length == 0 %>
+                    <h1>haiku not found</h1>
+                <% else %>
+                    <%= render 'shared/haiku_feed' %>
+                <% end %>
+            <% else %>
+                <%= render 'shared/haiku_feed' %>
+            <% end %>
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-md-2" style="border: 1px solid red;">
+        <%= render 'challenge_user_form'%>
+    </div>
+</div>
+<% else %>
+  <div class="center jumbotron">
+    <h1>Welcome to the Sample App</h1>
+    <h2>This is the home page for the <a href="https://www.railstutorial.org/">Ruby on RailsTutorial</a>sample application. </h2>
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+  </div>
+  <%= link_to image_tag("rails.svg", alt: "Rails logo", width: "200"), "https://rubyonrails.org/" %>
+<% end %>
