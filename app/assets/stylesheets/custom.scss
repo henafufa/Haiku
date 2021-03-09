@@ -204,9 +204,9 @@ select,
   margin-bottom: 15px;
   @include box_sizing;
 }
-input {
-  height: auto !important;
-}
+// input {
+//   height: auto !important;
+// }
 #error_explanation {
   color: red;
   ul {
@@ -388,4 +388,19 @@ span.image {
 .haiku-image-card:hover {
   box-shadow: 0 4px 8px 0 rgba(245, 222, 222, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+#colorpicker {
+  width: 30px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.haiku-content {
+  padding-top: 20px;
+  border: solid 1px whitesmoke;
+  padding-bottom: 20px;
+  box-shadow: 0 4px 8px 0 rgba(245, 222, 222, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+
+}
+
 

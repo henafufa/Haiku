@@ -35,25 +35,26 @@
           </div>
         </div>
         <% if  haiku.image.attached?  %>
-          <div class="row haiku-image-card " style="background-image: url(<%= url_for(haiku.display_image) %>);" >
+          <div class="row haiku-image-card haiku-content" style="background-image: url(<%= url_for(haiku.display_image) %>);" >
           <% else %>
-            <div class="row" >
+            <div class="row haiku-content" style="background: <%= haiku.bgcolor; %>" >
             <% end %>
-            <p class="card-text text-center"><%= haiku.verse_1 %></p>
-            <p class="card-text text-center"><%= haiku.verse_2 %></p>
-            <p class="card-text text-center"><%= haiku.verse_3 %></p>
-            <% if  haiku.image.attached?  %>
-               <% if haiku.tag? %>
-        <h6><a href="#" class="card-link">#<%= haiku.tag %></a></h6>
-        <% else %>
-        <% end %>
-              <h6><a href="#" class="card-link mb-2 text-muted">16 Likes</a></h6>
-            <% end %>
+            <div >
+              <p class="card-text text-center"><%= haiku.verse_1 %></p>
+              <p class="card-text text-center"><%= haiku.verse_2 %></p>
+              <p class="card-text text-center"><%= haiku.verse_3 %></p>
+              <% if  haiku.image.attached?  %>
+                <% if haiku.tag? %>
+                  <h6><a href="#" class="card-link">#<%= haiku.tag %></a></h6>
+                <% end %>
+                <h6><a href="#" class="card-link mb-2 text-muted">16 Likes</a></h6>
+              <% end %>
+            </div>
           </div>
           <% if haiku.tag? %>
-        <h4><a href="#" class="card-link">#<%= haiku.tag %></a></h4>
-        <% else %>
-        <% end %>
+            <h4><a href="#" class="card-link">#<%= haiku.tag %></a></h4>
+          <% else %>
+          <% end %>
           <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
           <div class="card-footer">
             <div class= "row">
