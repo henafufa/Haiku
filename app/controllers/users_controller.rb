@@ -2,11 +2,18 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :show, :followers, :following ]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
+  # before_action :getActivities
 
   def index
+    # PublicActivity::Activity.new
     # @users = User.all
     # @users = User.paginate(page: params[:page])
     @users = User.where(activated: true).paginate(page: params[:page])
+    
+  end
+
+  def getActivities
+    # @activities = PublicActivity::Activity.order('created_at desc')
   end
   def show
     @comment = Comment.new
@@ -17,6 +24,37 @@ class UsersController < ApplicationController
     @microposts = @user.microposts.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
     # debugger
   end
+
+  # challenge handler
+  def dailyChallenge
+    @dailyChallenge=DailyChallenge.new
+    if current_user.update_columns(challenge_mode: true, challenge_start_date: Time.zone.now)
+      flash[:success] = "Challnege Started!! post your first day challenge"
+      x=0
+      @challengeDates = Time.now + x.days
+      # @challenge = current_user.daily_challenges.create(thirtyDates: Time.zone.now)
+      30.times do |n|
+        @challenge = current_user.daily_challenges.create!(thirtyDates: Time.zone.now + n.days)
+        if @challenge.save
+          flash[:success] = "challenge setted!"
+          ++x
+        else
+          flash[:success] = "couldnt set challenge!"
+        end
+      end
+      redirect_to request.referrer 
+      # redirect_to daily_challenges_url
+    else
+      flash[:danger] = "Unable to start challenge"
+    end
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url
+  end
+
   def new
     @user = User.new
   end

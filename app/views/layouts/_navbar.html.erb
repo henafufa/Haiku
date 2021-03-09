@@ -1,0 +1,79 @@
+<div class="header" id="header">
+    <div class="header-inner" id="header-inner">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg my-navbar py-lg-0 py-sm-0 py-0">
+                <div class="container-fluid">
+                  <a class="navbar-brand logo-txt" href="#" style="font-size: 25px;"><span class="logo_circle"></span> <%= t 'global.menu.appname' %></a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" data-scroll="out">
+                        <div class="nav-icon1">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </span>
+                  </button>
+                  <div class="collapse navbar-collapse mobile-menu d-flex flex-lg-row flex-column flex-xl-row 
+                  justify-content-lg-end justify-content-md-start" id="navbarNav">
+                    <ul class="navbar-nav align-self-stretch">
+                      <li class="nav-item">
+                        <%= link_to t('global.menu.home'), root_path, class:"nav-link"  %>
+                        <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
+                      </li>
+                      
+                      <li class="nav-item">
+                        <%= link_to t('global.menu.help'), help_path, class:"nav-link"  %>
+                        <!-- <a class="nav-link" href="#">Help</a> -->
+                      </li>
+
+                      <% if logged_in? %>
+                          <li class="nav-item">
+                            <%= link_to t('global.menu.users'), users_path, class:"nav-link"  %>
+                          </li>
+                            <li class="nav-item dropdown">
+                              <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownProfileLink" role="button" data-toggle="dropdown" aria-expanded="false">Account</a>
+                              <ul class="dropdown-menu" aria-labelledby="navbarDropdownProfileLink">
+                                <li><a class="dropdown-item" href="#"><%= link_to t('global.menu.profile'), current_user %></a></li>
+                                <li><a class="dropdown-item" href="#"><%= link_to t('global.menu.setting'), edit_user_path(current_user) %></a></li>
+                                <li class="divider"></li>
+                                <li><a class="dropdown-item" href="#"><%= link_to t('global.menu.logout'), logout_path, method:"delete" %></a></li>
+                              </ul>
+                            </li>
+                          <% else %>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                              <%= t 'global.menu.language' %>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                              <li><a class="dropdown-item" style="font-size: 15px;" href="#">  <%= t 'global.menu.english' %></a></li>
+                              <li><a class="dropdown-item" style="font-size: 15px;" href="#">  <%= t 'global.menu.oromic' %></a></li>
+                            </ul>
+                          </li>
+                            <form class="form-inline my-2 my-lg-0 ml-2 align-self-stretch">
+                              <a href="#" class="header-btn" id="btnLogin" style="font-size: 15px;" data-toggle="modal" data-target="#loginform">  <%= t 'global.menu.login' %></a>
+                            </form>
+                            <!-- <li><%= link_to "Log in", login_path %></li> -->
+                        <% end %>
+                    </ul>
+
+                   
+                  </div>
+                </div>
+              </nav>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="loginform">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <div class="modal-title"><a class="navbar-brand" href="#" style="font-size: 20px;margin-right:20px;"><span class=""> Haiku</a></div>
+          </div> <!-- Modal body -->
+          <div class="modal-body">
+              <%= render 'layouts/login_form'%>
+          </div>
+      </div>
+  </div>
+</div>

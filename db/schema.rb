@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_05_081452) do
+ActiveRecord::Schema.define(version: 2021_03_08_114029) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(version: 2021_03_05_081452) do
     t.index ["micropost_id"], name: "index_comments_on_micropost_id"
     t.index ["user_id", "micropost_id", "created_at"], name: "index_comments_on_user_id_and_micropost_id_and_created_at"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "daily_challenges", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.boolean "postStatus", default: false
+    t.datetime "thirtyDates"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "thirtyDates", "created_at"], name: "index_daily_challenges_on_user_id_and_thirtyDates_and_created_at"
+    t.index ["user_id"], name: "index_daily_challenges_on_user_id"
   end
 
   create_table "haiku_comments", force: :cascade do |t|
@@ -118,6 +128,8 @@ ActiveRecord::Schema.define(version: 2021_03_05_081452) do
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.boolean "challenge_mode", default: false
+    t.datetime "challenge_start_date"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -125,6 +137,7 @@ ActiveRecord::Schema.define(version: 2021_03_05_081452) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "microposts"
   add_foreign_key "comments", "users"
+  add_foreign_key "daily_challenges", "users"
   add_foreign_key "haiku_comments", "haikus"
   add_foreign_key "haiku_comments", "users"
   add_foreign_key "haikus", "users"

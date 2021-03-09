@@ -1,0 +1,10 @@
+<% provide(:title, "Start Challenge") %>
+<%= form_with(model: @user, local: true, method: :patch, url: challenge_path) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+    <%= hidden_field_tag :start_date, Time.zone.now %>
+    <div style="margin-top:40px;"></div>
+    <%= f.button "Start Challenge", class: "btn createAccount", style: "width:120px" %>
+<% end %>
+       
+  
+

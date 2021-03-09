@@ -1,0 +1,33 @@
+<% provide(:title, "Start Challenge") %>
+<%= form_with(model: @user, local: true) do |f| %>
+    <%= hidden_field_tag :start_date, Time.zone.now %>
+    <div style="margin-top:40px;"></div>
+    <a href="#" data-toggle="modal" data-target="#loginform">  <%= f.button "Track Challenge", class: "btn createAccount", style: "width:120px"  %></a>
+<% end %>
+
+<div class="modal fade" id="loginform">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <div class="modal-title"><a class="navbar-brand" href="#" style="font-size: 20px;margin-right:20px;"><span class=""> 
+                <%= gravatar_for current_user, size: 30 %>
+                <%= current_user.name %>
+              </a></div>
+          </div> <!-- Modal body -->
+          <div class="modal-body">
+            <%= render 'shared/calender_form'%>
+          </div>
+          <div style="text-align: center;">
+            <h4 style="color: gold;">Total number of coins you collected</h4>
+          </div>
+          <div style="display: flex;margin-left:200px;margin-bottom:20px;">
+          <div>  <%= image_tag("coin.jpg", width: 70) %></div>
+          <div style="margin-left:80px;font-size:50px;"> <%= 0 %> </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+  
+

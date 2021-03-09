@@ -1,0 +1,11 @@
+<h1>index</h1>
+<% provide(:title, "Start Challenge") %>
+<%= form_with(model: @user, local: true, method: :get, url: track_path) do |f| %>
+    <%= hidden_field_tag :start_date, Time.zone.now %>
+    <div style="margin-top:40px;"></div>
+ <%= f.button "Track Challenge", class: "btn createAccount", style: "width:150px"  %>
+<% end %>
+<h6>Maximum number of times you have done until now <%= @postedDaysCount %> / <%= @daysUntilNow%></h6>
+<h6>Maximum number of times you have done it in a row <%= @postedDaysCount %>/ <%= @totalDays%></h6>
+<h6>Number of days you write in the past 30 days: <%= @postedDaysCount %>/ <%= @totalDays%></h6>
+<!--  -->

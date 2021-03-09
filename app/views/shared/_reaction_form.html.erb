@@ -1,0 +1,7 @@
+<%= form_with(model: @reaction, local: true) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+<!-- <i onclick="myFunction(this)" class="fa fa-thumbs-up"></i> -->
+<%= hidden_field_tag :micropost_id, micropost_id %>
+<i><%= f.submit "like", class: "fa fa-thumbs-up" %></i>
+ 
+<% end %>
