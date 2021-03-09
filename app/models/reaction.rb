@@ -1,6 +1,6 @@
 class Reaction < ApplicationRecord
-  # include PublicActivity::Model
-  # tracked
+  include PublicActivity::Model
+  tracked
   belongs_to :user
   belongs_to :micropost
   validates :user_id, presence: true

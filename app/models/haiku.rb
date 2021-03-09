@@ -13,8 +13,8 @@ class HaikuValidator < ActiveModel::Validator
   end
 end
 class Haiku < ApplicationRecord
-  # include PublicActivity::Model
-  # tracked
+  include PublicActivity::Model
+  tracked
   belongs_to :user
   has_one_attached :image
   validates :user_id, presence: true

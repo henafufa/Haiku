@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   patch "challenge", to:'users#dailyChallenge'
   patch "track", to:'daily_challenges#index'
   get "task", to:'daily_challenges#index'
+  get "activities", to:'activities#index'
   get '/test', to: 'static_pages#test'
   resources :users do
     member do
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
     end
   end
   resources :users
+  resources :activities
   resources :comments
   resources :reactions, only: [ :create, :destroy ]
   resources :microposts, only: [ :create, :destroy ]
