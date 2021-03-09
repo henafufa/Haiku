@@ -22,5 +22,7 @@ module SampleApp
     # config.i18n.available_locales = [:en, :am]
     # config.i18n.default_locale = :am
     # config.action_view.embed_authenticity_token_in_remote_forms = true
+    config.active_job.queue_adapter = :sidekiq
+    config.autoload_paths += %W(#{config.root}/app/workers)
   end
 end

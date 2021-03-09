@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-
+  require 'sidekiq/web'
+  mount Sidekiq::Web => "/sidekiq"
   get 'daily_challenges/index'
   get 'password_resets/new'
   get 'password_resets/ed'

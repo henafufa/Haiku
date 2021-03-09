@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def getActivities
-    @activities = PublicActivity::Activity.order('created_at desc')
+    @activities = PublicActivity::Activity.order('created_at desc').where(owner: current_user)
   end
   def show
     @comment = Comment.new
@@ -177,6 +177,11 @@ class UsersController < ApplicationController
     @haiku_feed_items = Haiku.where("user_id = ? and public = ? and tag LIKE ?", current_user.id, true, "%"+params[:search]+"%").paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
     @is_on_search = true
     render '/static_pages/home'
+  end
+
+  def report
+    ReportWorker.perform_async("01-03-2021","07-03-2021")
+    render text: " REQUEST TO GENERATE A REPORT ADDED TO THE QUEUE"
   end
   private
     def user_params
