@@ -57,13 +57,11 @@ class HaikuTest < ActiveSupport::TestCase
 
   test "defualt haiku should be public" do
     # @haiku.public = false
-    p "public @haiku.public? #{@haiku.public?}"
     assert @haiku.public?
   end
 
   test "private haiku's public should be false" do
     @haiku.public = false
-    p "public @haiku.public? #{@haiku.public?}"
     assert_not @haiku.public?
   end
   

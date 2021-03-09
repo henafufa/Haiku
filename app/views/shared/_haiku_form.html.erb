@@ -34,38 +34,53 @@
             </span>
           </div>
           <div id=bg-color-form style="display:none">
-            <p><%= f.label :bgcolor, "Backgound Color" %><%= f.text_field :bgcolor, class: "form-control", id: "colorpicker", type: "color", value: "#abc000"  %></p>
+            <p><%= f.label :bgcolor, "Backgound Color" %>
+              <div class="row">
+                <div class="col-md-1">
+                  <%= f.text_field :bgcolor, class: "form-control", id: "colorpicker", type: "color", value: "#bbbbbb"  %>
+                </div>
+                <div class="col-md-3">
+                  <%= f.text_field :verse_3, placeholder: "",  class: "form-control-plaintext haiku_input_field text-muted", id: "color-picked", value: "#bbbbbb", readonly: true %>
+                </div>
+              </p>
+            </div>
+          </div>
+          <br/>
+        </div>
+        <div class="col-md-6" style="padding-bottom: 1em;">
+          <a>make it challenge</a>
+        </div>
+      </div>
+      <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
+      <div class="row">
+        <div class="col-md-8">
+          <label for="inputPassword" class="col-sm-1 col-form-label" style="padding-right:2px;padding-top:0.5em;">#</label>
+          <div class="col-md-8">
+            <%= f.text_field :tag, placeholder: "Add hash tag ...", class: "form-control tag-input", id:"inputPassword" %>
           </div>
         </div>
-      </div>
-      <div class="col-md-6" style="padding-bottom: 1em;">
-        <a>make it challenge</a>
-      </div>
-    </div>
-    <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
-    <div class="row">
-      <div class="col-md-8">
-        <label for="inputPassword" class="col-sm-1 col-form-label" style="padding-right:2px;padding-top:0.5em;">#</label>
-        <div class="col-md-8">
-          <%= f.text_field :tag, placeholder: "Add hash tag ...", class: "form-control tag-input", id:"inputPassword" %>
+        <div div class="col-md-3">
+          <%= f.submit "Post", class: "btn small btn-primary" %>
         </div>
-      </div>
-      <div div class="col-md-3">
-        <%= f.submit "Post", class: "btn small btn-primary" %>
       </div>
     </div>
   </div>
-</div>
 <% end %>
 <script>
   document.getElementById("background-select").addEventListener("change", display);
-   function display(value){
-     if (value.target.value == 'Background Image') {
+    document.getElementById("colorpicker").addEventListener("change", getColorPicked);
+  
+   function display(e){
+     if (e.target.value == 'Background Image') {
        document.getElementById("bg-color-form").style.display = "none"
         document.getElementById("image-form").style.display = "block"
      } else {
        document.getElementById("image-form").style.display = "none"
         document.getElementById("bg-color-form").style.display = "block"
      }
+  }
+  
+  function getColorPicked(e) {
+    document.getElementById("color-picked").value = e.target.value
   }
 </script>

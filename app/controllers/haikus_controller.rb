@@ -4,7 +4,6 @@ class HaikusController < ApplicationController
     before_action :correct_user, only: [:destroy, :update]
 
     def create
-        p "bgcolor:[[[[[[[[[[[[[[[[[]]]]]]]]]]]]#{params[:haiku][:bgcolor]}"
         verse_1 = params[:haiku][:verse_1]
         verse_2 = params[:haiku][:verse_2]
         verse_3 = params[:haiku][:verse_3]
@@ -18,10 +17,7 @@ class HaikusController < ApplicationController
         @haiku = current_user.haikus.build(verse_1: verse_1, verse_2: verse_2, verse_3: verse_3,tag: tag, public: is_public, bgcolor: bgcolor)        
         @haiku.image.attach(params[:haiku][:image])
         if @haiku.save
-            p "verse1:#{SyllableCount(verse_1)}................................"
             p verse_1_haiku?(verse_1)
-            p "verse1:#{SyllableCount(verse_2)}................................"
-            p "verse1:#{SyllableCount(verse_3)}................................"
             flash[:success] = "Haiku created!"
             redirect_to root_url
         else
@@ -48,7 +44,6 @@ class HaikusController < ApplicationController
     def show
         @haiku_comment = HaikuComment.new
         @haiku = Haiku.find(params[:id])
-        p "#{@haiku.user.email}==============================================================''''''''"
     end
 
     def destroy

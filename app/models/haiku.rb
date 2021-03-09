@@ -30,7 +30,6 @@ class Haiku < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
 
   def display_image
-    p 'active ///////////////////'
     image.variant(resize_to_limit: [500, 500])
  
   end
