@@ -1,0 +1,13 @@
+
+        <%= form_with(model: @comment, local: true) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+            <%= f.label :Comment %>
+            <%= f.text_field :content, class: 'form-control' %>
+            <%= hidden_field_tag :micropost_id, micropost_id %>
+            <br>
+             <!-- <br> -->
+             <!-- <div class="col-md-9"> -->
+                <%= f.submit " Post" , class: "btn createAccount" %>
+             <!-- </div> -->
+            <% end %>
+<a href="" id="close"> close</a>

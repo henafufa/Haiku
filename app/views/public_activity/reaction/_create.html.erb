@@ -1,0 +1,6 @@
+
+<% if activity.trackable.micropost %>
+    liked  this <%= link_to activity.trackable.micropost, activity.trackable %>     
+<% else %>
+    Micropost that is currently deleted was liked.
+<% end %>

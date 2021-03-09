@@ -15,6 +15,8 @@ class HaikuValidator < ActiveModel::Validator
 end
 
 class HaikuComment < ApplicationRecord
+  # include PublicActivity::Model
+  # tracked
   belongs_to :user
   belongs_to :haiku
   default_scope -> { order(created_at: :desc) }

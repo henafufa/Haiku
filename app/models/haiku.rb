@@ -1,6 +1,5 @@
 class HaikuValidator < ActiveModel::Validator
   include HaikusHelper
-
   def validate(record)
     if record.verse_1 && !verse_1_haiku?(record.verse_1)
       record.errors.add :base, "First verse should be exactly 5 syllabes but found #{SyllableCount(record.verse_1)}"
@@ -14,7 +13,8 @@ class HaikuValidator < ActiveModel::Validator
   end
 end
 class Haiku < ApplicationRecord
-  
+  # include PublicActivity::Model
+  # tracked
   belongs_to :user
   has_one_attached :image
   validates :user_id, presence: true

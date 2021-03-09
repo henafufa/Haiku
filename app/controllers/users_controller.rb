@@ -2,11 +2,18 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :show, :followers, :following ]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
+  # before_action :getActivities
 
   def index
+    # PublicActivity::Activity.new
     # @users = User.all
     # @users = User.paginate(page: params[:page])
     @users = User.where(activated: true).paginate(page: params[:page])
+    
+  end
+
+  def getActivities
+    # @activities = PublicActivity::Activity.order('created_at desc')
   end
   def show
     @comment = Comment.new
@@ -21,7 +28,6 @@ class UsersController < ApplicationController
   # challenge handler
   def dailyChallenge
     @dailyChallenge=DailyChallenge.new
-    # @user = User.find(params[:id])
     if current_user.update_columns(challenge_mode: true, challenge_start_date: Time.zone.now)
       flash[:success] = "Challnege Started!! post your first day challenge"
       x=0
