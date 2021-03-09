@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get 'search', to:'users#search'
+  get 'search_user', to:'users#search_user'
   get '/test', to: 'static_pages#test'
   get '/challenge_user', to: 'challenges#challenge_user'
   resources :users do

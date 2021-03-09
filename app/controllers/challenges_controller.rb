@@ -10,6 +10,7 @@ class ChallengesController < ApplicationController
             @haiku_feed_items = Haiku.where("public = ?", true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
             @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
             @challenge = current_user.challenges.last
-          end
+            @after_search_user = false
+        end
     end
 end

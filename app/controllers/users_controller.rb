@@ -111,6 +111,19 @@ class UsersController < ApplicationController
       
     end
   end
+  def search_user
+    @reaction = Reaction.new
+    @comment = Comment.new
+    @haiku_comment = HaikuComment.new
+    @micropost = current_user.microposts.build
+    @haiku = current_user.haikus.build
+    @haiku_feed_items = Haiku.where("user_id = ? and public = ?", current_user.id, true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+    @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+    @show_user_search_result = User.where("email LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
+    @challenge = current_user.challenges.last
+    @after_search_user = true
+    render 'challenges/challenge_user'
+  end
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)

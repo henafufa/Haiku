@@ -1,9 +1,9 @@
 <% if logged_in? %>
 <div class="row container">
-    <div class="col-md-2">
+    <div class="col-md-1">
 
     </div>
-    <div class="col-md-8">
+    <div class="col-md-7">
   
         <aside class="col-md-4" style="display:none">
             <section class="user_info">
@@ -43,8 +43,8 @@
             
         </div>
     </div>
-    <div class="col-md-2" style="border: 1px solid red;">
-        <%= render 'challenge_user_form'%>
+    <div class="col-md-4" style="border: 1px solid red;">
+        <%= render 'challenges/challenge_user_form'%>
     </div>
 </div>
 <% else %>
