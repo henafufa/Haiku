@@ -1,9 +1,16 @@
-
 <div class="activityFeed">
     <% @activities.each do |activity| %> 
         <br>
-        <%= link_to activity.owner.name, activity.owner if activity.owner%> posted <%= link_to activity.trackable.verse_1, activity.trackable %>
+        <div class="container calender">
+            <div class="card ">
+              <div class="front">
+                <div class="">
+                    <%= link_to activity.owner.name, activity.owner if activity.owner%> 
+                    <%= render_activity activity%>
+                </div>
+              </div>
+              
+            </div>
+          </div>
     <% end %> 
 </div>
-
-

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
   before_action :challengeSummery
-  # before_action :getActivities
+  before_action :getActivities
 
   def index
     # PublicActivity::Activity.new
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def getActivities
-    # @activities = PublicActivity::Activity.order('created_at desc')
+    @activities = PublicActivity::Activity.order('created_at desc')
   end
   def show
     @comment = Comment.new

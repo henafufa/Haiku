@@ -29,7 +29,7 @@
         <%= render 'users/follow_form' if logged_in? %>
             <h3><%= @user.name %>'s Activity</h3>
             <ol class="microposts">
-                <%= render @microposts%>
+                <%= render 'layouts/activity'%>
             </ol>
             <%= will_paginate @microposts %>
         </div>
