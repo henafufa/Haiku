@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   patch "track", to:'daily_challenges#index'
   get "task", to:'daily_challenges#index'
   get "activities", to:'activities#index'
+  get 'search_by_tag', to:'users#search_activities'
   get '/test', to: 'static_pages#test'
   resources :users do
     member do

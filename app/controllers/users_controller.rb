@@ -166,6 +166,18 @@ class UsersController < ApplicationController
       
     end
   end
+  def search_activities
+    @reaction = Reaction.new
+    @comment = Comment.new
+    @haiku_comment = HaikuComment.new
+    @micropost = current_user.microposts.build
+    @haiku = current_user.haikus.build
+    # @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+    @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+    @haiku_feed_items = Haiku.where("user_id = ? and public = ? and tag LIKE ?", current_user.id, true, "%"+params[:search]+"%").paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+    @is_on_search = true
+    render '/static_pages/home'
+  end
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
