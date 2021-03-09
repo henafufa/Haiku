@@ -1,0 +1,9 @@
+
+<div class="activityFeed">
+    <% @activities.each do |activity| %> 
+        <br>
+        <%= link_to activity.owner.name, activity.owner if activity.owner%> posted <%= link_to activity.trackable.verse_1, activity.trackable %>
+    <% end %> 
+</div>
+
+

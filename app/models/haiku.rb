@@ -14,7 +14,7 @@ class HaikuValidator < ActiveModel::Validator
 end
 class Haiku < ApplicationRecord
   include PublicActivity::Model
-  tracked
+  tracked owner: ->(controller, model){ controller && controller.current_user}
   belongs_to :user
   has_one_attached :image
   validates :user_id, presence: true

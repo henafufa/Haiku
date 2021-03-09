@@ -1,6 +1,6 @@
 
 <% if activity.trackable %>
-    updated comment to <%= link_to activity.trackable.micropost, activity.trackable.micropost %>
+    updated comment to <%= link_to activity.trackable, activity.trackable %>
 <% else %>
     comment that is currently deleted was edited.
 <% end %>

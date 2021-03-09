@@ -29,11 +29,11 @@
         <%= render 'users/follow_form' if logged_in? %>
             <h3><%= @user.name %>'s Activity</h3>
             <ol class="microposts">
-                <%= render @microposts %>
+                <%= render @microposts%>
             </ol>
             <%= will_paginate @microposts %>
         </div>
-        <div class="col-md-4" style="border: 1px solid"></div>
+        <!-- <div class="col-md-4" style="border: 1px solid"></div> -->
     <% else %> 
     <div class="col-md-6" style="margin-left: 150px;">
         <%= render 'users/follow_form' if logged_in? %>

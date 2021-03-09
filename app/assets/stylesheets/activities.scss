@@ -1,3 +1,13 @@
 // Place all the styles related to the activities controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.activityFeed{
+    margin-top: 100px;
+    margin-left: 100px;
+    border-bottom: solid 1px #ccc;
+    padding: 16px 0px;
+    em{
+        color: #777;
+        padding-left: 5px;
+    }
+}

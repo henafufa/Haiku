@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+    include PublicActivity::StoreController
     include SessionsHelper
     # before_action :set_locale
     def application

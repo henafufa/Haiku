@@ -1,0 +1,5 @@
+<% if activity.trackable %>
+   posted <%= link_to activity.trackable,activity.trackable %> micropost as today challenge, <%= activity.created_at %>
+<% else %>
+   Micropost that is currently deleted was posted as challenge.
+<% end %>
