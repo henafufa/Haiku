@@ -2,6 +2,7 @@ class User < ApplicationRecord
     has_many :microposts, dependent: :destroy
     has_many :haikus, dependent: :destroy
     has_many :haiku_comments, dependent: :destroy
+    has_many :haiku_reactions, dependent: :destroy
 
     has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
     has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
@@ -109,6 +110,15 @@ class User < ApplicationRecord
             return false
         end
     end
+
+    def likedComment?(haiku_id)
+        if Haiku.find_by(id: haiku_id) && self.haiku_reactions.find_by(haiku_id: haiku_id)
+            return true
+        else
+            false
+        end
+    end
+
     # unreact  a micropost.
     private
         def downcase_email

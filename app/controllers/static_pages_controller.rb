@@ -2,6 +2,8 @@ class StaticPagesController < ApplicationController
   def home
     if logged_in?
       @reaction = Reaction.new
+      @haiku_reaction = HaikuReaction.new
+
       @comment = Comment.new
       @haiku_comment = HaikuComment.new
       @micropost = current_user.microposts.build
