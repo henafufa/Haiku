@@ -167,6 +167,7 @@ class UsersController < ApplicationController
     end
   end
   def search_activities
+    @user = current_user
     @reaction = Reaction.new
     @comment = Comment.new
     @haiku_comment = HaikuComment.new
@@ -174,9 +175,10 @@ class UsersController < ApplicationController
     @haiku = current_user.haikus.build
     # @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
     @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
-    @haiku_feed_items = PublicActivity::Activity.where("user_id = ? and public = ? and tag LIKE ?", current_user.id, true, "%"+params[:search]+"%").paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
-    @is_on_search = true
-    render '/static_pages/home'
+    # @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? ", current_user.id)
+    @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type LIKE ?", current_user.id, "%"+params[:search]+"%")
+    p "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW---------------#{@activities.count}"
+    render '/users/show'
   end
 
   def addRemainderToQueue

@@ -10,11 +10,6 @@ gem 'public_activity'
 gem 'sidekiq'
 # gem 'sidetiq'
 gem 'sidekiq-scheduler'
-gem 'celluloid'
-gem 'celluloid-essentials'
-gem 'celluloid-extras'
-gem 'celluloid-fsm'
-gem 'celluloid-pool' 
 gem 'ice_cube'
 # gem 'sinatra', github: 'sinatra/sinatra'
 gem 'mailgun-ruby',             '~>1.1.6'
@@ -62,8 +57,4 @@ group :production do
   gem 'pg',         '1.2.3'
   gem 'aws-sdk-s3', '1.87.0', require: false
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-# Uncomment the following line if you're running Rails
-# on a native Windows system:
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
