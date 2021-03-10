@@ -37,7 +37,7 @@ class UsersController < ApplicationController
       30.times do |n|
         @challenge = current_user.daily_challenges.create!(thirtyDates: Time.zone.now + n.days)
         if @challenge.save
-          flash[:success] = "challenge setted!"
+          flash[:success] = "You started challenge!"
           ++x
         else
           flash[:success] = "couldnt set challenge!"
