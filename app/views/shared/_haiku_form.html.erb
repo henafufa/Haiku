@@ -19,14 +19,29 @@
       </div>
       <div class="field mb-3">
         <%= render 'shared/error_messages', object: f.object %>
-        <p class="card-text text-center"><%= f.text_field :verse_1, placeholder: "First Verse", class: "form-control haiku_input_field", required:true %></p>
-        <p class="card-text text-center"><%= f.text_field :verse_2, placeholder: "Second Verse",  class: "form-control haiku_input_field", required: true %></p>
-        <p class="card-text text-center"><%= f.text_field :verse_3, placeholder: "Third Verse",  class: "form-control haiku_input_field", required: true %></p>
+        
+        <% if @from_challenge %>
+          <p class="card-text text-center"><%= challenge.verse_1%></p>
+          <div><%= hidden_field_tag :haiku_verse_1, challenge.verse_1 %></div>
+          <p class="card-text text-center"><%= challenge.verse_2%></p>
+          <div><%= hidden_field_tag :haiku_verse_2, challenge.verse_2 %></div>
+          <div><%= hidden_field_tag :challenge_id, challenge.id %></div>
+        <% else %>
+          <p class="card-text text-center"><%= f.text_field :verse_1, placeholder: "First Verse", class: "form-control haiku_input_field", required:true %></p>
+          <p class="card-text text-center"><%= f.text_field :verse_2, placeholder: "Second Verse",  class: "form-control haiku_input_field", required: true %></p>
+        <% end %>
+        <p class="card-text text-center"><%= f.text_field :verse_3, placeholder: "Third Verse",  class: "form-control haiku_input_field" %></p>
         <span class="image form-control form-control-sm haiku_input_field haiku-image-field">
           <%= f.file_field :image %>
         </span>
         <div class="col-md-6" style="padding-bottom: 1em;">
+        
+        <% if @from_challenge %>
+          <% else %>
           <%= f.submit class: "btn small btn-primary", name: "post_button",value: "Challenge" %>
+        <% end %>
+        
+          
         </div>
       </div>
       <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
@@ -34,11 +49,16 @@
         <div class="col-md-8">
           <label for="inputPassword" class="col-sm-1 col-form-label" style="padding-right:2px;padding-top:0.5em;">#</label>
           <div class="col-md-8">
-            <!--<%= f.text_field :tag, placeholder: "Add hash tag ...", class: "form-control tag-input", id:"inputPassword" %> -->
+            <%= f.text_field :tag, placeholder: "Add hash tag ...", class: "form-control tag-input", id:"inputPassword" %>
           </div>
         </div>
         <div div class="col-md-3">
+        
+        <% if @from_challenge %>
+        <%= f.submit "Finish", class: "btn small btn-primary", name: "post_button",value: "Finish" %>
+        <% else %>
           <%= f.submit "Post", class: "btn small btn-primary", name: "post_button",value: "Post" %>
+        <% end %>
         </div>
       </div>
     </div>

@@ -18,10 +18,6 @@ class HaikusController < ApplicationController
             @haiku = current_user.haikus.build(verse_1: verse_1, verse_2: verse_2, verse_3: verse_3,tag: tag, public: is_public)        
             @haiku.image.attach(params[:haiku][:image])
             if @haiku.save
-                p "verse1:#{SyllableCount(verse_1)}................................"
-                p verse_1_haiku?(verse_1)
-                p "verse1:#{SyllableCount(verse_2)}................................"
-                p "verse1:#{SyllableCount(verse_3)}................................"
                 flash[:success] = "Haiku created!"
                 redirect_to root_url
             else
@@ -34,14 +30,38 @@ class HaikusController < ApplicationController
                 @haiku_feed_items = Haiku.where("public = ?", true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
                 render 'static_pages/home'
             end
+        elsif(params[:post_button] == "Finish")
+            is_public = true
+            if params[:visibility] && params[:visibility] === 'Private'
+                is_public = false
+            end
+
+            @haiku = current_user.haikus.build(verse_1: params[:haiku_verse_1], verse_2: params[:haiku_verse_2], verse_3: verse_3,tag: tag, public: is_public)        
+            @haiku.image.attach(params[:haiku][:image])
+
+            if @haiku.save
+                flash[:success] = "Haiku created!"
+                challenge_user = ChallengeUser.find_by(challenge_id: params[:challenge_id], user_id: current_user.id)
+                if(challenge_user)
+                    challenge_user.destroy
+                end
+                redirect_to challenges_path
+            else
+                @comment = Comment.new
+                @haiku_comment = HaikuComment.new
+                @micropost = Micropost.new
+
+                @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+                # @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+                @haiku_feed_items = Haiku.where("public = ?", true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+                render 'static_pages/home'
+            end
+
         else
             @challenge = current_user.challenges.build(verse_1: verse_1, verse_2: verse_2)
             if @challenge.save
-                p "verse1:#{SyllableCount(verse_1)}................................"
-                p verse_1_haiku?(verse_1)
-                p "verse1:#{SyllableCount(verse_2)}................................"
                 flash[:success] = "Challenge created!"
-                redirect_to root_url
+                redirect_to challenge_user_path
             else
                 @comment = Comment.new
                 @haiku_comment = HaikuComment.new

@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-2">
+  </div>
+  <% if @my_challenges.any? %>
+  <ol class="microposts">
+    <% @my_challenges.each do |challenge| %>
+    <li>
+        <div class="col-md-8">
+            <%= render 'shared/haiku_form', challenge: challenge  %>
+        </div>
+        </li>
+    <% end %>
+    
+  </ol>
+  <% end %>
+
+</div>
+
+

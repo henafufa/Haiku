@@ -1,4 +1,5 @@
 class ChallengeUsersController < ApplicationController
+    include HaikusHelper
     before_action :logged_in_user, only: [:create, :destroy]
     def create
         @challenge_user = ChallengeUser.new(user_id: params[:user_id], challenge_id: params[:challenge_id])
@@ -13,6 +14,15 @@ class ChallengeUsersController < ApplicationController
         @challenge_user = ChallengeUser.find_by(user_id: params[:user_id], challenge_id: params[:challenge_id])
         @challenge_user.destroy
 		redirect_to request.referrer || root_url
+    end
+    def show
+        @from_challenge = true
+        @my_challenges = []
+        current_user.challenge_users.each do |challenge_user|
+            challenge = Challenge.find_by(id: challenge_user.challenge_id)
+            @my_challenges.push(challenge)
+        end
+        @haiku = Haiku.new
     end
     private
         def challenge_user_params

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get 'search', to:'users#search'
   get 'search_user', to:'users#search_user'
+  get 'challenges', to:'challenge_users#show'
   get '/test', to: 'static_pages#test'
   get '/challenge_user', to: 'challenges#challenge_user'
   post '/search_user', to: 'challenge_users#create'
@@ -40,7 +41,6 @@ Rails.application.routes.draw do
   resources :haikus, only: [ :create, :destroy, :update, :show ]
   resources :relationships, only: [:create, :destroy]
   resources :haiku_comments
-  # resources :challenge_users, only: [:create, :destroy]
 
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
