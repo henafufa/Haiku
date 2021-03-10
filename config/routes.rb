@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   patch "challenge", to:'users#dailyChallenge'
   patch "track", to:'daily_challenges#index'
   get "task", to:'daily_challenges#index'
+  get "remainder", to:'users#addRemainderToQueue'
   get "activities", to:'activities#index'
   get 'search_by_tag', to:'users#search_activities'
   get '/test', to: 'static_pages#test'

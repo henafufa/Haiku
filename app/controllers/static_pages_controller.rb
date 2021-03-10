@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
+    ActionCable.server.broadcast('remainder_channel','Hi mira, dont forgot to post your haiku')
     if logged_in?
       @reaction = Reaction.new
       @comment = Comment.new

@@ -179,10 +179,11 @@ class UsersController < ApplicationController
     render '/static_pages/home'
   end
 
-  def report
-    ReportWorker.perform_async("01-03-2021","07-03-2021")
+  def addRemainderToQueue
+    DailyRemainderWorker.perform_async()
     render text: " REQUEST TO GENERATE A REPORT ADDED TO THE QUEUE"
   end
+
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
