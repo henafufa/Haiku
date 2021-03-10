@@ -178,16 +178,16 @@ class UsersController < ApplicationController
     # @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? ", current_user.id)
     if params[:search] === 'posts'
       posts= 'Haiku'
-      @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type LIKE ?", current_user.id, "%"+posts+"%")
+      @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type = ?", current_user.id, posts)
     elsif params[:search] === 'comments'
       comments= 'HaikuComment'
-      @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type LIKE ?", current_user.id, "%"+comments+"%")
+      @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type = ?", current_user.id,comments)
     elsif params[:search] === 'likes'
       likes= 'HaikuReaction'
-      @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type LIKE ?", current_user.id, "%"+likes+"%")
+      @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type = ?", current_user.id, likes)
     elsif params[:search] === 'follows'
       follows='Relationship'
-      @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type LIKE ?", current_user.id, "%"+follows+"%")
+      @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type = ?", current_user.id, follows)
     else
       @activities = PublicActivity::Activity.order('created_at desc').where(owner: current_user)
     end

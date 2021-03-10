@@ -33,6 +33,7 @@
             <p class="card-text text-center"><%= link_to activity.owner.name, activity.owner if activity.owner%><%= activity.trackable%></p>
           <% end%>
             <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
+            <% if activity.trackable_type != 'Relationship'%>
             <div class="card-footer">
               <div class= "row">
                 <div class="col-md-4">
@@ -71,6 +72,7 @@
                   </div>
                 </div>
               </div>
+              <% end%>
             </div>
           </div>
         </div>

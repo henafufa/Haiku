@@ -1,6 +1,6 @@
 
-<% if activity.trackable.followed_id %>
-    unfollowed <%= link_to activity.trackable.followed_id, activity.trackable %>    
+<% if activity.trackable %>
+    unfollowed <%= link_to activity.trackable, activity.trackable %>    
 <% else %>
     unfollowed user that is currently unavailable.
 <% end %>

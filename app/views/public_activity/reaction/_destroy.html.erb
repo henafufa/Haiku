@@ -1,6 +1,6 @@
 
-<% if activity.trackable.micropost %>
-    dislike this <%= link_to activity.trackable.micropost, activity.trackable %>   
+<% if activity.trackable %>
+    dislike this <%= link_to activity.trackable, activity.trackable %>   
 <% else %>
     Micropost that is currently deleted was unliked.
 <% end %>
