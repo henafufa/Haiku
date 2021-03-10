@@ -54,8 +54,8 @@ class UsersController < ApplicationController
     @dialyChallenge = DailyChallenge.new
     @challenges = current_user.daily_challenges
     @startDate= User.where("id = ? ",current_user.id).select("challenge_start_date")
-    @chalengeStartedDate= @startDate.first.challenge_start_date
-    @currentDate= Time.zone.now
+    @chalengeStartedDate= @startDate.first.challenge_start_date.to_date
+    @currentDate= Time.zone.now.to_date
     @challenger = DailyChallenge.where("user_id = ?", current_user.id)
     @challengePostStatus =  @challenges .where("user_id = ? and postStatus = ?  ",current_user.id, true)
     # @challengePostStatus =  @challenges .where("postStatus = ?  ", true)
