@@ -53,12 +53,17 @@ class UsersController < ApplicationController
   def challengeSummery
     @dialyChallenge = DailyChallenge.new
     @challenges = current_user.daily_challenges
+    @startDate= User.where("id = ? ",current_user.id).select("challenge_start_date")
+    @chalengeStartedDate= @startDate.first.challenge_start_date
+    @currentDate= Time.zone.now
     @challenger = DailyChallenge.where("user_id = ?", current_user.id)
     @challengePostStatus =  @challenges .where("user_id = ? and postStatus = ?  ",current_user.id, true)
     # @challengePostStatus =  @challenges .where("postStatus = ?  ", true)
-   
     if current_user.challenge_mode
-      @daysUntilNow= @challengePostStatus.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now).count
+      # @daysUntilNow= @challengePostStatus.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now + 1.days).count
+      @daysUntilNow=  (@chalengeStartedDate - @currentDate)
+      p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$----------------------#{@daysUntilNow}"
+      p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ challenger----------------------#{@startDate.first.challenge_start_date}"
       @postedDaysCount =  @challenges .where("postStatus = ?  ",true).count
       # @postedDaysCount =  @challenger .where("postStatus = ?  ",true).count
       @postedInRow= @challengePostStatus.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now).count

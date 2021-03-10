@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
     include PublicActivity::StoreController
     include SessionsHelper
+    require 'date'
     # before_action :set_locale
     def application
         # render html:"Hello world"

@@ -1,6 +1,6 @@
 
 <% if activity.trackable %>
-   posted this
+   posted  <%= link_to "this" ,activity.trackable %>
 <% else %>
    posted this that is currently deleted.
 <% end %>

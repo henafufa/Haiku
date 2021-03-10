@@ -16,6 +16,7 @@
               <h6 class="card-subtitle text-muted"><%= time_ago_in_words(current_user.created_at) %> </h6>
             </div>
           </div>
+          <% if activity.trackable != nil %>
           <% if activity.trackable_type === 'Haiku' %>
             <p class="card-text text-center"><%= activity.trackable.verse_1%></p>
             <p class="card-text text-center"><%= activity.trackable.verse_2%></p>
@@ -31,6 +32,7 @@
           <% elsif activity.trackable_type === 'Relationship'%>
           <% else%>
             <p class="card-text text-center"><%= link_to activity.owner.name, activity.owner if activity.owner%><%= activity.trackable%></p>
+          <% end%>
           <% end%>
             <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
             <% if activity.trackable_type != 'Relationship'%>
