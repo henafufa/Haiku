@@ -58,7 +58,10 @@ class User < ApplicationRecord
     end
         # Sends password reset email.
     def send_password_reset_email
-        UserMailer.password_reset(self).deliver_now
+        UserMailer.mail_gun_password_reset(self).deliver_now
+
+        # uncomment this is for devlopment
+        # UserMailer.password_reset(self).deliver_now
     end
     def activate
         # update_attribute(:activated, true)
@@ -67,7 +70,10 @@ class User < ApplicationRecord
     end
     # Sends activation email.
     def send_activation_email
-        UserMailer.account_activation(self).deliver_now
+        UserMailer.mail_gun_account_activation(self).deliver_now
+        
+        # uncomment this is for devlopment
+        # UserMailer.account_activation(self).deliver_now
     end
     #Returns true if a password reset has expired.
     def password_reset_expired?
