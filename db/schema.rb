@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_09_134425) do
+ActiveRecord::Schema.define(version: 2021_03_10_115459) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -81,11 +81,22 @@ ActiveRecord::Schema.define(version: 2021_03_09_134425) do
     t.index ["user_id"], name: "index_haiku_comments_on_user_id"
   end
 
+  create_table "haiku_reactions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "haiku_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["haiku_id"], name: "index_haiku_reactions_on_haiku_id"
+    t.index ["user_id", "haiku_id"], name: "index_haiku_reactions_on_user_id_and_haiku_id", unique: true
+    t.index ["user_id"], name: "index_haiku_reactions_on_user_id"
+  end
+
   create_table "haikus", force: :cascade do |t|
     t.text "verse_1"
     t.text "verse_2"
     t.text "verse_3"
     t.boolean "public", default: true
+    t.string "bgcolor", default: ""
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -148,6 +159,8 @@ ActiveRecord::Schema.define(version: 2021_03_09_134425) do
   add_foreign_key "comments", "users"
   add_foreign_key "haiku_comments", "haikus"
   add_foreign_key "haiku_comments", "users"
+  add_foreign_key "haiku_reactions", "haikus"
+  add_foreign_key "haiku_reactions", "users"
   add_foreign_key "haikus", "users"
   add_foreign_key "microposts", "users"
   add_foreign_key "reactions", "microposts"

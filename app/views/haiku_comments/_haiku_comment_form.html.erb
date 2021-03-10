@@ -10,9 +10,9 @@
             <h5 class="card-subtitle mb-2 strong"><b><%= link_to current_user.name, current_user, style:"color:black" %></b></h5>
           </div>
           <div>
-            <%= f.text_field :verse_1, placeholder: "First Verse", class: "form-control haiku_input_field comment-form", require: true %>
-            <%= f.text_field :verse_2, placeholder: "Second Verse",  class: "form-control haiku_input_field comment-form", require: true %>
-            <%= f.text_field :verse_3, placeholder: "Third Verse",  class: "form-control haiku_input_field comment-form", require: true %>
+            <%= f.text_field :verse_1, placeholder: "First Verse", class: "form-control haiku_input_field comment-form", required: true %>
+            <%= f.text_field :verse_2, placeholder: "Second Verse",  class: "form-control haiku_input_field comment-form", required: true %>
+            <%= f.text_field :verse_3, placeholder: "Third Verse",  class: "form-control haiku_input_field comment-form", required: true %>
             <%= hidden_field_tag :haiku_id, haiku_id %>
           </div>
         </div>

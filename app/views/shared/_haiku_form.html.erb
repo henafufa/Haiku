@@ -27,13 +27,39 @@
           <div><%= hidden_field_tag :haiku_verse_2, challenge.verse_2 %></div>
           <div><%= hidden_field_tag :challenge_id, challenge.id %></div>
         <% else %>
-          <p class="card-text text-center"><%= f.text_field :verse_1, placeholder: "First Verse", class: "form-control haiku_input_field", required:true %></p>
-          <p class="card-text text-center"><%= f.text_field :verse_2, placeholder: "Second Verse",  class: "form-control haiku_input_field", required: true %></p>
+          
+        <p class="card-text text-center"><%= f.text_field :verse_1, placeholder: "First Verse", class: "form-control haiku_input_field", required:true %></p>
+        <p class="card-text text-center"><%= f.text_field :verse_2, placeholder: "Second Verse",  class: "form-control haiku_input_field", required: true %></p>
         <% end %>
-        <p class="card-text text-center"><%= f.text_field :verse_3, placeholder: "Third Verse",  class: "form-control haiku_input_field" %></p>
-        <span class="image form-control form-control-sm haiku_input_field haiku-image-field">
-          <%= f.file_field :image %>
-        </span>
+        <p class="card-text text-center"><%= f.text_field :verse_3, placeholder: "Third Verse",  class: "form-control haiku_input_field", required: true %></p>        
+
+        
+        <select name="choose-form" class="form-control public-private-drop-down" id="background-select"  style= "width:auto" >
+          <option selected>Background Image</option>
+          <option >Background Color</option>
+        </select>
+        <div id="backgound-form">
+          <div id="image-form">
+            <%= f.label :image, "Backgound Image" %>
+            <span class="image form-control form-control-sm haiku_input_field haiku-image-field">
+              <%= f.file_field :image %>
+            </span>
+          </div>
+          <div id=bg-color-form style="display:none">
+            <p><%= f.label :bgcolor, "Backgound Color" %>
+              <div class="row">
+                <div class="col-md-1">
+                  <%= f.text_field :bgcolor, class: "form-control", id: "colorpicker", type: "color", value: "#ffffff"  %>
+                </div>
+                <div class="col-md-3">
+                  <%= f.text_field "Something", placeholder: "",  class: "form-control-plaintext haiku_input_field text-muted", id: "color-picked", value: "#ffffff", readonly: true %>
+                </div>
+              </p>
+            </div>
+          </div>
+          <br/>
+        </div>
+        
         <div class="col-md-6" style="padding-bottom: 1em;">
         
         <% if @from_challenge %>
@@ -64,13 +90,21 @@
     </div>
   </div>
 <% end %>
-<script type="text/javascript">
-  $("#micropost_image").bind("change", function() {
-  const size_in_megabytes = this.files[0].size/1024/1024;
-  if (size_in_megabytes > 5) {
-  alert("Maximum file size is 5MB. Please choose a smaller
-  file.");
-  $("#micropost_image").val("");
+<script>
+  document.getElementById("background-select").addEventListener("change", display);
+    document.getElementById("colorpicker").addEventListener("change", getColorPicked);
+  
+   function display(e){
+     if (e.target.value == 'Background Image') {
+       document.getElementById("bg-color-form").style.display = "none"
+        document.getElementById("image-form").style.display = "block"
+     } else {
+       document.getElementById("image-form").style.display = "none"
+        document.getElementById("bg-color-form").style.display = "block"
+     }
   }
-  });
+  
+  function getColorPicked(e) {
+    document.getElementById("color-picked").value = e.target.value
+  }
 </script>

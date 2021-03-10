@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   resources :users
   resources :comments
   resources :reactions, only: [ :create, :destroy ]
+  resources :haiku_reactions, only: [:create, :destroy, :edit]
   resources :microposts, only: [ :create, :destroy ]
   resources :haikus, only: [ :create, :destroy, :update, :show ]
   resources :relationships, only: [:create, :destroy]

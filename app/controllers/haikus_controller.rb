@@ -8,14 +8,14 @@ class HaikusController < ApplicationController
         verse_2 = params[:haiku][:verse_2]
         verse_3 = params[:haiku][:verse_3]
         tag = params[:haiku][:tag]
-    
+        bgcolor = params[:haiku][:bgcolor]
         if(params[:post_button] == "Post")
             is_public = true
             if params[:visibility] && params[:visibility] === 'Private'
                 is_public = false
             end
             
-            @haiku = current_user.haikus.build(verse_1: verse_1, verse_2: verse_2, verse_3: verse_3,tag: tag, public: is_public)        
+            @haiku = current_user.haikus.build(verse_1: verse_1, verse_2: verse_2, verse_3: verse_3,tag: tag, public: is_public, bgcolor: bgcolor)        
             @haiku.image.attach(params[:haiku][:image])
             if @haiku.save
                 flash[:success] = "Haiku created!"
@@ -97,7 +97,7 @@ class HaikusController < ApplicationController
 
     private
         def haiku_params
-            params.require(:haiku).permit(:verse_1, :verse_2, :verse_3, :tag, :visibility, :image)
+            params.require(:haiku).permit(:verse_1, :verse_2, :verse_3, :tag, :visibility, :image, :bgcolor)
         end
         def correct_user
             @haiku = current_user.haikus.find_by(id: params[:id])

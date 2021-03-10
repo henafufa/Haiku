@@ -4,6 +4,7 @@ class User < ApplicationRecord
     has_many :haiku_comments, dependent: :destroy
     has_many :challenges, dependent: :destroy
     has_many :challenge_users
+    has_many :haiku_reactions, dependent: :destroy
 
     has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
     has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
@@ -60,7 +61,10 @@ class User < ApplicationRecord
     end
         # Sends password reset email.
     def send_password_reset_email
-        UserMailer.password_reset(self).deliver_now
+        UserMailer.mail_gun_password_reset(self).deliver_now
+
+        # uncomment this is for devlopment
+        # UserMailer.password_reset(self).deliver_now
     end
     def activate
         # update_attribute(:activated, true)
@@ -69,7 +73,10 @@ class User < ApplicationRecord
     end
     # Sends activation email.
     def send_activation_email
-        UserMailer.account_activation(self).deliver_now
+        UserMailer.mail_gun_account_activation(self).deliver_now
+        
+        # uncomment this is for development
+        # UserMailer.account_activation(self).deliver_now
     end
     #Returns true if a password reset has expired.
     def password_reset_expired?
@@ -105,6 +112,15 @@ class User < ApplicationRecord
             return false
         end
     end
+
+    def likedComment?(haiku_id)
+        if Haiku.find_by(id: haiku_id) && self.haiku_reactions.find_by(haiku_id: haiku_id)
+            return true
+        else
+            false
+        end
+    end
+
     # unreact  a micropost.
     private
         def downcase_email

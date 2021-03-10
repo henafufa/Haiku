@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @comment = Comment.new
     @haiku_comment = HaikuComment.new
     @reaction = Reaction.new
+    @haiku_reaction = HaikuReaction.new
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
     @microposts = @user.microposts.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
@@ -82,6 +83,7 @@ class UsersController < ApplicationController
   end
   def search
     @reaction = Reaction.new
+    @haiku_reaction = HaikuReaction.new
     @comment = Comment.new
     @haiku_comment = HaikuComment.new
     @micropost = current_user.microposts.build
