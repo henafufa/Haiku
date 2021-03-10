@@ -1,0 +1,21 @@
+class ChallengeUsersController < ApplicationController
+    before_action :logged_in_user, only: [:create, :destroy]
+    def create
+        @challenge_user = ChallengeUser.new(user_id: params[:user_id], challenge_id: params[:challenge_id])
+        if @challenge_user.save
+            redirect_to request.referrer 
+        else
+            flash[:danger] = "Invalid challenge something wrong"
+            redirect_to request.referrer 
+        end
+    end
+    def destroy
+        @challenge_user = ChallengeUser.find_by(user_id: params[:user_id], challenge_id: params[:challenge_id])
+        @challenge_user.destroy
+		redirect_to request.referrer || root_url
+    end
+    private
+        def challenge_user_params
+            params.require(:challenge_user).permit(:user_id, :challenge_id)
+        end 
+end

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
     include SessionsHelper
+    include ChallengeUsersHelper
     # before_action :set_locale
     def application
         # render html:"Hello world"

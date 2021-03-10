@@ -6,9 +6,10 @@
     <%= link_to user.name, user %>
     </div>
     <div>
-    <%= link_to "Challege", user, method: :delete,
+    <%= render 'challenge_users/challenge_user_form', user_id: user.id, challenge_id: @challenge.id %>
+    <!--<%= link_to "Challege", user, method: :delete,
         data: { confirm: "You sure?"
-        } %>
+        } %>-->
         </div>
         </div>
 <% else %>
