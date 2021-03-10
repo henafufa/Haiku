@@ -1,4 +1,5 @@
-<% @activities.each do |activity| %>        
+<% @activities.each do |activity| %> 
+<% if activity.trackable_type != 'DailyChallenge' %>       
 <div style="margin-bottom: 30px;margin-top:40px;" >
     <div class="row">
       <div class="card container col-md-12 " style="border:solid 2px rgb(236, 230, 230); padding: 13px;" >
@@ -31,6 +32,7 @@
             <p class="card-text text-center"><%= activity.trackable.verse_3%></p>
           <% elsif activity.trackable_type === 'Relationship'%>
           <% else%>
+
             <p class="card-text text-center"><%= link_to activity.owner.name, activity.owner if activity.owner%><%= activity.trackable%></p>
           <% end%>
           <% end%>
@@ -80,4 +82,4 @@
         </div>
       </div>
     <% end %> 
-</div>
+    <% end %> 
