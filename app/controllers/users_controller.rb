@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
   before_action :challengeSummery
+  before_action :daysInRow
   before_action :getActivities
 
   def index
@@ -14,8 +15,11 @@ class UsersController < ApplicationController
   end
 
   def getActivities
-    @activities = PublicActivity::Activity.order('created_at desc').where(owner: current_user)
+    if PublicActivity::Activity.all != nil
+       @activities = PublicActivity::Activity.order('created_at desc').where(owner: current_user)
+    end
   end
+
   def show
     @comment = Comment.new
     @haiku_comment = HaikuComment.new
@@ -51,17 +55,21 @@ class UsersController < ApplicationController
   end
 
   def challengeSummery
+    if logged_in? && current_user.challenge_mode
     @dialyChallenge = DailyChallenge.new
     @challenges = current_user.daily_challenges
     @startDate= User.where("id = ? ",current_user.id).select("challenge_start_date")
+    # changes on this two line to_date raised error
     @chalengeStartedDate= @startDate.first.challenge_start_date.to_date
     @currentDate= Time.zone.now.to_date
     @challenger = DailyChallenge.where("user_id = ?", current_user.id)
     @challengePostStatus =  @challenges .where("user_id = ? and postStatus = ?  ",current_user.id, true)
     # @challengePostStatus =  @challenges .where("postStatus = ?  ", true)
     if current_user.challenge_mode
-      # @daysUntilNow= @challengePostStatus.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now + 1.days).count
-      @daysUntilNow=  (@chalengeStartedDate - @currentDate)
+      @daysUntilNow= @challengePostStatus.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now + 1.days).count
+      # @daysUntilNow=  (@chalengeStartedDate - @currentDate).to_i
+      p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$chalengeStartedDate----------------------#{@chalengeStartedDate}"
+      p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$currentDate----------------------#{@currentDate}"
       p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$----------------------#{@daysUntilNow}"
       p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ challenger----------------------#{@startDate.first.challenge_start_date}"
       @postedDaysCount =  @challenges .where("postStatus = ?  ",true).count
@@ -70,7 +78,41 @@ class UsersController < ApplicationController
       @totalDays= @challenges.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now).count
     end
   end
+  end
 
+  def daysInRow
+    if logged_in? && current_user.challenge_mode
+    @noRowDays=0
+    @coins= 0
+    # @thirtyDate= current_user.daily_challenges.select("thirtyDates")
+    @thirtyDate= DailyChallenge.where("user_id = ? ",current_user.id).select("thirtyDates")
+    @postOwner = DailyChallenge.where("user_id = ?", current_user.id)
+    @rowStartDate= @postOwner.first.thirtyDates.to_date
+    29.times do |n|
+      @totalRowStartDate=@rowStartDate + n.days
+      @postedDates = DailyChallenge.where("user_id = ? and thirtyDates LIKE ? ", current_user.id, "%#{@totalRowStartDate.to_date}%")
+      @postedDatesValues= @postedDates.first.thirtyDates.to_date
+      p "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@totalRowStartDate----------------------#{@totalRowStartDate}"
+      if @postedDates.first.postStatus
+          @noRowDays += 1
+          if @noRowDays % 3 == 0
+            @coins = 1
+            # flash[:success] = "Yey you get coin!"
+          end
+          # if @noRowDays == 30
+          #   @coins = 1
+          #   flash[:success] = "Yey you get coin!"
+          # end
+        p"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@noRowDays incremented by 1----------------------#{@noRowDays}"
+        p "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@postedDatesValues----------------------#{@postedDatesValues}"
+      else
+        p "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@startRowDate----------------------#{@rowStartDate}"
+      end
+     
+    end
+    # p "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@startRowDate----------------------#{@rowStartDate}"
+  end
+  end
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
@@ -108,6 +150,7 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+
   def edit
     @user = User.find(params[:id])
   end
