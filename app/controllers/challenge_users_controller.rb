@@ -4,7 +4,7 @@ class ChallengeUsersController < ApplicationController
     def create
         @challenge_user = ChallengeUser.new(user_id: params[:user_id], challenge_id: params[:challenge_id])
         if @challenge_user.save
-            redirect_to request.referrer 
+            redirect_to request.referrer || search_user_path
         else
             flash[:danger] = "Invalid challenge something wrong"
             redirect_to request.referrer 

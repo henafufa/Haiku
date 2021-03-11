@@ -1,14 +1,12 @@
 require "test_helper"
 
-class HaikuCreationTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+class SearchTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:michael)
+    @other = users(:archer)
+    @haiku = haikus(:archer_haiku)
   end
-
-  test "haiku creation valid submission" do
+  test "search haiku for logged in user" do
     log_in_as(@user)
     get root_path
 
@@ -26,18 +24,13 @@ class HaikuCreationTest < ActionDispatch::IntegrationTest
     
     assert_redirected_to root_url
     follow_redirect!
+    get search_path, params: { search: "patio", filter: "Haiku" }
+    get root_url
   end
-
-  # test "haiku creation invaid submission" do
-  #   log_in_as(@user)
-  #   get root_path
-  #   verse_1 = ""
-  #   verse_2 = ""
-  #   verse_3 = "My third verse"
-  #   assert_difference 'Haiku.count', 0 do
-  #     post haikus_path, params: { haiku: { verse_1: verse_1, verse_2: verse_2, verse_3: verse_3 } }
-  #   end
-    
-  # end
-
+  test "search users for logged in user" do
+    log_in_as(@user)
+    get root_path
+    get search_path, params: { search: "arch", filter: "Users" }
+    get users_path
+  end
 end
