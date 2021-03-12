@@ -13,7 +13,7 @@ archer_haiku:
   verse_1: MyText
   verse_2: MyText
   verse_3: MyText
-  public: false
+  public: true
   created_at: <%= 10.hours.ago %>
   user: archer
 

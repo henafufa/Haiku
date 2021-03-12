@@ -40,4 +40,9 @@ class CreatingChallengeTest < ActionDispatch::IntegrationTest
       post search_user_path, params: { challenge_id: @challenge.id, user_id: @other.id }
     end
   end
+  test "challenged user see the challenge" do
+    log_in_as(@other)
+    get challenge_user_path
+    # assert template 
+  end
 end

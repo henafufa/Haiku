@@ -1,4 +1,5 @@
 class ChallengesController < ApplicationController
+    before_action :logged_in_user, only: [:challenge_user ]
     def challenge_user
         if logged_in?
             @reaction = Reaction.new

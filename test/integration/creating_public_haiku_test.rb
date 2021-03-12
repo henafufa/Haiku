@@ -3,7 +3,7 @@ require "test_helper"
 class CreatingPublicHaikuTest < ActionDispatch::IntegrationTest
   
   def setup
-    @user = users(:michael)
+    @user = users(:archer)
   end
 
   test "haiku creation with public option" do
@@ -44,6 +44,10 @@ class CreatingPublicHaikuTest < ActionDispatch::IntegrationTest
     
     assert_redirected_to root_url
     follow_redirect!
+    get "#{user_path(@user)}/private_post"
+    assert_template "users/private_post"
+    assert_select "h1", "Private posts only"
+    # assert_select "p", verse_1
   end
 
 end
