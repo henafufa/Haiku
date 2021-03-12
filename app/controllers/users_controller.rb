@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     @chalengeStartedDate= @startDate.first.challenge_start_date.to_date
     @currentDate= Time.zone.now.to_date
     @challenger = DailyChallenge.where("user_id = ?", current_user.id)
-    @challengePostStatus =  @challenges .where("user_id = ? and postStatus = ?  ",current_user.id, true)
+    @challengePostStatus =  @challenges .where(user_id: current_user.id, postStatus: true)
     # @challengePostStatus =  @challenges .where("postStatus = ?  ", true)
     if current_user.challenge_mode
       # @daysUntilNow= @challengePostStatus.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now + 1.days).count
