@@ -27,7 +27,7 @@ class HaikusController < ApplicationController
                     # update posted = tru
                     # @postedDate = DailyChallenge.where("user_id = ? and thirtyDates = ? ", current_user.id,  "2021-03-08 14:23:02.383848")
                     haikuDate = @haiku.created_at.to_date
-                    @postedDate = DailyChallenge.where(user_id: current_user.id, thirtyDates: haikuDate.midnight..haikuDate.end_of_day) )   
+                    @postedDate = DailyChallenge.where(user_id: current_user.id, thirtyDates: haikuDate.midnight..haikuDate.end_of_day) 
                     # @postedDate = DailyChallenge.where("user_id = ? and thirtyDates LIKE ? ", current_user.id, "%#{@haiku.created_at.to_date}%")
                     p "postedDate:#{@postedDate.length}"
                     if  @postedDate && @postedDate.length >= 0 && !@postedDate.first.postStatus?
