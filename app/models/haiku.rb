@@ -24,6 +24,8 @@ class Haiku < ApplicationRecord
   validates :tag, length: { maximum: 15 }
   has_many :haiku_comments, dependent: :destroy
   # has_many :daily_challenges, dependent: :destroy
+  has_many :haiku_reactions, dependent: :destroy
+
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png], message: "must be a valid image format" }, size: { less_than: 5.megabytes, message: "should be less than 5MB" }
 
   validates_with HaikuValidator
@@ -31,7 +33,6 @@ class Haiku < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
 
   def display_image
-    p 'active ///////////////////'
     image.variant(resize_to_limit: [500, 500])
  
   end

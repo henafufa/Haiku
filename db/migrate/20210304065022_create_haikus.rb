@@ -4,7 +4,8 @@ class CreateHaikus < ActiveRecord::Migration[6.1]
       t.text :verse_1
       t.text :verse_2
       t.text :verse_3
-      t.boolean :public, default: true 
+      t.boolean :public, default: true
+      t.string :bgcolor, default: ""
       #Ex:- :default =>''
       t.references :user, null: false, foreign_key: true
 

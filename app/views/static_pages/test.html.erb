@@ -16,6 +16,106 @@
 </div>
 <%= twitter_button %>
 <%= linkedin_button %>
-
 <%= link_to "<svg xmlns=http://www.w3.org/2000/svg width=23 height=23 fill=currentColor class='bi bi-facebook' viewBox='0 0 16 16'><path d='M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z'/></svg> <span style='font-size: 16px; color: #888'>Share to Facebook</span>".html_safe, "https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}", class: 'share', data: { network: 'facebook'} %>
 <%= link_to "<svg xmlns='http://www.w3.org/2000/svg' width='23' height='23' fill='currentColor' class='bi bi-twitter' viewBox='0 0 16 16'><path d='M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z'/></svg> <span style='font-size: 16px; color: #888'>Share to Twitter</span>".html_safe, "https://twitter.com/intent/tweet?original_referer=#{request.original_url}&ref_src=twsrc%5Etfw&text=Haiku%20App&tw_p=tweetbutton&url=#{request.original_url}", class: 'share', data: { network: 'twitter'} %>
+<br />
+<form action="/action_page.php">
+  <label for="favcolor">Select your favorite color:</label>
+  <input onchange="alert(value)" class="form-control field-radio" id="colorpicker" type="color" id="favcolor" name="favcolor" value="#ffffff"><br>
+  <br>
+</form>
+<select name="visibility" class="form-control public-private-drop-down" id="btn" >
+  <option>Public</option>
+  <option >Private</option>
+</select>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+<!-- Modal -->
+<select name="choose-form" class="form-control public-private-drop-down" id="background-select"  style= "width:auto" >
+  <option selected>Background Image</option>
+  <option >Background Color</option>
+</select>
+<div id="backgound-form">
+  <%= form_with(model: @haiku, local: true) do |f| %>
+    <span class="image form-control form-control-sm haiku_input_field haiku-image-field">
+      <%= f.label :image, "Backgound Image" %>
+      <%= f.file_field :image %>
+    </span>
+  <% end %>
+</div>
+</div>
+<script>
+  document.getElementById("background-select").addEventListener("change", display);
+   function display(value){
+     if (value.target.value == 'Background Image') {
+       document.getElementById("backgound-form").innerHTML = '<%= form_with(model: @haiku, local: true) do |f| %><span class="image form-control form-control-sm haiku_input_field haiku-image-field"><%= f.label :image, "Backgound Image" %><%= f.file_field :image %></span><% end %>'
+     } else {
+       document.getElementById("backgound-form").innerHTML = '<%= form_with(model: @haiku, local: true) do |f| %><p><%= f.label :bgcolor, "Backgound Color" %><%= f.text_field :bgcolor, class: "form-control", id: "colorpicker", type: "color", value: "#abc000"  %></p><% end %>'
+     }
+  }
+</script>
+
+
+
+<%= form_with(model: @haiku, local: true) do |f| %>
+  <div class="card container col-md-12" style="padding: 5px;">
+    <div class="card-body col-md-12">
+      <h5 class="card-title">
+        <%= link_to gravatar_for(current_user, size: 30), current_user %>
+      </h5>
+      <h6 class="card-subtitle mb-2 text-muted" style="padding-top:0.5em;"><%= link_to current_user.name, current_user, class:"text-muted" %>
+      </h6>
+      <div class="row">
+        <span class="mb-1 haiku-form-drop-down">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-globe" viewBox="0 0 16 16">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"/>
+          </svg>
+          <select name="visibility" class="form-control public-private-drop-down" id="exampleFormControlSelect1">
+            <option>Public</option>
+            <option>Private</option>
+          </select>
+        </span>
+      </div>
+      <div class="field mb-3">
+        <%= render 'shared/error_messages', object: f.object %>
+        <p class="card-text text-center"><%= f.text_field :verse_1, placeholder: "First Verse", class: "form-control haiku_input_field", required:true %></p>
+        <p class="card-text text-center"><%= f.text_field :verse_2, placeholder: "Second Verse",  class: "form-control haiku_input_field", required: true %></p>
+        <p class="card-text text-center"><%= f.text_field :verse_3, placeholder: "Third Verse",  class: "form-control haiku_input_field", required: true %></p>
+        <span class="image form-control form-control-sm haiku_input_field haiku-image-field">
+          <%= f.file_field :image %>
+        </span>
+        
+        Choose backgorund color
+        <%= f.text_field :bgcolor, class: "form-control field-radio", id: "colorpicker", type: "color", value: "#ffffff" %>
+
+        <div class="col-md-6" style="padding-bottom: 1em;">
+          <a>make it challenge</a>
+        </div>
+      </div>
+      <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
+      <div class="row">
+        <div class="col-md-8">
+          <label for="inputPassword" class="col-sm-1 col-form-label" style="padding-right:2px;padding-top:0.5em;">#</label>
+          <div class="col-md-8">
+            <%= f.text_field :tag, placeholder: "Add hash tag ...", class: "form-control tag-input", id:"inputPassword" %>
+          </div>
+        </div>
+        <div div class="col-md-3">
+          <%= f.submit "Post", class: "btn small btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script type="text/javascript">
+  $("#micropost_image").bind("change", function() {
+  const size_in_megabytes = this.files[0].size/1024/1024;
+  if (size_in_megabytes > 5) {
+  alert("Maximum file size is 5MB. Please choose a smaller
+  file.");
+  $("#micropost_image").val("");
+  }
+  });
+</script>

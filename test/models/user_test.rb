@@ -91,6 +91,13 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+  test "associated challenge should be destroyed" do
+    @user.save
+    @user.challenges.create!(verse_1: "cafe patio", verse_2: "above the cacophony")
+    assert_difference 'Challenge.count', -1 do
+      @user.destroy
+    end
+  end
 
   test "should follow and unfollow a user" do
     michael = users(:michael)

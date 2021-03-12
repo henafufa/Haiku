@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_09_120540) do
+ActiveRecord::Schema.define(version: 2021_03_10_115459) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -59,6 +59,24 @@ ActiveRecord::Schema.define(version: 2021_03_09_120540) do
     t.index ["trackable_type", "trackable_id"], name: "index_activities_on_trackable"
   end
 
+  create_table "challenge_users", force: :cascade do |t|
+    t.integer "challenge_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["challenge_id"], name: "index_challenge_users_on_challenge_id"
+    t.index ["user_id"], name: "index_challenge_users_on_user_id"
+  end
+
+  create_table "challenges", force: :cascade do |t|
+    t.text "verse_1"
+    t.text "verse_2"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_challenges_on_user_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.integer "user_id", null: false
@@ -92,11 +110,22 @@ ActiveRecord::Schema.define(version: 2021_03_09_120540) do
     t.index ["user_id"], name: "index_haiku_comments_on_user_id"
   end
 
+  create_table "haiku_reactions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "haiku_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["haiku_id"], name: "index_haiku_reactions_on_haiku_id"
+    t.index ["user_id", "haiku_id"], name: "index_haiku_reactions_on_user_id_and_haiku_id", unique: true
+    t.index ["user_id"], name: "index_haiku_reactions_on_user_id"
+  end
+
   create_table "haikus", force: :cascade do |t|
     t.text "verse_1"
     t.text "verse_2"
     t.text "verse_3"
     t.boolean "public", default: true
+    t.string "bgcolor", default: ""
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -154,11 +183,16 @@ ActiveRecord::Schema.define(version: 2021_03_09_120540) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "challenge_users", "challenges"
+  add_foreign_key "challenge_users", "users"
+  add_foreign_key "challenges", "users"
   add_foreign_key "comments", "microposts"
   add_foreign_key "comments", "users"
   add_foreign_key "daily_challenges", "users"
   add_foreign_key "haiku_comments", "haikus"
   add_foreign_key "haiku_comments", "users"
+  add_foreign_key "haiku_reactions", "haikus"
+  add_foreign_key "haiku_reactions", "users"
   add_foreign_key "haikus", "users"
   add_foreign_key "microposts", "users"
   add_foreign_key "reactions", "microposts"

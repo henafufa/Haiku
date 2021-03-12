@@ -1,9 +1,24 @@
-<li>
-<%= gravatar_for user, size: 50 %>
-<%= link_to user.name, user %>
-<% if current_user.admin? && !current_user?(user) %>
-| <%= link_to "delete", user, method: :delete,
-data: { confirm: "You sure?"
-} %>
+<li style="list-style: none;">
+<% if @after_search_user%>
+    <div class="col-md-12" style="padding: 0.5em; display: flex; justify-content: space-between">
+    <div>
+    <%= gravatar_for user, size: 20 %>
+    <%= link_to user.name, user %>
+    </div>
+    <div>
+    <%= render 'challenge_users/challenge_user_form', user_id: user.id, challenge_id: @challenge.id %>
+    <!--<%= link_to "Challege", user, method: :delete,
+        data: { confirm: "You sure?"
+        } %>-->
+        </div>
+        </div>
+<% else %>
+    <%= gravatar_for user, size: 50 %>
+    <%= link_to user.name, user %>
+    <% if current_user.admin? && !current_user?(user) %>
+    | <%= link_to "delete", user, method: :delete,
+    data: { confirm: "You sure?"
+    } %>
+    <% end %>
 <% end %>
 </li>

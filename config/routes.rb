@@ -31,7 +31,12 @@ Rails.application.routes.draw do
   get "remainder", to:'users#addRemainderToQueue'
   get "activities", to:'activities#index'
   get 'search_by_tag', to:'users#search_activities'
+  get 'search_user', to:'users#search_user'
+  get 'challenges', to:'challenge_users#show'
   get '/test', to: 'static_pages#test'
+  get '/challenge_user', to: 'challenges#challenge_user'
+  post '/search_user', to: 'challenge_users#create'
+  delete '/search_user', to: 'challenge_users#destroy'
   resources :users do
     member do
       get :following, :followers
@@ -41,6 +46,7 @@ Rails.application.routes.draw do
   resources :activities
   resources :comments
   resources :reactions, only: [ :create, :destroy ]
+  resources :haiku_reactions, only: [:create, :destroy, :edit]
   resources :microposts, only: [ :create, :destroy ]
   resources :haikus, only: [ :create, :destroy, :update, :show ]
   resources :relationships, only: [:create, :destroy]

@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
     include PublicActivity::StoreController
     include SessionsHelper
+    include ChallengeUsersHelper
     require 'date'
     # before_action :set_locale
     def application

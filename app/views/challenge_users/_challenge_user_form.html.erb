@@ -1,0 +1,7 @@
+<div id="follow_form">
+    <% if !challenged_user?(challenge_id, user_id) %>
+        <%= render 'challenge_users/challenge', challenge_id: challenge_id, user_id: user_id %>
+    <%else%>
+        <%= render 'challenge_users/unchallenge', challenge_id: challenge_id, user_id: user_id %>
+    <% end %>
+</div>

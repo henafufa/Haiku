@@ -8,13 +8,18 @@ class StaticPagesController < ApplicationController
        ActionCable.server.broadcast('remainder_channel',"Hi #{@current_user.name}, You didin't post today, dont forgot to post your haiku!")
       end
       @reaction = Reaction.new
+      @haiku_reaction = HaikuReaction.new
+
       @comment = Comment.new
       @haiku_comment = HaikuComment.new
       @micropost = current_user.microposts.build
       @haiku = current_user.haikus.build
+      @from_challenge = false
       # @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
       @haiku_feed_items = Haiku.where("public = ?", true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
       @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+    else
+      @haiku_feed_items = Haiku.where("public = ?", true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
     end
   end
 
