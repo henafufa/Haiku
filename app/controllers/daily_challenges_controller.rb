@@ -12,7 +12,7 @@ class DailyChallengesController < ApplicationController
     #   # @postedDaysCount =  @challenger .where("postStatus = ?  ",true).count
     #   @postedInRow= @challengePostStatus.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now).count
     #   @totalDays= @challenger.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now).count
-    end
+    # end
     
   end
 
