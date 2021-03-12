@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
   def home
    
     if logged_in?
-      @postStatus = DailyChallenge.where("user_id = ? and thirtyDates LIKE ? ", current_user.id, "%#{Time.zone.now.to_date}%")
+      @postStatus = DailyChallenge.where(user_id: current_user.id).where("'thirtyDates' LIKE ?", "%#{Time.zone.now.to_date}%")
       # p "postStatus#{@postStatus.first.postStatus}"
       if current_user.challenge_mode && !@postStatus.first.postStatus
        ActionCable.server.broadcast('remainder_channel',"Hi #{@current_user.name}, You didin't post today, dont forgot to post your haiku!")
