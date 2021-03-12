@@ -91,7 +91,7 @@ class UsersController < ApplicationController
     @rowStartDate= @postOwner.first.thirtyDates.to_date
     29.times do |n|
       @totalRowStartDate=@rowStartDate + n.days
-      @postedDates = DailyChallenge.where("user_id = ? and 'thirtyDates' LIKE ? ", current_user.id, "%#{@totalRowStartDate.to_date}%")
+      @postedDates = DailyChallenge.where(user_id: current_user.id, thirtyDates: @totalRowStartDate.midnight..@totalRowStartDate.end_of_day)
       @postedDatesValues= @postedDates.first.thirtyDates.to_date
       p "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@totalRowStartDate----------------------#{@totalRowStartDate}"
       if @postedDates.first.postStatus
