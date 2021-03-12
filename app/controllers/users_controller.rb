@@ -73,7 +73,7 @@ class UsersController < ApplicationController
       p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$currentDate----------------------#{@currentDate}"
       p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$----------------------#{@daysUntilNow}"
       p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ challenger----------------------#{@startDate.first.challenge_start_date}"
-      @postedDaysCount =  @challenges .where("postStatus = ?  ",true).count
+      @postedDaysCount =  @challenges .where(postStatus: true).count
       # @postedDaysCount =  @challenger .where("postStatus = ?  ",true).count
       @postedInRow= @challengePostStatus.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now).count
       @totalDays= @challenges.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now).count
