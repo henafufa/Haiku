@@ -38,7 +38,8 @@ class HaikusController < ApplicationController
                   end
 
                 end
-                redirect_to request.referrer
+                redirect_to root_url
+                #redirect_to request.referrer
               # redirect_to daily_challenges_url
             else
                 @comment = Comment.new
