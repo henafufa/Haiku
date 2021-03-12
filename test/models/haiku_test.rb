@@ -64,10 +64,17 @@ class HaikuTest < ActiveSupport::TestCase
     @haiku.public = false
     assert_not @haiku.public?
   end
-  
+
+  test "defualt bgcolor should be empty string" do
+    assert @haiku.bgcolor == ""
+  end
+
+  test "setting bgcolor should work" do
+    @haiku.bgcolor = "red"
+    assert @haiku.bgcolor = "red"
+  end  
 
   test "associated comment should be destroyed" do\
-    
     @haiku.save
     @haiku.haiku_comments.create!(verse_1: "cafe patio", verse_2: "above the cacophony", verse_3: "cafe patio", user_id: users(:michael).id)
     assert_difference 'HaikuComment.count', -1 do

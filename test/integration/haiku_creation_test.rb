@@ -42,6 +42,23 @@ class HaikuCreationTest < ActionDispatch::IntegrationTest
     assert_select 'div.haiku-image-card'
   end
 
+  test "haiku creation with bg-color valid submission" do
+    log_in_as(@user)
+    get root_path
+
+    verse_1 = "cafe patio"
+    verse_2 = "above the cacophony"
+    verse_3 = "cafe patio"
+    bgcolor = "red"
+
+    assert_difference 'Haiku.count', 1 do
+      post haikus_path, params: { haiku: { verse_1: verse_1, verse_2: verse_2, verse_3: verse_3, bgcolor: bgcolor }, post_button:"Post" }
+    end
+
+    assert_redirected_to root_url
+    follow_redirect!
+  end
+
   test "haiku creation invaid submission" do
     log_in_as(@user)
     get root_path
