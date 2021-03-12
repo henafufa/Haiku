@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get 'challenges', to:'challenge_users#show'
   get '/test', to: 'static_pages#test'
   get '/challenge_user', to: 'challenges#challenge_user'
+  get '/my_challenges', to: 'challenges#show'
   post '/search_user', to: 'challenge_users#create'
   delete '/search_user', to: 'challenge_users#destroy'
   resources :users do

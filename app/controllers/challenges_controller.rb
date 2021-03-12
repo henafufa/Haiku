@@ -13,5 +13,9 @@ class ChallengesController < ApplicationController
             @challenge = current_user.challenges.last
             @after_search_user = false
         end
+
+    end
+    def show 
+        
     end
 end
