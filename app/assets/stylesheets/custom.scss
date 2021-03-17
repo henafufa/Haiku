@@ -298,7 +298,6 @@ span.image {
   padding-top: 0.5em;
   padding-left: 5em;
   #search_bar_form_container {
-    border: 1px solid;
     display: flex;
     flex-direction: horizontal;
   }
@@ -307,7 +306,6 @@ span.image {
     border-top-left-radius: 0.25em;
     border-bottom-left-radius: 0.25em;
     width: 7em;
-    border-bottom: none;
     margin-left: 0.5em;
   }
   #input {
@@ -375,11 +373,10 @@ span.image {
 
 }
 .haiku-image-card {
-  padding: 25px;
   border-bottom-left-radius:10px;
   border-bottom-right-radius:10px;
 
-  color:white; font-size:large;
+  color:white;
   font-weight: bold;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -397,11 +394,18 @@ span.image {
 .haiku-content {
   padding-top: 60px;
   border: solid 1px whitesmoke;
-  padding-top: 60px;
+  padding-bottom: 60px;
   box-shadow: 0 4px 8px 0 rgba(245, 222, 222, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 10px;
 
 }
+
+@media(max-width: 800px){
+  .lg-menu-nav {
+      display: none;
+  }
+}
+
 
 
 
