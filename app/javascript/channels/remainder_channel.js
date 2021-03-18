@@ -3,7 +3,7 @@ import consumer from "./consumer"
 // if ($("meta[name= 'current-user']").length > 0 ){
   consumer.subscriptions.create({channel: "RemainderChannel",user_id: 79}, {
     connected() {
-      console.log("connected to channel" + user_id);
+      console.log("connected to channel");
       // Called when the subscription is ready for use on the server
     },
 
