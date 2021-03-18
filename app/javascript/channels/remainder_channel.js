@@ -1,6 +1,6 @@
 import consumer from "./consumer"
 
-if($("meta[name= current-user]").length > 0 ){
+if ($("meta[name= 'current-user']").length > 0 ){
   consumer.subscriptions.create("RemainderChannel", {
     connected() {
       console.log("connected");
