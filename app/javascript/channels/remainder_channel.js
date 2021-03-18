@@ -1,7 +1,7 @@
 import consumer from "./consumer"
 
 // if ($("meta[name= 'current-user']").length > 0 ){
-  consumer.subscriptions.create({channel: "RemainderChannel",user_id: 79}, {
+  consumer.subscriptions.create("RemainderChannel", {
     connected() {
       console.log("connected to channel");
       // Called when the subscription is ready for use on the server
@@ -14,7 +14,7 @@ import consumer from "./consumer"
 
     received(data) {
       // Called when there's incoming data on the websocket for this channel
-      console.log(data);
+      console.log("data");
       if (Notification.permission === 'granted'){
         var title= 'Haiku Remainder'
         var body= data
