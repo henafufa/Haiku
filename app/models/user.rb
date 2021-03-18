@@ -124,6 +124,34 @@ class User < ApplicationRecord
         end
     end
 
+    # mekedem's code starts here in the model 
+    def suggest_user_by_number_of_post
+
+        userswithpostcount = {};
+        alluserids = User.pluck(:id);
+
+        alluserids.each do |userid|
+            usersforfilter = User.find_by(id: userid);
+            unless self.following?(usersforfilter) || self.id == usersforfilter.id
+                postcount = usersforfilter.haikus.count;
+                if (postcount > 0) 
+                    userswithpostcount[userid] = postcount;
+                end
+            end
+        end
+
+        if(userswithpostcount.length > 10)
+            toptenSuggestions = userswithpostcount.sort_by { |_, v| -v }.first(10).map(&:first)
+            return User.where(id: toptenSuggestions);
+
+        else
+            topsuggestions = userswithpostcount.keys;
+            return User.where(id: topsuggestions);
+        end
+    end
+
+    # end of mekedem's code 
+
     # unreact  a micropost.
     private
         def downcase_email

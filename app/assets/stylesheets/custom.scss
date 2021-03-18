@@ -109,7 +109,7 @@ footer {
       }
     }
   }
-} 
+}
 
 $gray-medium-light: #eaeaea;
 @mixin box_sizing {
@@ -319,7 +319,6 @@ span.image {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
   }
-  
 }
 .haiku_input_field {
   border-top: none;
@@ -333,7 +332,7 @@ span.image {
   border-color: none;
   // box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(255, 100, 255, 0.5);
 
-  box-shadow:none;
+  box-shadow: none;
   border-color: #555;
 }
 .form-control {
@@ -348,12 +347,11 @@ span.image {
   border-top: none;
   background-color: whitesmoke;
   box-shadow: none;
-  
 }
 .haiku-form-drop-down {
- border-radius: 16px;
- padding: 10px;
- background-color: whitesmoke;
+  border-radius: 16px;
+  padding: 10px;
+  background-color: whitesmoke;
 }
 .tag-input {
   border: none;
@@ -369,14 +367,13 @@ span.image {
   background-color: whitesmoke;
 }
 .haiku-image-field {
-  border-bottom: none
-
+  border-bottom: none;
 }
 .haiku-image-card {
-  border-bottom-left-radius:10px;
-  border-bottom-right-radius:10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 
-  color:white;
+  color: white;
   font-weight: bold;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -397,16 +394,83 @@ span.image {
   padding-bottom: 60px;
   box-shadow: 0 4px 8px 0 rgba(245, 222, 222, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 10px;
-
 }
 
-@media(max-width: 800px){
+@media (max-width: 800px) {
   .lg-menu-nav {
-      display: none;
+    display: none;
   }
 }
 
+/***** mekedems suggestion slider css starts here ***/
+.MultiCarousel {
+  float: left;
+  overflow: hidden;
+  padding: 15px;
+  width: 100%;
+  position: relative;
+}
+.MultiCarousel .MultiCarousel-inner {
+  transition: 1s ease all;
+  float: left;
+}
+.MultiCarousel .MultiCarousel-inner .item {
+  float: left;
+  display: block;
+}
+.MultiCarousel .MultiCarousel-inner .item > div {
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background: #fff;
+  color: #666;
+  height: 100%;
+}
 
+.MultiCarousel .MultiCarousel-inner .item > div > div {
+  padding-left: 40%;
+}
 
+.item {
+  height: 220px;
+}
 
+.MultiCarousel .leftLst,
+.MultiCarousel .rightLst {
+  position: absolute;
+  border-radius: 50%;
+  top: calc(50% - 20px);
+}
+.MultiCarousel .leftLst {
+  left: 0;
+}
+.MultiCarousel .rightLst {
+  right: 0;
+}
 
+.MultiCarousel .leftLst.over,
+.MultiCarousel .rightLst.over {
+  pointer-events: none;
+  background: #ccc;
+}
+
+.suggstionfollowdesc {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.suggestions-header {
+  margin-top: 10px;
+  padding-top: 12px;
+  font-size: 19px;
+}
+
+.followbtnsuggestion {
+  bottom: 10px;
+}
+
+.suggesteduserimg {
+  align-content: center;
+}
+/***** mekedems suggestion slider css ends here ***/
