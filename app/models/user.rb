@@ -141,9 +141,8 @@ class User < ApplicationRecord
         end
 
         if(userswithpostcount.length > 10)
-            toptenSuggestions = userswithpostcount.sort_by { |_, v| -v }.first(10).map(&:first)
+            toptenSuggestions = get_max_ten_values(userswithpostcount);
             return User.where(id: toptenSuggestions);
-
         else
             topsuggestions = userswithpostcount.keys;
             return User.where(id: topsuggestions);

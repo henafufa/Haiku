@@ -65,4 +65,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get followers_user_path(@user)
     assert_redirected_to login_url
   end
+
+  #mekedems test code starts here
+  # test "test valid suggestion is displayed on home page" do
+    # log_in_as(@user);
+    # assert_redirected_to root_url
+    # assert_select "p", "Suggested"
+
+  # end
+  #mekedems test code ends here
 end

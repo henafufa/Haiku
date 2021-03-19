@@ -127,5 +127,28 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+
+  test "suggetion should return the right user" do
+    michael = users(:michael)
+    archer = users(:archer)
+    lana = users(:lana)
+
+    # Should suggest not following user
+    assert michael.suggest_user_by_number_of_post.include?(archer);
+
+    # Should not suggest a user even if not following and doesn't have a post
+    assert_not archer.suggest_user_by_number_of_post.include?(lana);
+
+    # Should return 1 suggestion since lana is following michael already
+    assert_equal lana.suggest_user_by_number_of_post.count, 1
+
+    # Suggested users are not among users that michael is currently following
+    michael.suggest_user_by_number_of_post.each do |suggested_user|
+      assert_not michael.following?(suggested_user);
+      assert suggested_user.haikus.count > 0
+      
+    end
+  end
   
 end
