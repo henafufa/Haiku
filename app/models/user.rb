@@ -140,8 +140,8 @@ class User < ApplicationRecord
             end
         end
 
-        if(userswithpostcount.length > 10)
-            toptenSuggestions = get_max_ten_values(userswithpostcount);
+        if(userswithpostcount.length > 4)
+            toptenSuggestions = get_max_four_values(userswithpostcount);
             return User.where(id: toptenSuggestions);
         else
             topsuggestions = userswithpostcount.keys;
@@ -163,6 +163,10 @@ class User < ApplicationRecord
             end
         end
 
+        if suggesteduserslist.count > 4
+            return suggesteduserslist.first(4);
+        end
+        
         return suggesteduserslist
     end
 
