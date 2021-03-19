@@ -22,7 +22,8 @@ class StaticPagesController < ApplicationController
 
       #here starts mekedems code
       # @suggested_users = current_user.suggest_user_by_number_of_post();
-      @suggested_users = current_user.suggest_user_through_users_am_following();
+      # @suggested_users = current_user.suggest_user_through_users_am_following();
+      @suggested_users = User.first(10);
       #here ends mekedems code
     else
       @haiku_feed_items = Haiku.where("public = ?", true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)

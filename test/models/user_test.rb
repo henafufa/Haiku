@@ -130,7 +130,7 @@ class UserTest < ActiveSupport::TestCase
 
 
   # mekedem's code starts here
-  test "suggetion should return the right user" do
+  test "max number of post suggetion should suggest the right users" do
     michael = users(:michael)
     archer = users(:archer)
     lana = users(:lana)
@@ -150,5 +150,20 @@ class UserTest < ActiveSupport::TestCase
       assert suggested_user.haikus.count > 0
     end
   end
+
+  test "suggest who I am not following but followed by users I follow" do
+    michael = users(:michael)
+    lana = users(:lana)
+
+    # should suggest user who is followed by another user I follow
+    michael.suggest_user_through_users_am_following.each do |suggested|
+      assert michael.following?(lana);
+      assert lana.following?(suggested);
+      assert_not michael.following?(suggested);
+    end
+
+  end
+
+
   # mekedem's code ends here
 end
