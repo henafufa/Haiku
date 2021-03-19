@@ -41,7 +41,12 @@
                                 <div class="row"><%= gravatar_for suggesteduser, size: 50 %></div>
                                 <p class="suggstionfollowdesc"><strong><%= "#{suggesteduser.name}"%></strong> has over</p>
                                 <p> <%= "#{pluralize(suggesteduser.haikus.count, "post")}"%> </p>
-                                <button class="btn btn-primary followbtnsuggestion"> follow </button>
+
+                                <%= form_with(model: current_user.active_relationships.build,local: true) do |f| %>
+                                <div><%= hidden_field_tag :followed_id, suggesteduser.id %></div>
+                                <%= f.submit "Follow", class: "btn btn-primary followbtnsuggestion" %>
+                                <% end %>
+
                             </div>
                         </div>
                         <% end %>
