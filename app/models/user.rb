@@ -149,6 +149,23 @@ class User < ApplicationRecord
         end
     end
 
+    def suggest_user_through_users_am_following
+        get_users_am_following = self.following
+        get_all_users = User.all
+        get_users_am_not_following = get_all_users.to_a - get_users_am_following.to_a
+        
+        suggesteduserslist = [];
+        get_users_am_following.each do |followinguser|
+            get_users_am_not_following.each do |notfollowinguser|
+                if followinguser.following.include?(notfollowinguser)
+                    suggesteduserslist.push(notfollowinguser);
+                end
+            end
+        end
+
+        return suggesteduserslist
+    end
+
     # end of mekedem's code 
 
     # unreact  a micropost.
