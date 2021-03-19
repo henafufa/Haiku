@@ -1,5 +1,6 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
+    include SessionsHelper
     identified_by :current_user
 
     def connect
@@ -10,6 +11,9 @@ module ApplicationCable
     protected
 
     def find_verified_user
+      if logged_in?
+        p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-------------user exist"
+      end
       verified_user = User.find_by(id: cookies.signed['user.id'])
       p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$verified_user----------------------#{verified_user}"
       if verified_user && cookies.signed['user.expires_at'] > Time.now
