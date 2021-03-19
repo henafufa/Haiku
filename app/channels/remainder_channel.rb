@@ -1,6 +1,6 @@
 class RemainderChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "remainder_channel_79"
+    stream_from "remainder_channel_#{current_user.id}"
   end
 
   def unsubscribed
