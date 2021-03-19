@@ -129,6 +129,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
 
+  # mekedem's code starts here
   test "suggetion should return the right user" do
     michael = users(:michael)
     archer = users(:archer)
@@ -147,8 +148,7 @@ class UserTest < ActiveSupport::TestCase
     michael.suggest_user_by_number_of_post.each do |suggested_user|
       assert_not michael.following?(suggested_user);
       assert suggested_user.haikus.count > 0
-      
     end
   end
-  
+  # mekedem's code ends here
 end
