@@ -14,12 +14,35 @@ class HaikusController < ApplicationController
             if params[:visibility] && params[:visibility] === 'Private'
                 is_public = false
             end
-            
-            @haiku = current_user.haikus.build(verse_1: verse_1, verse_2: verse_2, verse_3: verse_3,tag: tag, public: is_public, bgcolor: bgcolor)        
+
+            @haiku = current_user.haikus.build(verse_1: verse_1, verse_2: verse_2, verse_3: verse_3,tag: tag, public: is_public, bgcolor: bgcolor)
             @haiku.image.attach(params[:haiku][:image])
             if @haiku.save
                 flash[:success] = "Haiku created!"
+                # redirect_to root_url
+                if current_user.challenge_mode
+                  if @haiku.created_at >= current_user.challenge_start_date
+                    p "haiku--------------------#{@haiku.created_at}"
+                    # find the daily challenge by user_id and date
+                    # update posted = tru
+                    # @postedDate = DailyChallenge.where("user_id = ? and thirtyDates = ? ", current_user.id,  "2021-03-08 14:23:02.383848")
+                    haikuDate = @haiku.created_at.to_date
+                    @postedDate = DailyChallenge.where(user_id: current_user.id, thirtyDates: haikuDate.midnight..haikuDate.end_of_day) 
+                    # @postedDate = DailyChallenge.where("user_id = ? and thirtyDates LIKE ? ", current_user.id, "%#{@haiku.created_at.to_date}%")
+                    p "postedDate:#{@postedDate.length}"
+                    if  @postedDate && @postedDate.length >= 0 && !@postedDate.first.postStatus?
+                      @postedDate.first.update_columns(postStatus: true)
+                      # @postedDate = DailyChallenge.update('postStatus').where("user_id = ? and thirtyDates = ? ", current_user.id, @haiku.created_at)
+                    else
+                      p "challenge column not updated"
+                    end
+
+                  end
+
+                end
                 redirect_to root_url
+                #redirect_to request.referrer
+              # redirect_to daily_challenges_url
             else
                 @comment = Comment.new
                 @haiku_comment = HaikuComment.new
@@ -36,7 +59,7 @@ class HaikusController < ApplicationController
                 is_public = false
             end
 
-            @haiku = current_user.haikus.build(verse_1: params[:haiku_verse_1], verse_2: params[:haiku_verse_2], verse_3: verse_3,tag: tag, public: is_public)        
+            @haiku = current_user.haikus.build(verse_1: params[:haiku_verse_1], verse_2: params[:haiku_verse_2], verse_3: verse_3,tag: tag, public: is_public)
             @haiku.image.attach(params[:haiku][:image])
 
             if @haiku.save

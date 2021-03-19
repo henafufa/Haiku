@@ -1,0 +1,6 @@
+
+<% if activity.trackable %>
+    updated this <%= link_to activity.trackable, activity.trackable %> micropost 
+<% else %>
+    Micropost that is currently deleted was updated.
+<% end %>

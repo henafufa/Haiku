@@ -2,12 +2,24 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :show, :followers, :following ]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
+  before_action :challengeSummery
+  before_action :daysInRow
+  before_action :getActivities
 
   def index
+    # PublicActivity::Activity.new
     # @users = User.all
     # @users = User.paginate(page: params[:page])
     @users = User.where(activated: true).paginate(page: params[:page])
+
   end
+
+  def getActivities
+    if PublicActivity::Activity.all != nil
+       @activities = PublicActivity::Activity.order('created_at desc').where(owner: current_user)
+    end
+  end
+
   def show
     @comment = Comment.new
     @haiku_comment = HaikuComment.new
@@ -18,6 +30,96 @@ class UsersController < ApplicationController
     @microposts = @user.microposts.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
     # debugger
   end
+
+  # challenge handler
+  def dailyChallenge
+    @dailyChallenge=DailyChallenge.new
+    if current_user.update_columns(challenge_mode: true, challenge_start_date: Time.zone.now)
+      flash[:success] = "Challnege Started!! post your first day challenge"
+      x=0
+      @challengeDates = Time.now + x.days
+      # @challenge = current_user.daily_challenges.create(thirtyDates: Time.zone.now)
+      30.times do |n|
+        @challenge = current_user.daily_challenges.create!(thirtyDates: Time.zone.now + n.days)
+        if @challenge.save
+          flash[:success] = "You started challenge!"
+          ++x
+        else
+          flash[:success] = "couldnt set challenge!"
+        end
+      end
+      redirect_to request.referrer
+      # redirect_to daily_challenges_url
+    else
+      flash[:danger] = "Unable to start challenge"
+    end
+  end
+
+  def challengeSummery
+    if logged_in? && current_user.challenge_mode
+    @dialyChallenge = DailyChallenge.new
+    @challenges = current_user.daily_challenges
+    @startDate= User.where("id = ? ",current_user.id).select("challenge_start_date")
+    # changes on this two line to_date raised error
+    @chalengeStartedDate= @startDate.first.challenge_start_date.to_date
+    @currentDate= Time.zone.now.to_date
+    @challenger = DailyChallenge.where("user_id = ?", current_user.id)
+    @challengePostStatus =  @challenges .where(user_id: current_user.id, postStatus: true)
+    # @challengePostStatus =  @challenges .where("postStatus = ?  ", true)
+    if current_user.challenge_mode
+      # @daysUntilNow= @challengePostStatus.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now + 1.days).count
+      @daysUntilNow=  (@chalengeStartedDate..@currentDate).count
+      p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$chalengeStartedDate----------------------#{@chalengeStartedDate}"
+      p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$currentDate----------------------#{@currentDate}"
+      p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$----------------------#{@daysUntilNow}"
+      p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ challenger----------------------#{@startDate.first.challenge_start_date}"
+      @postedDaysCount =  @challenges .where(postStatus: true).count
+      # @postedDaysCount =  @challenger .where("postStatus = ?  ",true).count
+      @postedInRow= @challengePostStatus.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now).count
+      @totalDays= @challenges.where('created_at BETWEEN ? AND ? ',current_user.challenge_start_date, Time.zone.now).count
+    end
+  end
+  end
+
+  def daysInRow
+    if logged_in? && current_user.challenge_mode
+    @noRowDays=0
+    @coins= 0
+    # @thirtyDate= current_user.daily_challenges.select("thirtyDates")
+    @thirtyDate= DailyChallenge.where("user_id = ? ",current_user.id).select("thirtyDates")
+    @postOwner = DailyChallenge.where("user_id = ?", current_user.id)
+    @rowStartDate= @postOwner.first.thirtyDates.to_date
+    29.times do |n|
+      @totalRowStartDate=@rowStartDate + n.days
+      @postedDates = DailyChallenge.where(user_id: current_user.id, thirtyDates: @totalRowStartDate.midnight..@totalRowStartDate.end_of_day)
+      @postedDatesValues= @postedDates.first.thirtyDates.to_date
+      p "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@totalRowStartDate----------------------#{@totalRowStartDate}"
+      if @postedDates.first.postStatus
+          @noRowDays += 1
+          if @noRowDays % 3 == 0
+            @coins = 1
+            # flash[:success] = "Yey you get coin!"
+          end
+          # if @noRowDays == 30
+          #   @coins = 1
+          #   flash[:success] = "Yey you get coin!"
+          # end
+        p"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@noRowDays incremented by 1----------------------#{@noRowDays}"
+        p "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@postedDatesValues----------------------#{@postedDatesValues}"
+      else
+        p "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@startRowDate----------------------#{@rowStartDate}"
+      end
+
+    end
+    # p "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@startRowDate----------------------#{@rowStartDate}"
+  end
+  end
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url
+  end
+
   def new
     @user = User.new
   end
@@ -49,6 +151,7 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+
   def edit
     @user = User.find(params[:id])
   end
@@ -126,6 +229,41 @@ class UsersController < ApplicationController
     @after_search_user = true
     render 'challenges/challenge_user'
   end
+
+  def search_activities
+    @user = current_user
+    @reaction = Reaction.new
+    @comment = Comment.new
+    @haiku_comment = HaikuComment.new
+    @micropost = current_user.microposts.build
+    @haiku = current_user.haikus.build
+    # @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+    @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+    # @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? ", current_user.id)
+    if params[:search] === 'posts'
+      posts= 'Haiku'
+      @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type = ?", current_user.id, posts)
+    elsif params[:search] === 'comments'
+      comments= 'HaikuComment'
+      @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type = ?", current_user.id,comments)
+    elsif params[:search] === 'likes'
+      likes= 'HaikuReaction'
+      @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type = ?", current_user.id, likes)
+    elsif params[:search] === 'follows'
+      follows='Relationship'
+      @activities = PublicActivity::Activity.order('created_at desc').where("owner_id = ? and trackable_type = ?", current_user.id, follows)
+    else
+      @activities = PublicActivity::Activity.order('created_at desc').where(owner: current_user)
+    end
+    p "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW---------------#{@activities.count}"
+    render '/users/show'
+  end
+
+  def addRemainderToQueue
+    DailyRemainderWorker.perform_async()
+    render text: " REQUEST TO GENERATE A REPORT ADDED TO THE QUEUE"
+  end
+
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)

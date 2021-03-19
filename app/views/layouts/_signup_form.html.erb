@@ -1,0 +1,21 @@
+<% provide(:title, 'Sign up' ) %>
+<div class="row">
+    <div class="col-md-12">
+        <%= form_with(model: @user, local: true) do |f| %>
+          <%= render 'shared/error_messages', object: f.object %>
+            <%= f.label :name %>
+            <%= f.text_field :name, class: 'form-control' %>
+            <br>
+            <%= f.label :email %>
+            <%= f.email_field :email, class: 'form-control' %>
+            <br>
+            <%= f.label :password %>
+            <%= f.password_field :password, class: 'form-control' %>
+            <br>
+            <%= f.label :password_confirmation, "Confirmation" %>
+            <%= f.password_field :password_confirmation, class:'form-control' %>
+            <br>
+            <%= f.submit "Create my account" , style: "font-size: 15px;",class: "btn createAccount" %>
+                <% end %>
+    </div>
+</div>

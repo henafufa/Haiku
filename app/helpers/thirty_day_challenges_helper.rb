@@ -1,0 +1,2 @@
+module ThirtyDayChallengesHelper
+end

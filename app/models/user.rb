@@ -6,6 +6,7 @@ class User < ApplicationRecord
     has_many :challenge_users
     has_many :haiku_reactions, dependent: :destroy
 
+    has_many :daily_challenges, dependent: :destroy
     has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
     has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
     has_many :following, through: :active_relationships, source: :followed
@@ -61,10 +62,11 @@ class User < ApplicationRecord
     end
         # Sends password reset email.
     def send_password_reset_email
-        # UserMailer.mail_gun_password_reset(self).deliver_now
-
-        # uncomment this is for devlopment
-        UserMailer.password_reset(self).deliver_now
+        if Rails.env.production?
+            UserMailer.mail_gun_password_reset(self).deliver_now
+        else
+            UserMailer.password_reset(self).deliver_now
+        end
     end
     def activate
         # update_attribute(:activated, true)
@@ -73,10 +75,11 @@ class User < ApplicationRecord
     end
     # Sends activation email.
     def send_activation_email
-        # UserMailer.mail_gun_account_activation(self).deliver_now
-        
-        # uncomment this is for development
-        UserMailer.account_activation(self).deliver_now
+        if Rails.env.production?
+            UserMailer.mail_gun_account_activation(self).deliver_now
+        else
+            UserMailer.account_activation(self).deliver_now
+        end
     end
     #Returns true if a password reset has expired.
     def password_reset_expired?

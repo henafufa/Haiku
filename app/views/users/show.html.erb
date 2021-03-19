@@ -11,16 +11,47 @@
             <%= render 'shared/stats' %>
         </section>
         <li><%= link_to "Private Post", "#{root_url}/users/#{@user.id}/private_post"%></li>
+        <div style="display: flex;">
+            <div>
+                <% if current_user.challenge_mode %>
+                    <%= render 'shared/track_challenge' %>
+                <%else%>
+                    <%= render 'shared/start_challenge' %>
+                <%end%>
+            </div>
+            <div style="margin-left: 20px;">
+                <%= render 'shared/activity' %>
+            </div>
+        </div>
     </aside>
-    <div class="col-md-6">
-    <%= render 'users/follow_form' if logged_in? %>
-    <% if @user.microposts.any? %>
-        <h3>Microposts (<%= @user.microposts.count %>)</h3>
-        <ol class="microposts">
-            <%= render @microposts %>
-        </ol>
-        <%= will_paginate @microposts %>
-    <% end %>
-    </div>
-    <div class="col-md-4" style="border: 1px solid"></div>
+    <% if true %> 
+        <div class="col-md-6" style="margin-left: 150px;margin-top:30px;">
+        <%= render 'users/follow_form' if logged_in? %>
+        <div style="display: flex;">
+            <div>
+                <h3><%= @user.name %>'s Activity</h3>
+            </div>
+            <!-- <span style="margin-top: 20px;"></span> -->
+            <%= render 'shared/search_activity_form'%>              
+
+        </div>
+            <ol class="microposts">
+                <%= render 'layouts/activity'%>
+            </ol>
+        </div>
+        <!-- <div class="col-md-4" style="border: 1px solid"></div> -->
+    <% else %> 
+    <div class="col-md-6" style="margin-left: 150px;">
+        <%= render 'users/follow_form' if logged_in? %>
+        <% if @user.microposts.any? %>
+            <h3>Microposts (<%= @user.microposts.count %>)</h3>
+            <ol class="microposts">
+                <%= render @haikus %>
+            </ol>
+            <%= will_paginate @microposts %>
+        <% end %>
+        </div>
+        <div class="col-md-4" style="border: 1px solid"></div>
+    <% end %> 
+   
 </div>

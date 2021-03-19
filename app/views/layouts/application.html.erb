@@ -9,6 +9,10 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinkstrack': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinkstrack': 'reload' %>
     <%= render 'layouts/shim' %>
+
+    <%  if logged_in? %>
+    <%= tag :meta, name: 'current-user', data: {id: current_user.id}%>
+    <% end %>
     </head>
     <body>
     <%= render 'layouts/header' %>

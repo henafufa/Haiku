@@ -42,7 +42,7 @@
           <div id="image-form">
             <%= f.label :image, "Backgound Image" %>
             <span class="image form-control form-control-sm haiku_input_field haiku-image-field">
-              <%= f.file_field :image %>
+              <%= f.file_field :image, direct_upload: true %>
             </span>
           </div>
           <div id=bg-color-form style="display:none">

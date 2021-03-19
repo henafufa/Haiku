@@ -6,6 +6,13 @@ gem 'bcrypt',                     '3.1.13'
 gem 'rails-i18n'
 gem 'shareable'
 gem 'prettier'
+gem 'public_activity'
+gem 'sidekiq'
+gem 'cloudinary'
+# gem 'sidetiq'
+gem 'sidekiq-scheduler'
+gem 'ice_cube'
+# gem 'sinatra', github: 'sinatra/sinatra'
 gem 'mailgun-ruby',             '~>1.1.6'
 gem 'image_processing',           '1.9.3'
 gem 'mini_magick',                '4.9.5'
@@ -31,6 +38,9 @@ group :development do
   gem 'listen',                '3.2.1'
   gem 'spring',                '2.1.1'
   gem 'spring-watcher-listen', '2.0.1'
+  gem 'benchmark_suite'
+  gem 'bundler'
+  gem 'rake'
 end
 
 group :test do
@@ -48,8 +58,4 @@ group :production do
   gem 'pg',         '1.2.3'
   gem 'aws-sdk-s3', '1.87.0', require: false
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-# Uncomment the following line if you're running Rails
-# on a native Windows system:
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

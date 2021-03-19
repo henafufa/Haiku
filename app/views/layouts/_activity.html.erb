@@ -1,0 +1,85 @@
+<% @activities.each do |activity| %> 
+<% if activity.trackable_type != 'DailyChallenge' %>       
+<div style="margin-bottom: 30px;margin-top:40px;" >
+    <div class="row">
+      <div class="card container col-md-12 " style="border:solid 2px rgb(236, 230, 230); padding: 13px;" >
+        <div class="card-body col-md-12">
+          <div class="row">
+              <div class="card-title" style="height: 10px;">
+                <p style="font-size: 12px;"><%= link_to activity.owner.name, activity.owner if activity.owner%><%= render_activity activity%></p>
+              </div>
+            <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
+            <h5 class="card-title">
+              <%= link_to gravatar_for(current_user, size: 30, email: current_user.email),current_user %>
+            </h5>
+            <div class="col-md-8">
+              <h6 class="card-subtitle  text-muted"><%= link_to current_user.name, current_user, class:"text-muted" %></h6>
+              <h6 class="card-subtitle text-muted"><%= time_ago_in_words(current_user.created_at) %> </h6>
+            </div>
+          </div>
+          <% if activity.trackable != nil %>
+          <% if activity.trackable_type === 'Haiku' %>
+            <p class="card-text text-center"><%= activity.trackable.verse_1%></p>
+            <p class="card-text text-center"><%= activity.trackable.verse_2%></p>
+            <p class="card-text text-center"><%= activity.trackable.verse_3%></p>
+          <% elsif activity.trackable_type === 'HaikuComment'%>
+            <p class="card-text text-center"><%= activity.trackable.verse_1%></p>
+            <p class="card-text text-center"><%= activity.trackable.verse_2%></p>
+            <p class="card-text text-center"><%= activity.trackable.verse_3%></p>
+          <% elsif activity.trackable_type === 'HaikuReaction'%>
+            <p class="card-text text-center"><%= activity.trackable.verse_1%></p>
+            <p class="card-text text-center"><%= activity.trackable.verse_2%></p>
+            <p class="card-text text-center"><%= activity.trackable.verse_3%></p>
+          <% elsif activity.trackable_type === 'Relationship'%>
+          <% else%>
+
+            <p class="card-text text-center"><%= link_to activity.owner.name, activity.owner if activity.owner%><%= activity.trackable%></p>
+          <% end%>
+          <% end%>
+            <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
+            <% if activity.trackable_type != 'Relationship'%>
+            <div class="card-footer">
+              <div class= "row">
+                <div class="col-md-4">
+                  <a>
+                    <svg style="margin-right: 5px"  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
+                      <path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"/>
+                    </svg>
+                    Like
+                  </a>
+                </div>
+                <div  class="col-md-4">
+                  <div class="dropdown">
+                    <span  data-toggle="dropdown">
+                      <svg style="margin-right: 5px"  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
+                        <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/>
+                      </svg>
+                      <span class="text-muted" >Share</span>
+                    </span>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          <%= link_to "<svg xmlns=http://www.w3.org/2000/svg width=23 height=23 fill=currentColor class='bi bi-facebook' viewBox='0 0 16 16'><path d='M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z'/></svg> <span style='font-size: 16px; color: #888'>Share to Facebook</span>".html_safe, "https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}", class: 'share', data: { network: 'facebook'} %>
+                        </a>
+                      </li>
+                      <li><a class="dropdown-item" href="#">
+                          <%= link_to "<svg xmlns='http://www.w3.org/2000/svg' width='23' height='23' fill='currentColor' class='bi bi-twitter' viewBox='0 0 16 16'><path d='M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z'/></svg> <span style='font-size: 16px; color: #888'>Share to Twitter</span>".html_safe, "https://twitter.com/intent/tweet?original_referer=#{request.original_url}&ref_src=twsrc%5Etfw&text=Haiku%20App&tw_p=tweetbutton&url=#{request.original_url}", class: 'share', data: { network: 'twitter'} %>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <svg style="margin-right: 5px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16">
+                      <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                      <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <% end%>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %> 
+    <% end %> 

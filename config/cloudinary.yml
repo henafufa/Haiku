@@ -1,0 +1,14 @@
+development:
+  cloud_name: dlkyrtlqh
+  api_key: "281838388448818"
+  api_secret: "9sTVsPBYm-nx7Fl2KeEypa51LX4"
+
+
+
+production:
+  cloud_name: "dlkyrtlqh"
+  api_key: "281838388448818"
+  api_secret: "9sTVsPBYm-nx7Fl2KeEypa51LX4"
+  secure: true
+  cdn_subdomain: true
+

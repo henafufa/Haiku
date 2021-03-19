@@ -40,6 +40,25 @@ ActiveRecord::Schema.define(version: 2021_03_10_115459) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "activities", force: :cascade do |t|
+    t.string "trackable_type"
+    t.integer "trackable_id"
+    t.string "owner_type"
+    t.integer "owner_id"
+    t.string "key"
+    t.text "parameters"
+    t.string "recipient_type"
+    t.integer "recipient_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type"
+    t.index ["owner_type", "owner_id"], name: "index_activities_on_owner"
+    t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type"
+    t.index ["recipient_type", "recipient_id"], name: "index_activities_on_recipient"
+    t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type"
+    t.index ["trackable_type", "trackable_id"], name: "index_activities_on_trackable"
+  end
+
   create_table "challenge_users", force: :cascade do |t|
     t.integer "challenge_id", null: false
     t.integer "user_id", null: false
@@ -67,6 +86,16 @@ ActiveRecord::Schema.define(version: 2021_03_10_115459) do
     t.index ["micropost_id"], name: "index_comments_on_micropost_id"
     t.index ["user_id", "micropost_id", "created_at"], name: "index_comments_on_user_id_and_micropost_id_and_created_at"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "daily_challenges", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.boolean "postStatus", default: false
+    t.datetime "thirtyDates"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "thirtyDates", "created_at"], name: "index_daily_challenges_on_user_id_and_thirtyDates_and_created_at"
+    t.index ["user_id"], name: "index_daily_challenges_on_user_id"
   end
 
   create_table "haiku_comments", force: :cascade do |t|
@@ -147,6 +176,8 @@ ActiveRecord::Schema.define(version: 2021_03_10_115459) do
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.boolean "challenge_mode", default: false
+    t.datetime "challenge_start_date"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -157,6 +188,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_115459) do
   add_foreign_key "challenges", "users"
   add_foreign_key "comments", "microposts"
   add_foreign_key "comments", "users"
+  add_foreign_key "daily_challenges", "users"
   add_foreign_key "haiku_comments", "haikus"
   add_foreign_key "haiku_comments", "users"
   add_foreign_key "haiku_reactions", "haikus"
