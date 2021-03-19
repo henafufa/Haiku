@@ -50,14 +50,14 @@
                             </div>
                         </div>
                         <% end %>
-                        <% @suggested_by_user.each do |suggestedbyuser|%>
+                        <% for outerindex in 0..@suggested_by_user[0].count-1 do %>
                         <div class="item">
                             <div class="pad15">
-                                <div class="row"><%= gravatar_for suggestedbyuser, size: 50 %></div>
-                                <p class="suggstionfollowdesc"> henok and others follow</p>
-                                <p> <strong><%= "#{suggestedbyuser.name}"%></strong></p>
+                                <div class="row"><%= gravatar_for @suggested_by_user[0][outerindex], size: 50 %></div>
+                                <p class="suggstionfollowdesc"> <%= @suggested_by_user[1][outerindex].name%> and others follow</p>
+                                <p> <strong><%= "#{@suggested_by_user[0][outerindex].name}"%></strong></p>
                                 <%= form_with(model: current_user.active_relationships.build,local: true) do |f| %>
-                                <div><%= hidden_field_tag :followed_id, suggestedbyuser.id %></div>
+                                <div><%= hidden_field_tag :followed_id, @suggested_by_user[0][outerindex].id %></div>
                                 <%= f.submit "Follow", class: "btn btn-primary followbtnsuggestion" %>
                                 <% end %>
 

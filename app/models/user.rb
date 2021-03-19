@@ -155,19 +155,21 @@ class User < ApplicationRecord
         get_users_am_not_following = get_all_users.to_a - get_users_am_following.to_a
         
         suggesteduserslist = [];
+        usersuggestedfrom = [];
         get_users_am_following.each do |followinguser|
             get_users_am_not_following.each do |notfollowinguser|
                 if followinguser.following.include?(notfollowinguser)
                     suggesteduserslist.push(notfollowinguser);
+                    usersuggestedfrom.push(followinguser);
                 end
             end
         end
 
         if suggesteduserslist.count > 4
-            return suggesteduserslist.first(4);
+            return suggesteduserslist.first(4), usersuggestedfrom.first(4);
         end
         
-        return suggesteduserslist
+        return suggesteduserslist, usersuggestedfrom
     end
 
     # end of mekedem's code 
