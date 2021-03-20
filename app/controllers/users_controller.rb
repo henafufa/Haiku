@@ -227,7 +227,17 @@ class UsersController < ApplicationController
     @show_user_search_result = User.where("email LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
     @challenge = current_user.challenges.last
     @after_search_user = true
-    render 'challenges/challenge_user'
+    @challenged_users_for_this_challenge = ChallengeUser.where("challenge_id = ?", @challenge.id)
+    @challenged_users_for_this_challenge_name = []
+    @challenged_users_for_this_challenge.each do |challenge_user| 
+      user = User.find_by(id: challenge_user.user_id)
+      @challenged_users_for_this_challenge_name.push(user.name)
+    end
+    if(params[:from_my_challenge] === "true")
+      render 'challenges/show'
+    else
+      render 'challenges/challenge_user'
+    end
   end
 
   def search_activities
@@ -268,14 +278,6 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
-    # def logged_in_user
-    #   unless logged_in?
-    #     store_location
-    #     flash[:danger] = "Please log in."
-    #     redirect_to login_url
-    #   end
-    # end
-    # Confirms the correct user.
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
