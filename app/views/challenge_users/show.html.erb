@@ -6,11 +6,9 @@
   <ol class="microposts">
     <% @my_challenges.each do |challenge| %>
         <li>
-        <div class="col-md-12 haiku-content" style="border: 1px solid #ddd">
+        <div class="row haiku-content" style="padding:0;">
             <%= render 'shared/haiku_form', challenge: challenge  %>
         </div>
-        </li>
-        <li>
         </li>
     <% end %>
   </ol>
