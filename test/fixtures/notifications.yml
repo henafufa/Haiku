@@ -1,0 +1,41 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  message: archer reacted to your post
+  notification_type: haiku_reaction
+  user: michael
+  haiku_reaction: one
+  haiku_comment:
+  challenge_user:
+  relationship:
+  is_seen: false
+
+two:
+  message: michael commented on your post
+  notification_type: haiku_comment
+  user: archer
+  haiku_reaction:
+  haiku_comment: archer_comment
+  challenge_user:
+  relationship:
+  is_seen: false
+
+three:
+  message: archer sent you a challenge
+  notification_type: challenge_user
+  user: michael
+  haiku_reaction:
+  haiku_comment:
+  challenge_user: one
+  relationship:
+  is_seen: false
+
+four:
+  message: michael started following you
+  notification_type: relationship
+  user: lana
+  haiku_reaction:
+  haiku_comment:
+  challenge_user:
+  relationship: one
+  is_seen: false
