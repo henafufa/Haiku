@@ -16,7 +16,7 @@ module ApplicationCable
       # p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$verified_user2----------------------#{notified_user2}"
       if current_user = User.find_by(id: cookies.encrypted[:user_id])
         current_user 
-    else
+      else
         reject_unauthorized_connection 
     end 
     end
