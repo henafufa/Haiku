@@ -82,6 +82,7 @@ class HaikusController < ApplicationController
         else
             @challenge = current_user.challenges.build(verse_1: verse_1, verse_2: verse_2)
             if @challenge.save
+                flash[:success] = "Challenge created successfully please send challenge to users"
                 redirect_to challenge_user_path
             else
                 @comment = Comment.new

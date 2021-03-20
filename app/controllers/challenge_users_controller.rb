@@ -3,7 +3,9 @@ class ChallengeUsersController < ApplicationController
     before_action :logged_in_user, only: [:create, :destroy]
     def create
         @challenge_user = ChallengeUser.new(user_id: params[:user_id], challenge_id: params[:challenge_id])
+        user = User.find_by(id: params[:user_id])
         if @challenge_user.save
+            flash[:success] = "Challenge sent to #{user.name}"
             redirect_to request.referrer || search_user_path
         else
             flash[:danger] = "Invalid challenge something wrong"
@@ -12,7 +14,9 @@ class ChallengeUsersController < ApplicationController
     end
     def destroy
         @challenge_user = ChallengeUser.find_by(user_id: params[:user_id], challenge_id: params[:challenge_id])
+        user = User.find_by(id: params[:user_id])
         @challenge_user.destroy
+        flash[:danger] = "Challenge for #{user.name} cancelled!"
 		redirect_to request.referrer || root_url
     end
     def show
