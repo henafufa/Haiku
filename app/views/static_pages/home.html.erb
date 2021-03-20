@@ -30,9 +30,9 @@
             </div>
             <div class="col-md-12" style="padding-top: 2em;">
             <% if @is_on_search %>
-                <h1> Search results...</h1>
+                <h3 class="center"> Search results...</h3>
                 <% if @haiku_feed_items.length == 0 %>
-                    <h1>haiku not found</h1>
+                    <h3 class="center">haiku not found</h3>
                 <% else %>
                     <%= render 'shared/haiku_feed' %>
                 <% end %>

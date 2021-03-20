@@ -11,7 +11,9 @@ h5,
 h6 {
   line-height: 1;
 }
-
+.navlink-drop-down {
+  color: green
+}
 h1 {
   font-size: 3em;
   letter-spacing: -2px;
@@ -37,7 +39,9 @@ p {
 body {
   padding-top: 60px;
 }
-
+.main-content {
+  margin-top: 20px;
+}
 section {
   overflow: auto;
 }
@@ -55,15 +59,17 @@ textarea {
 
 /* header */
 #logo {
+  font-family: "Lucida Handwriting";
+  font-weight: bolder;
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: #fff;
+  color: #333;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   &:hover {
-    color: #fff;
+    color: #222;
     text-decoration: none;
   }
 }
@@ -399,12 +405,29 @@ span.image {
   border-radius: 10px;
 
 }
+.app-header {
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(245, 222, 222, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 5px;
+  border: none
+}
+#navlink {
+  color: #999
+}
+.navbar-toggle {
+  background: black;
+}
+
 
 @media(max-width: 800px){
   .lg-menu-nav {
       display: none;
   }
 }
+a:hover {
+  text-decoration: none;
+}
+
 
 
 
