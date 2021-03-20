@@ -11,9 +11,9 @@ module ApplicationCable
 
     def find_notified_user
       notified_user = User.find_by(id: cookies.encrypted[:user_id]) 
-      notified2_user = User.find_by(id: session[:user_id])
+      # notified2_user = User.find_by(id: session[:user_id])
       p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$verified_user----------------------#{notified_user}"
-      p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$verified_user2----------------------#{notified_user2}"
+      # p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$verified_user2----------------------#{notified_user2}"
       if current_user = User.find_by(id: cookies.encrypted[:user_id])
         current_user 
     else
