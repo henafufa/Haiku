@@ -35,3 +35,4 @@ Turbolinks.start()
 ActiveStorage.start()
 
 // Notification.requestPermission.then(function(result){})
+Notification.requestPermission().then(function(permission) { });
