@@ -2,16 +2,16 @@
 
 <%= will_paginate %>
     <% if @is_on_search %>
-        <h1> Search results...</h1>
+        <h3 class="center"> Search results...</h3>
         <% if !@users.any? %>
-            <h1>user not found!</h1>
+            <h3 class="center">user not found!</h3>
         <% else %>
         <ul class="users">
             <%= render @users %>
         </ul>
         <% end %>
     <% else%>
-        <h1>All users</h1>
+        <h3 class="center">All users</h3>
         <ul class="users">
             <%= render @users %>
         </ul>
