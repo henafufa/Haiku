@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'notifications/index'
   require 'sidekiq/web'
   mount Sidekiq::Web => "/sidekiq"
   get 'daily_challenges/index'
@@ -55,4 +56,5 @@ Rails.application.routes.draw do
   resources :daily_challenges
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :notifications
 end

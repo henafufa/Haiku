@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
     include PublicActivity::StoreController
     include SessionsHelper
     include ChallengeUsersHelper
+    include NotificationsHelper
     require 'date'
     # before_action :set_locale
     def application

@@ -9,3 +9,8 @@ two:
   verse_1: MyText
   verse_2: MyText
   user: michael
+
+three:
+  verse_1: MyText
+  verse_2: MyText
+  user: lana

@@ -1,0 +1,23 @@
+<% notifications.each do |notification| %>
+    <% if notification.notification_type == "haiku_comment" %>
+    <%= gravatar_for notification.user, size: 40 %>
+        <li><li><%= "#{notification.message}"%> 
+            <%= link_to " ---- see post", haiku_path("#{notification.haiku_comment.haiku.id}") %>
+        </li>
+        <div class="dropdown col-md-1">
+                <% if current_user?(notification.user) %>
+                <li>
+                    <%= link_to "val", haiku_path("#{notification.haiku_comment.haiku.id}"), class: "dropdown-item"  %>
+                </li>
+                <% end %>
+        </div>
+        <br />
+        <br />
+    <% elsif notification.notification_type == "haiku_reaction" %>
+        <li><%= "#{notification.message}"%> <%= link_to "**** see post", haiku_path("#{notification.haiku_reaction.haiku.id}") %></li>
+    <% elsif notification.notification_type == "challenge_user" %>
+        <li><%= "#{notification.message}"%> <%= link_to "**** see challenge", challenges_path("#{notification.challenge_user}") %></li>
+    <% end %>
+    
+    
+<% end %>

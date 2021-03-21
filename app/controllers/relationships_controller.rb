@@ -3,6 +3,8 @@ class RelationshipsController < ApplicationController
     def create
         @user = User.find(params[:followed_id])
         current_user.follow(@user)
+        # @relationship_controller = @user.notifications.build(message: "#{current_user.name} started following you", 
+        #                             notification_type: "relationship", relationship: @relationship, is_seen: false)
         respond_to do |format|
             format.html { redirect_to @user }
             format.js

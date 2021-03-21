@@ -7,3 +7,7 @@ one:
 two:
   challenge: two
   user: michael
+
+three:
+  challenge: three
+  user: lana
