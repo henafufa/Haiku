@@ -473,4 +473,10 @@ span.image {
 .suggesteduserimg {
   align-content: center;
 }
+
+.suggestionwrapper:after {
+  content: "";
+  display: block;
+  clear: both;
+}
 /***** mekedems suggestion slider css ends here ***/
