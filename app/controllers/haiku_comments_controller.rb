@@ -5,16 +5,19 @@ class HaikuCommentsController < ApplicationController
 
 	def create
 			# @microposts = @user.microposts.paginate(page:params[:page])
-		# @user = @haiku.user
+		@user = @haiku.user
         verse_1 = params[:haiku_comment][:verse_1]
         verse_2 = params[:haiku_comment][:verse_2]
         verse_3 = params[:haiku_comment][:verse_3]
 		@comment = current_user.haiku_comments.build(verse_1: verse_1, verse_2: verse_2, verse_3: verse_3, haiku_id: @haiku.id)
-        if @comment.save
+		if @comment.save
+			@comment_notification = @user.notifications.build(message: "#{@comment.user.name} commented on your post", 
+											notification_type: "haiku_comment", haiku_comment: @comment, is_seen: false)
 			flash[:success] = "comment posted!"
+			@comment_notification.save
 			redirect_to request.referrer || root_url
 		else
-			@user = @haiku.user
+			# @user = @haiku.user
 			# @microposts = @user.microposts.paginate(page:params[:page])
 			@microposts = @user.microposts.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
 			flash[:danger] = "Invalid Haiku comment, comment should be follow a haiku format"

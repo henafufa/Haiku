@@ -19,6 +19,7 @@ class HaikuComment < ApplicationRecord
   tracked owner: ->(controller, model){ controller && controller.current_user}
   belongs_to :user
   belongs_to :haiku
+  has_one :notification, dependent: :destroy
   default_scope -> { order(created_at: :desc) }
 
   validates :verse_1, presence: true, length: { maximum: 40 }

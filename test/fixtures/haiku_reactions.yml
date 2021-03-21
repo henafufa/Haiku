@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: one
-  haiku: one
+  user: archer
+  haiku: defualt_haiku
 
 two:
-  user: two
-  haiku: two
+  user: michael
+  haiku: archer_haiku

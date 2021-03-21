@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_115459) do
+ActiveRecord::Schema.define(version: 2021_03_20_131702) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -143,6 +143,24 @@ ActiveRecord::Schema.define(version: 2021_03_10_115459) do
     t.index ["user_id"], name: "index_microposts_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.text "message"
+    t.text "notification_type"
+    t.integer "user_id", null: false
+    t.integer "haiku_reaction_id"
+    t.integer "haiku_comment_id"
+    t.integer "challenge_user_id"
+    t.integer "relationship_id"
+    t.boolean "is_seen"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["challenge_user_id"], name: "index_notifications_on_challenge_user_id"
+    t.index ["haiku_comment_id"], name: "index_notifications_on_haiku_comment_id"
+    t.index ["haiku_reaction_id"], name: "index_notifications_on_haiku_reaction_id"
+    t.index ["relationship_id"], name: "index_notifications_on_relationship_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "reactions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "micropost_id", null: false
@@ -195,6 +213,11 @@ ActiveRecord::Schema.define(version: 2021_03_10_115459) do
   add_foreign_key "haiku_reactions", "users"
   add_foreign_key "haikus", "users"
   add_foreign_key "microposts", "users"
+  add_foreign_key "notifications", "challenge_users"
+  add_foreign_key "notifications", "haiku_comments"
+  add_foreign_key "notifications", "haiku_reactions"
+  add_foreign_key "notifications", "relationships"
+  add_foreign_key "notifications", "users"
   add_foreign_key "reactions", "microposts"
   add_foreign_key "reactions", "users"
 end

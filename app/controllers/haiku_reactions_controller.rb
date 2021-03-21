@@ -10,6 +10,9 @@ class HaikuReactionsController < ApplicationController
       @reaction = current_user.haiku_reactions.build(haiku_id: @haiku.id)
       if @reaction.save
         # flash[:success] = "liked successfuly!"
+        @reaction_notification = current_user.notifications.build(message: "#{@reaction.user.name} reacted to your post",
+                              notification_type: "haiku_reaction", haiku_reaction: @reaction, is_seen: false)
+        @reaction_notification.save
         redirect_to request.referrer
       else
         # flash[:danger] = "Invalid reaction"

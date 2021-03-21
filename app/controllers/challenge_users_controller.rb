@@ -2,10 +2,14 @@ class ChallengeUsersController < ApplicationController
     include HaikusHelper
     before_action :logged_in_user, only: [:create, :destroy]
     def create
+        @user = User.find(params[:user_id])
         @challenge_user = ChallengeUser.new(user_id: params[:user_id], challenge_id: params[:challenge_id])
         user = User.find_by(id: params[:user_id])
         if @challenge_user.save
             flash[:success] = "Challenge sent to #{user.name}"
+            @challenge_notification = @user.notifications.build(message: "#{current_user.name} sent you a challenge", 
+                                        notification_type: "challenge_user", challenge_user: @challenge_user, is_seen: false)
+            @challenge_notification.save
             redirect_to request.referrer || search_user_path
         else
             flash[:danger] = "Invalid challenge something wrong"
