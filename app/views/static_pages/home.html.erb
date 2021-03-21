@@ -64,6 +64,21 @@
                             </div>
                         </div>
                         <% end %>
+                        <% @suggested_by_tag.each do |suggested_user_of_tag|%>
+                        <div class="item">
+                            <div class="pad15">
+                                <div class="row"><%= gravatar_for suggested_user_of_tag, size: 50 %></div>
+                                <p class="suggstionfollowdesc"><strong><%= "#{suggested_user_of_tag.name}"%></strong> has posts</p>
+                                <p> with same tag as yours </p>
+
+                                <%= form_with(model: current_user.active_relationships.build,local: true) do |f| %>
+                                <div><%= hidden_field_tag :followed_id, suggested_user_of_tag.id %></div>
+                                <%= f.submit "Follow", class: "btn btn-primary followbtnsuggestion" %>
+                                <% end %>
+
+                            </div>
+                        </div>
+                        <% end %>
                     </div>
                     <button class="btn btn-primary leftLst">
                         < </button>

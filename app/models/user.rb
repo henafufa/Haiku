@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    include UsersHelper
     has_many :microposts, dependent: :destroy
     has_many :haikus, dependent: :destroy
     has_many :haiku_comments, dependent: :destroy
@@ -172,6 +173,32 @@ class User < ApplicationRecord
         return suggesteduserslist, usersuggestedfrom
     end
 
+    def suggest_by_tags
+        other_users = User.all.where.not(id: self.id)
+        other_users_am_following = self.following
+
+        other_users_not_following = other_users.to_a - other_users_am_following.to_a
+
+        mytags = []
+        self.haikus.each do |myhaiku|
+            unless myhaiku.tag.nil?
+                mytags.push(myhaiku.tag);
+            end
+        end
+
+        other_users_to_suggest = []
+        other_users_not_following.each do |user|
+            user.haikus.each do |otherhaiku|
+                if mytags.include?(otherhaiku.tag)
+                    other_users_to_suggest.push(user);
+                    break
+                end
+            end
+        end
+
+        return other_users_to_suggest
+        
+    end
     # end of mekedem's code 
 
     # unreact  a micropost.
