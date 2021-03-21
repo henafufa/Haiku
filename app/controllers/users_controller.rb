@@ -226,6 +226,7 @@ class UsersController < ApplicationController
     @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
     @show_user_search_result = User.where("email LIKE ?", "%" + params[:search] + "%").paginate(page: params[:page])
     @challenge = current_user.challenges.last
+    @challenges = current_user.challenges
     @after_search_user = true
     @challenged_users_for_this_challenge = ChallengeUser.where("challenge_id = ?", @challenge.id)
     @challenged_users_for_this_challenge_name = []

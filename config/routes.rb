@@ -8,15 +8,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
   get 'users/new'
   get 'users/:id/private_post', to: 'users#private_post'
-  # root 'static_pages#home'
-  # root 'post#index'
-  # get 'static_pages/home'
-  # get 'static_pages/help'
-  # get 'static_pages/about'
-  # get 'static_pages/contact'
-  # get 'post' => 'post#index'
   root 'static_pages#home'
-  # get '/users' to: 'users#index'
   get '/help', to: 'static_pages#help'
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
@@ -38,6 +30,7 @@ Rails.application.routes.draw do
   get '/my_challenges', to: 'challenges#show'
   post '/search_user', to: 'challenge_users#create'
   delete '/search_user', to: 'challenge_users#destroy'
+  delete '/my_challenges', to: 'challenges#destroy'
   resources :users do
     member do
       get :following, :followers
@@ -46,6 +39,7 @@ Rails.application.routes.draw do
   resources :users
   resources :activities
   resources :comments
+  resources :challenges
   resources :reactions, only: [ :create, :destroy ]
   resources :haiku_reactions, only: [:create, :destroy, :edit]
   resources :microposts, only: [ :create, :destroy ]

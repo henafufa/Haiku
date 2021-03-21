@@ -63,7 +63,8 @@ class HaikusController < ApplicationController
             @haiku.image.attach(params[:haiku][:image])
 
             if @haiku.save
-                flash[:success] = "Haiku created!"
+                user = User.find_by(id: params[:user_id])
+                flash[:success] = "Congratulation you finished challenge from #{user.name}. Haiku Created Successfully."
                 challenge_user = ChallengeUser.find_by(challenge_id: params[:challenge_id], user_id: current_user.id)
                 if(challenge_user)
                     challenge_user.destroy
