@@ -98,7 +98,8 @@ class HaikusController < ApplicationController
     def update
         if !@haiku.public?
             @haiku.update(public: true)
-            redirect_to request.referrer || root_url
+            flash[:success] = "Your Haiku is visible for public now."
+            redirect_to root_url
         else
             redirect_to request.referrer || root_url
         end
