@@ -1,6 +1,16 @@
 
 <% if activity.trackable %>
-    followed <%= link_to activity.trackable.followed_id, activity.trackable %>    
+   
+<% else %>
+    
+<% end %>
+
+<% if activity.trackable %>
+    <% if activity.trackable_id != nil %>
+        <% relationActivity = Relationship.find_by(id: activity.trackable_id)%>
+        <% followedUser= User.find_by(id: relationActivity.followed_id)%>
+    <%end%>
+    followed <%= link_to followedUser.name, followedUser %>    
 <% else %>
     unfollowed <%= activity.trackable_id %>.
 <% end %>
