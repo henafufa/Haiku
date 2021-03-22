@@ -90,6 +90,7 @@ class ProfileLayoutTest < ActionDispatch::IntegrationTest
     get user_path(@another_user)
 
     assert_template 'users/show'
+    # assert_select "a[href=?]", "#{root_url}/users/#{@user.id}/private_post", count:0
 
 
     assert_select 'h3', text: "#{@another_user.name}'s Post"
@@ -103,7 +104,42 @@ class ProfileLayoutTest < ActionDispatch::IntegrationTest
       assert_select "a[href=?]", haiku_path(haiku)
     end
   end
+
+  # test "profile_view_for_another_user_has_no_Activites_and_start_challenge_buttons" do
+  #   log_in_as(@user)
+  #   get root_path
+
+  #   assert_template 'static_pages/home'
+  #   get user_path(@another_user)
+    
+  #   assert_template 'users/show'
+  #   @user.reload
+  #   assert_select 'h3', text: "#{@another_user.name}'s Post"
+
+  #   assert_select "button",  text:"Start Challenge", count: 0
+  #   assert_select "button", text:"Activities", count: 0
+  #   assert_select "button",  text:"Track Challenge", count: 0
+
+
+  # end
   
+  # test "Private_post_link_should_not_be_present_for_another_user" do
+  #   log_in_as(@user)
+  #   get root_path
+
+  #   assert_template 'static_pages/home'
+  #   get user_path(@another_user)
+    
+  #   assert_template 'users/show'
+  #   @user.reload
+  #   assert_select 'h3', text: "#{@another_user.name}'s Post"
+
+  #   assert_select "a[href=?]", "#{root_url}/users/#{@user.id}/private_post", count:0
+  #   assert_select "a[href=?]", "#{root_url}/users/#{@another_user.id}/private_post", count:0
+
+
+
+  # end
 
   
 
