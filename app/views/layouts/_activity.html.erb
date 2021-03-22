@@ -25,10 +25,26 @@
             <% if activity.trackable.tag? %>
               <h4><a href="#" class="card-link">#<%= activity.trackable.tag %></a></h4>
             <% end %>
+            <% if activity.trackable_id != nil %>
+              <% activityOwner = User.find_by(id: activity.owner_id)%>
+              <% haikuActivity = Haiku.find_by(id: activity.trackable_id)%>
+              <span><%= haikuActivity.haiku_reactions.count %></span>
+              <span><%= haikuActivity.haiku_comments.count %></span>
+              
+            <%end%>
+            
           <% elsif activity.trackable_type === 'HaikuComment'%>
             <p class="card-text text-center"><%= activity.trackable.verse_1%></p>
             <p class="card-text text-center"><%= activity.trackable.verse_2%></p>
             <p class="card-text text-center"><%= activity.trackable.verse_3%></p>
+            <% if activity.trackable_id != nil %>
+              <% haikuActivity = HaikuComment.find_by(id: activity.trackable_id)%>
+              <ol class="microposts">
+                <%= haikuActivity.verse_1%>
+              </ol>
+          <%end%>
+
+           
           <% elsif activity.trackable_type === 'HaikuReaction'%>
             <p class="card-text text-center"><%= activity.trackable.verse_1%></p>
             <p class="card-text text-center"><%= activity.trackable.verse_2%></p>
