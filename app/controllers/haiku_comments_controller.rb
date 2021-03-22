@@ -11,10 +11,13 @@ class HaikuCommentsController < ApplicationController
         verse_3 = params[:haiku_comment][:verse_3]
 		@comment = current_user.haiku_comments.build(verse_1: verse_1, verse_2: verse_2, verse_3: verse_3, haiku_id: @haiku.id)
 		if @comment.save
-			@comment_notification = @user.notifications.build(message: "#{@comment.user.name} commented on your post", 
+			unless current_user?(@haiku.user)
+				@comment_notification = @user.notifications.build(message: "#{@comment.user.name} commented on your post", 
 											notification_type: "haiku_comment", haiku_comment: @comment, is_seen: false)
+				@comment_notification.save
+			end
 			flash[:success] = "comment posted!"
-			@comment_notification.save
+			
 			redirect_to request.referrer || root_url
 		else
 			# @user = @haiku.user

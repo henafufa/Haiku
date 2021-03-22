@@ -1,23 +1,79 @@
 <% notifications.each do |notification| %>
+    <li class="divider"></li>
     <% if notification.notification_type == "haiku_comment" %>
-    <%= gravatar_for notification.user, size: 40 %>
-        <li><li><%= "#{notification.message}"%> 
-            <%= link_to " ---- see post", haiku_path("#{notification.haiku_comment.haiku.id}") %>
-        </li>
-        <div class="dropdown col-md-1">
-                <% if current_user?(notification.user) %>
-                <li>
-                    <%= link_to "val", haiku_path("#{notification.haiku_comment.haiku.id}"), class: "dropdown-item"  %>
+        <div style="display: flex; align-items: center; padding-left: 15px">
+            <div style="">
+                <%= gravatar_for notification.user, size: 30 %>
+            </div>
+            <div style="">
+                <li><li><%= "#{notification.message}"%> 
+                    <%= link_to "see post", haiku_path("#{notification.haiku_comment.haiku.id}") %>
                 </li>
-                <% end %>
+                <span>
+                <%= time_ago_in_words(notification.created_at) %>
+                </span>
+            </div>
         </div>
-        <br />
-        <br />
     <% elsif notification.notification_type == "haiku_reaction" %>
-        <li><%= "#{notification.message}"%> <%= link_to "**** see post", haiku_path("#{notification.haiku_reaction.haiku.id}") %></li>
+        <li class="divider"></li>
+        <div style="display: flex; align-items: center; padding-left: 15px">
+            <div style="">
+                <%= gravatar_for notification.user, size: 30 %>
+            </div>
+            <div style="">
+
+                <li><%= "#{notification.message}"%>
+                    <%= link_to "see post", haiku_path("#{notification.haiku_reaction.haiku.id}") %>
+                </li>
+                <span>
+                    <%= time_ago_in_words(notification.created_at) %>
+                </span>
+            </div>
+        </div>
+        
     <% elsif notification.notification_type == "challenge_user" %>
-        <li><%= "#{notification.message}"%> <%= link_to "**** see challenge", challenges_path("#{notification.challenge_user}") %></li>
+        <li class="divider"></li>
+        <div style="display: flex; align-items: center; padding-left: 15px">
+            <div style="">
+                <%= gravatar_for notification.user, size: 30 %>
+            </div>
+            <div style="">
+                <li><%= "#{notification.message}"%>
+                </li>
+                <span>
+                    <%= time_ago_in_words(notification.created_at) %>
+                </span>
+            </div>
+        </div>
+        <br/>
+        <ul style="list-style: none; padding-left: 70px;">
+            <li><%= notification.challenge_user.challenge.verse_1 %></li>
+            <li><%= notification.challenge_user.challenge.verse_2 %></li>
+            <div class="disabled" style="padding-right: 50px;">
+                <input class="form-control-plaintext haiku_input_field" type="text" name="optradio" disabled>
+            </div>
+            <span style="text-align: right;">
+                <%= link_to "Accept challenge", challenges_path %>
+            </span>
+        </ul>
+    <% elsif notification.notification_type == "relationship" %>
+        <div style="display: flex; align-items: center; padding-left: 15px">
+            <div style="">
+                <%= gravatar_for notification.user, size: 30 %>
+            </div>
+            <div style="">
+                <li><%= "#{notification.message}"%></li>
+                <span>
+                    <%= time_ago_in_words(notification.created_at) %>
+                </span>
+                <span style="padding-left: 90px">
+                    <%= link_to "Follow back", user_path("#{notification.relationship.follower_id}") %>
+                </span>
+            </div>
+            
+        </div>
     <% end %>
     
     
 <% end %>
+
