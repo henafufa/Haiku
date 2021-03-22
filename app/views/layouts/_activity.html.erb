@@ -11,7 +11,10 @@
               </div>
             <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
             <h5 class="card-title">
-              <%= link_to gravatar_for(current_user, size: 30, email: current_user.email),current_user %>
+              <% if activity.owner != nil %>
+                <% activityOwner = User.find_by(id: activity.owner_id)%>
+                <%= link_to gravatar_for(activityOwner, size: 30, email: activityOwner.email),activityOwner %>
+              <%end%>
             </h5>
             <div class="col-md-8">
               <h6 class="card-subtitle  text-muted"><%= link_to current_user.name, current_user, class:"text-muted" %></h6>
