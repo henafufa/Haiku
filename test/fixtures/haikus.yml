@@ -10,9 +10,9 @@ defualt_haiku:
   user: michael
 
 archer_haiku:
-  verse_1: MyText
-  verse_2: MyText
-  verse_3: MyText
+  verse_1: "yes yes yes yes yes"
+  verse_2: no no no no no no no no
+  verse_3: why always me
   public: true
   created_at: <%= 10.hours.ago %>
   user: archer
@@ -53,9 +53,9 @@ michael_haiku_tag:
   user: michael
 
 archer_haiku_tag:
-  verse_1: MyText
-  verse_2: MyText
-  verse_3: MyText
+  verse_1: yes yes yes yes yes
+  verse_2: no  no no no no no no
+  verse_3: yes yes yes yes yes yes
   tag: "#happy"
   public: true
   created_at: <%= 10.hours.ago %>
