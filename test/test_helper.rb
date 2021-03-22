@@ -26,4 +26,7 @@ class ActionDispatch::IntegrationTest
     post login_path, params: { session: { email: user.email, password: password, remember_me: remember_me } }
   end
 
+  def get_activities(user) 
+    return PublicActivity::Activity.order('created_at desc').where(owner: user)
+  end
 end

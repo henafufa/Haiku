@@ -29,7 +29,12 @@
         <%= render 'users/follow_form' if logged_in? %>
         <div style="display: flex;">
             <div>
-                <h3><%= @user.name %>'s Activity</h3>
+                <% if current_user?(@user) %>
+                    <h3><%= @user.name %>'s Activity</h3>
+                <% else %>
+                    <h3><%= @user.name %>'s Post</h3>
+                <% end %>
+                
             </div>
             <!-- <span style="margin-top: 20px;"></span> -->
             <%= render 'shared/search_activity_form'%>              
