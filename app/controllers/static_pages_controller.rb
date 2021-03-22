@@ -19,6 +19,12 @@ class StaticPagesController < ApplicationController
       # @haiku_feed_items = current_user.haiku_feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
       @haiku_feed_items = Haiku.where("public = ?", true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
       @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
+
+      #here starts mekedems code
+      @suggested_by_post = current_user.suggest_user_by_number_of_post() - current_user.suggest_user_through_users_am_following()[0];
+      @suggested_by_user = current_user.suggest_user_through_users_am_following();
+      @suggested_by_tag = current_user.suggest_by_tags() - (current_user.suggest_user_through_users_am_following()[0] + current_user.suggest_user_by_number_of_post());
+      #here ends mekedems code
     else
       @haiku_feed_items = Haiku.where("public = ?", true).paginate(:page => params[:page], :per_page => 5, :total_entries => 30)
     end

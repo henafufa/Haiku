@@ -4,7 +4,7 @@
 
     </div>
     <div class="col-md-8">
-  
+
         <aside class="col-md-4" style="display:none">
             <section class="user_info">
                 <%= render 'shared/user_info' %>
@@ -20,27 +20,92 @@
             <div class="col-md-2" style="">
             </div>
             <div class="col-md-12" style="border: 1px solid #ddd; margin-top:50px">
-            <% if !@is_on_search %>
+                <% if !@is_on_search %>
                 <section class="micropost_form">
                     <%= render 'shared/haiku_form' %>
                 </section>
-            <% end %>
+                <% end %>
             </div>
             <div class="col-md-2" style="">
             </div>
+            <div class="col-md-12 suggestions-header" style="">
+                <p> Suggested </p>
+            </div>
+            <div class="col-md-12 suggestionwrapper" style="">
+
+                <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel" data-interval="1000">
+                    <div class="MultiCarousel-inner">
+                        <% if @suggested_by_post.try(:any?)%>
+                        <% @suggested_by_post.each do |suggesteduser|%>
+                        <div class="item">
+                            <div class="pad15">
+                                <div class="row"><%= gravatar_for suggesteduser, size: 50 %></div>
+                                <p class="suggstionfollowdesc"><strong><%= "#{suggesteduser.name}"%></strong> has over</p>
+                                <p> <%= "#{pluralize(suggesteduser.haikus.count, "post")}"%> </p>
+
+                                <%= form_with(model: current_user.active_relationships.build,local: true) do |f| %>
+                                <div><%= hidden_field_tag :followed_id, suggesteduser.id %></div>
+                                <%= f.submit "Follow", class: "btn btn-primary followbtnsuggestion" %>
+                                <% end %>
+
+                            </div>
+                        </div>
+                        <% end %>
+                        <% end %>
+                        <% if @suggested_by_user.try(:any?)%>
+                        <% for outerindex in 0..@suggested_by_user[0].count-1 do %>
+                        <div class="item">
+                            <div class="pad15">
+                                <div class="row"><%= gravatar_for @suggested_by_user[0][outerindex], size: 50 %></div>
+                                <p class="suggstionfollowdesc"> <%= @suggested_by_user[1][outerindex].name%> and others follow</p>
+                                <p> <strong><%= "#{@suggested_by_user[0][outerindex].name}"%></strong></p>
+                                <%= form_with(model: current_user.active_relationships.build,local: true) do |f| %>
+                                <div><%= hidden_field_tag :followed_id, @suggested_by_user[0][outerindex].id %></div>
+                                <%= f.submit "Follow", class: "btn btn-primary followbtnsuggestion" %>
+                                <% end %>
+
+                            </div>
+                        </div>
+                        <% end %>
+                        <% end %>
+                        <% if @suggested_by_tag.try(:any?) %>
+                        <% @suggested_by_tag.each do |suggested_user_of_tag|%>
+                        <div class="item">
+                            <div class="pad15">
+                                <div class="row"><%= gravatar_for suggested_user_of_tag, size: 50 %></div>
+                                <p class="suggstionfollowdesc"><strong><%= "#{suggested_user_of_tag.name}"%></strong> has posts</p>
+                                <p> with same tag as yours </p>
+
+                                <%= form_with(model: current_user.active_relationships.build,local: true) do |f| %>
+                                <div><%= hidden_field_tag :followed_id, suggested_user_of_tag.id %></div>
+                                <%= f.submit "Follow", class: "btn btn-primary followbtnsuggestion" %>
+                                <% end %>
+
+                            </div>
+                        </div>
+                        <% end %>
+                        <% end %>
+                    </div>
+                    <button class="btn btn-primary leftLst">
+                        < </button>
+                            <button class="btn btn-primary rightLst">></button>
+                </div>
+
+            </div>
+            <br>
             <div class="col-md-12" style="padding-top: 2em;">
-            <% if @is_on_search %>
+                <% if @is_on_search %>
                 <h3 class="center"> Search results...</h3>
                 <% if @haiku_feed_items.length == 0 %>
-                    <h3 class="center">haiku not found</h3>
+                <h3 class="center">haiku not found</h3>
                 <% else %>
-                    <%= render 'shared/haiku_feed' %>
-                <% end %>
-            <% else %>
                 <%= render 'shared/haiku_feed' %>
-            <% end %>
+                <% end %>
+                <% else %>
+                <%= render 'shared/haiku_feed' %>
+                <% end %>
             </div>
-            
+
         </div>
     </div>
     <div class="col-md-2">
@@ -48,13 +113,122 @@
     </div>
 </div>
 <% else %>
- <br/>
-  <br/>
-  <div class="row container">
+<br />
+<br />
+<div class="row container">
     <div class="col-md-2">
     </div>
     <div class="col-md-8">
-      <%= render 'shared/haiku_feed' %>
+        <%= render 'shared/haiku_feed' %>
     </div>
-  </div>
+</div>
 <% end %>
+
+
+<script>
+    $(document).ready(function() {
+        var itemsMainDiv = ('.MultiCarousel');
+        var itemsDiv = ('.MultiCarousel-inner');
+        var itemWidth = "";
+
+        $('.leftLst, .rightLst').click(function() {
+            var condition = $(this).hasClass("leftLst");
+            if (condition)
+                click(0, this);
+            else
+                click(1, this)
+        });
+
+        ResCarouselSize();
+
+
+
+
+        $(window).resize(function() {
+            ResCarouselSize();
+        });
+
+        //this function define the size of the items
+        function ResCarouselSize() {
+            var incno = 0;
+            var dataItems = ("data-items");
+            var itemClass = ('.item');
+            var id = 0;
+            var btnParentSb = '';
+            var itemsSplit = '';
+            var sampwidth = $(itemsMainDiv).width();
+            var bodyWidth = $('body').width();
+            $(itemsDiv).each(function() {
+                id = id + 1;
+                var itemNumbers = $(this).find(itemClass).length;
+                btnParentSb = $(this).parent().attr(dataItems);
+                itemsSplit = btnParentSb.split(',');
+                $(this).parent().attr("id", "MultiCarousel" + id);
+
+
+                if (bodyWidth >= 1200) {
+                    incno = itemsSplit[1];
+                    itemWidth = sampwidth / incno;
+                } else if (bodyWidth >= 992) {
+                    incno = itemsSplit[2];
+                    itemWidth = sampwidth / incno;
+                } else if (bodyWidth >= 768) {
+                    incno = itemsSplit[1];
+                    itemWidth = sampwidth / incno;
+                } else {
+                    incno = itemsSplit[0];
+                    itemWidth = sampwidth / incno;
+                }
+                $(this).css({
+                    'transform': 'translateX(0px)',
+                    'width': itemWidth * itemNumbers,
+                });
+                $(this).find(itemClass).each(function() {
+                    $(this).outerWidth(itemWidth);
+                });
+
+                $(".leftLst").addClass("over");
+                $(".rightLst").removeClass("over");
+
+            });
+        }
+
+
+        //this function used to move the items
+        function ResCarousel(e, el, s) {
+            var leftBtn = ('.leftLst');
+            var rightBtn = ('.rightLst');
+            var translateXval = '';
+            var divStyle = $(el + ' ' + itemsDiv).css('transform');
+            var values = divStyle.match(/-?[\d\.]+/g);
+            var xds = Math.abs(values[4]);
+            if (e == 0) {
+                translateXval = parseInt(xds) - parseInt(itemWidth * s);
+                $(el + ' ' + rightBtn).removeClass("over");
+
+                if (translateXval <= itemWidth / 2) {
+                    translateXval = 0;
+                    $(el + ' ' + leftBtn).addClass("over");
+                }
+            } else if (e == 1) {
+                var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+                translateXval = parseInt(xds) + parseInt(itemWidth * s);
+                $(el + ' ' + leftBtn).removeClass("over");
+
+                if (translateXval >= itemsCondition - itemWidth / 2) {
+                    translateXval = itemsCondition;
+                    $(el + ' ' + rightBtn).addClass("over");
+                }
+            }
+            $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+        }
+
+        //It is used to get some elements from btn
+        function click(ell, ee) {
+            var Parent = "#" + $(ee).parent().attr("id");
+            var slide = $(Parent).attr("data-slide");
+            ResCarousel(ell, Parent, slide);
+        }
+
+    });
+</script>

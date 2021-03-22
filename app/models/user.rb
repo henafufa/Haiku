@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    include UsersHelper
     has_many :microposts, dependent: :destroy
     has_many :haikus, dependent: :destroy
     has_many :haiku_comments, dependent: :destroy
@@ -124,6 +125,82 @@ class User < ApplicationRecord
             false
         end
     end
+
+    # mekedem's code starts here in the model 
+    def suggest_user_by_number_of_post
+
+        userswithpostcount = {};
+        alluserids = User.pluck(:id);
+
+        alluserids.each do |userid|
+            usersforfilter = User.find_by(id: userid);
+            unless self.following?(usersforfilter) || self.id == usersforfilter.id
+                postcount = usersforfilter.haikus.count;
+                if (postcount > 0) 
+                    userswithpostcount[userid] = postcount;
+                end
+            end
+        end
+
+        if(userswithpostcount.length > 4)
+            toptenSuggestions = get_max_four_values(userswithpostcount);
+            return User.where(id: toptenSuggestions);
+        else
+            topsuggestions = userswithpostcount.keys;
+            return User.where(id: topsuggestions);
+        end
+    end
+
+    def suggest_user_through_users_am_following
+        get_users_am_following = self.following
+        get_all_users = User.all
+        get_users_am_not_following = get_all_users.to_a - get_users_am_following.to_a
+        
+        suggesteduserslist = [];
+        usersuggestedfrom = [];
+        get_users_am_following.each do |followinguser|
+            get_users_am_not_following.each do |notfollowinguser|
+                if followinguser.following.include?(notfollowinguser)
+                    suggesteduserslist.push(notfollowinguser);
+                    usersuggestedfrom.push(followinguser);
+                end
+            end
+        end
+
+        if suggesteduserslist.count > 4
+            return suggesteduserslist.first(4), usersuggestedfrom.first(4);
+        end
+        
+        return suggesteduserslist, usersuggestedfrom
+    end
+
+    def suggest_by_tags
+        other_users = User.all.where.not(id: self.id)
+        other_users_am_following = self.following
+
+        other_users_not_following = other_users.to_a - other_users_am_following.to_a
+
+        mytags = []
+        self.haikus.each do |myhaiku|
+            unless myhaiku.tag.nil?
+                mytags.push(myhaiku.tag);
+            end
+        end
+
+        other_users_to_suggest = []
+        other_users_not_following.each do |user|
+            user.haikus.each do |otherhaiku|
+                if mytags.include?(otherhaiku.tag)
+                    other_users_to_suggest.push(user);
+                    break
+                end
+            end
+        end
+
+        return other_users_to_suggest
+        
+    end
+    # end of mekedem's code 
 
     # unreact  a micropost.
     private
