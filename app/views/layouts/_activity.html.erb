@@ -158,7 +158,9 @@
       <div id=<%= "haiku-collapse-#{activity.id}" %> class="collapse">
        <% if activity.trackable_id != nil %>
         <% commentActivity = HaikuComment.find_by(id: activity.trackable_id)%>
-        <% haikuActivity = Haiku.find_by(id: commentActivity.haiku_id)%>
+         <% if commentActivity != nil %>
+            <% haikuActivity = Haiku.find_by(id: commentActivity.haiku_id)%>
+         <% end %>
           <% if haikuActivity.any? %>
           <ol class="microposts">
             <% haikuActivity.each do |haikuComments|%>
