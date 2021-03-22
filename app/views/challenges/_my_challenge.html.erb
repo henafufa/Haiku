@@ -7,20 +7,20 @@
     </h6>
     </div>
     <div>
-     <%= form_tag my_challenges_path, :method => 'delete' do %>
-            <%= hidden_field_tag :challenge_id, @challenge.id %>
-            <%= submit_tag "Cancel", class: "btn btn-danger", name: "submit_button",value: "Cancel" %>
+        <%= form_tag my_challenges_path, :method => 'delete' do %>
+            <%= hidden_field_tag :challenge_id, challenge.id %>
+            <%= submit_tag "Delete", class: "btn btn-danger", name: "submit_button",value: "Delete" %>
         <% end %>
     </div>
     </div>
     <br />
-        <p class="card-text text-center"><input class="form-control-plaintext haiku_input_field" value="<%= @challenge.verse_1%>" readonly ></p>
-        <p class="card-text text-center"><input class="form-control-plaintext haiku_input_field" value="<%= @challenge.verse_2%>" readonly ></p>
-    <p class="card-text text-center"><input placeholder="Third Verse" class="form-control-plaintext haiku_input_field" readonly ></p>
+        <p class="card-text text-center"><input class="form-control-plaintext haiku_input_field" value="<%= challenge.verse_1%>" readonly ></p>
+        <p class="card-text text-center"><input class="form-control-plaintext haiku_input_field" value="<%= challenge.verse_2%>" readonly ></p>
+        <p class="card-text text-center"><input placeholder="Third Verse" class="form-control-plaintext haiku_input_field" readonly ></p>
     
-    <% if @challenge.challenge_users.any? %>
+    <% if challenge.challenge_users.any? %>
         <p>Challenged Users: 
-            <% @challenge.challenge_users.each do |challenge_user| %>
+            <% challenge.challenge_users.each do |challenge_user| %>
                 <span class="badge bg-light text-primary"><%= challenge_user.user.name %></span>
             <% end %>
         </p>

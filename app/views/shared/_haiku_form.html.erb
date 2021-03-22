@@ -1,11 +1,20 @@
 <%= form_with(model: @haiku, local: true) do |f| %>
   <div class="card container col-md-12" style="padding: 5px;">
     <div class="card-body col-md-12">
-      <h5 class="card-title">
-        <%= link_to gravatar_for(current_user, size: 30), current_user %>
-      </h5>
-      <h6 class="card-subtitle mb-2 text-muted" style="padding-top:0.5em;"><%= link_to current_user.name, current_user, class:"text-muted" %>
-      </h6>
+      
+      <% if @from_challenge %>
+        <h5 class="card-title">
+          <%= link_to gravatar_for(current_user, size: 30), challenge.user %>
+        </h5>
+        <h6 class="card-subtitle mb-2 text-muted" style="padding-top:0.5em;"><%= link_to challenge.user.name, challenge.user, class:"text-muted" %>
+        </h6>
+      <% else %>
+        <h5 class="card-title">
+          <%= link_to gravatar_for(current_user, size: 30), current_user %>
+        </h5>
+        <h6 class="card-subtitle mb-2 text-muted" style="padding-top:0.5em;"><%= link_to current_user.name, current_user, class:"text-muted" %>
+        </h6>
+      <% end %>
       <div class="row">
         <span class="mb-1 haiku-form-drop-down">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-globe" viewBox="0 0 16 16">
@@ -25,6 +34,7 @@
           <div><%= hidden_field_tag :haiku_verse_1, challenge.verse_1 %></div>
           <p class="card-text text-center"><%= challenge.verse_2%></p>
           <div><%= hidden_field_tag :haiku_verse_2, challenge.verse_2 %></div>
+          <div><%= hidden_field_tag :user_id, challenge.user_id %></div>
           <div><%= hidden_field_tag :challenge_id, challenge.id %></div>
         <% else %>
           

@@ -63,7 +63,8 @@ class HaikusController < ApplicationController
             @haiku.image.attach(params[:haiku][:image])
 
             if @haiku.save
-                flash[:success] = "Haiku created!"
+                user = User.find_by(id: params[:user_id])
+                flash[:success] = "Congratulation you finished challenge from #{user.name}. Haiku Created Successfully."
                 challenge_user = ChallengeUser.find_by(challenge_id: params[:challenge_id], user_id: current_user.id)
                 if(challenge_user)
                     challenge_user.destroy
@@ -82,6 +83,7 @@ class HaikusController < ApplicationController
         else
             @challenge = current_user.challenges.build(verse_1: verse_1, verse_2: verse_2)
             if @challenge.save
+                flash[:success] = "Challenge created successfully please send challenge to users"
                 redirect_to challenge_user_path
             else
                 @comment = Comment.new
@@ -96,7 +98,8 @@ class HaikusController < ApplicationController
     def update
         if !@haiku.public?
             @haiku.update(public: true)
-            redirect_to request.referrer || root_url
+            flash[:success] = "Your Haiku is visible for public now."
+            redirect_to root_url
         else
             redirect_to request.referrer || root_url
         end

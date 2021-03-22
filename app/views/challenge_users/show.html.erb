@@ -3,18 +3,19 @@
   </div>
   <div class="col-md-8">
   <% if @my_challenges.any? %>
-  <ol class="microposts">
-    <% @my_challenges.each do |challenge| %>
-        <li>
-        <div class="row haiku-content" style="padding:0;">
-            <%= render 'shared/haiku_form', challenge: challenge  %>
-        </div>
-        </li>
-    <% end %>
-  </ol>
+    <ol class="microposts">
+      <% @my_challenges.each do |challenge| %>
+          <li>
+          <div class="row haiku-content" style="padding:0;">
+              <%= render 'shared/haiku_form', challenge: challenge  %>
+          </div>
+          </li>
+      <% end %>
+    </ol>
+  <% else %>
+    <h3>You didn't challenged.</h3>
   <% end %>
-  </div>
-
+  </div> 
 </div>
 
 

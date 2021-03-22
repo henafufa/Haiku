@@ -6,6 +6,16 @@ class UserTest < ActiveSupport::TestCase
   # end
   def setup
     @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar")
+    
+    #mekedems code starts here#
+    @michael_with_tag = users(:michael)
+    @archer_with_tag = users(:archer)
+    @lana_with_tag = users(:lana)
+    
+    @michael_with_tag.haikus.build(verse_1: "cafe patio", verse_2: "above the cacophony", verse_3: "cafe patio", user_id: @michael_with_tag.id, tag:"funny")
+    @archer_with_tag.haikus.build(verse_1: "cafe patio", verse_2: "above the cacophony", verse_3: "cafe patio", user_id: @archer_with_tag.id, tag:"funny")
+    @lana_with_tag.haikus.build(verse_1: "cafe patio", verse_2: "above the cacophony", verse_3: "cafe patio", user_id: @lana_with_tag.id, tag:"sad")
+    #mekedems code ends here
   end
   test "should be valid" do
     assert @user.valid?
@@ -127,5 +137,55 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
-  
+
+
+  # mekedem's code starts here
+  test "max number of post suggetion should suggest the right users" do
+    michael = users(:michael)
+    archer = users(:archer)
+    lana = users(:lana)
+
+    # Should suggest user who I am not following
+    assert michael.suggest_user_by_number_of_post.include?(archer);
+
+    # Should not suggest a user who doesn't have a post yet 
+    assert_not archer.suggest_user_by_number_of_post.include?(lana);
+
+    # Should return 1 suggestion since lana is following michael already
+    assert_equal lana.suggest_user_by_number_of_post.count, 1
+
+    # Suggested users are not among users that michael is currently following
+    michael.suggest_user_by_number_of_post.each do |suggested_user|
+      assert_not michael.following?(suggested_user);
+      assert suggested_user.haikus.count > 0
+    end
+  end
+
+  test "suggest who I am not following but followed by users I follow" do
+    michael = users(:michael)
+    lana = users(:lana)
+
+    # should suggest user who is followed by another user I follow
+    michael.suggest_user_through_users_am_following[0].each do |suggested|
+      assert michael.following?(lana);
+      assert lana.following?(suggested);
+      assert_not michael.following?(suggested);
+    end
+
+  end
+
+  test "suggest by tag who has posts with same tag as mine" do
+    # Should suggest user who I am not following and who has the tag post
+    assert @michael_with_tag.suggest_by_tags.include?(@archer_with_tag);
+
+    # should not suggest user who doesn't have posts with same tag or who I am following
+    assert_not @michael_with_tag.suggest_by_tags.include?(@lana_with_tag);
+
+    #each suggested user must be users who am not following
+    @michael_with_tag.suggest_by_tags.each do |suggestedusr|
+      assert_not @michael_with_tag.following?(suggestedusr);
+    end
+
+  end
+  # mekedem's code ends here
 end
