@@ -92,14 +92,17 @@
         <li><%= link_to "Help", help_path, id: "navlink" %></li>
         <% if logged_in? %>
           <li><%= link_to "Users", users_path, id: "navlink" %></li>
+          <li>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" id= "navlink" style="padding-left: 15px;">
-            <p>Notification <% if count_notification > 0 %>
+           Notification <% if count_notification > 0 %>
               <span id="notification-badge" class="badge badge-light" style="margin-top: -25px;">
                 <%=count_notification %>
               </span>
             <% end %>
-            </p>
+            
             </a>
+            </li>
+
             <ul class="dropdown-menu">
             <div style="text-decoration: none; padding-left: 20px; font-size: 30px">
                 <li>Notifications</li>

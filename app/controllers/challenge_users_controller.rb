@@ -6,8 +6,10 @@ class ChallengeUsersController < ApplicationController
         @challenge_user = ChallengeUser.new(user_id: params[:user_id], challenge_id: params[:challenge_id])
         user = User.find_by(id: params[:user_id])
         if @challenge_user.save
-            @challenge_notification = @user.notifications.build(message: "#{current_user?(@user) ? 'you challenged your self' : current_user.name + ' sent you a challenge' } ", 
-            flash[:success] = "Challenge sent to #{user.name}"            
+            @challenge_notification = @user.notifications.build(message: "#{current_user?(@user) ? 'you challenged yourself' : current_user.name + ' sent you a challenge' } ", 
+                                        notification_type: "challenge_user", challenge_user: @challenge_user, is_seen: false)
+            flash[:success] = "Challenge sent to #{user.name}"
+            
             @challenge_notification.save
             redirect_to request.referrer || search_user_path
         else
