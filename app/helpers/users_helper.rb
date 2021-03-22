@@ -11,4 +11,13 @@ module UsersHelper
         userid_postnumber_hash.sort_by { |_, v| -v }.first(4).map(&:first)
     end
 
+    def shorten_name(username)
+        if(username.length > 10)
+            shortened = username[0..9] + ".."
+            return shortened
+        end
+
+        return username
+        
+    end
 end
