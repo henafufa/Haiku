@@ -157,19 +157,22 @@
       </div>
       <div id=<%= "haiku-collapse-#{activity.id}" %> class="collapse">
        <% if activity.trackable_id != nil %>
-              <% haikuActivity = HaikuComment.all%>
-              <% if haikuActivity.any? %>
-              <ol class="microposts">
-                <% haikuActivity.each do |haikuComments|%>
-                  <%= render 'haiku_comments/haiku_comment', haiku_comment: haikuComments %>
-                <% end %>
-              </ol>
+        <% commentActivity = HaikuComment.find_by(id: activity.trackable_id)%>
+        <% haikuActivity = Haiku.find_by(id: commentActivity.haiku_id)%>
+          <% if haikuActivity.any? %>
+          <ol class="microposts">
+            <% haikuActivity.each do |haikuComments|%>
+              <%= render 'haiku_comments/haiku_comment', haiku_comment: haikuComments %>
             <% end %>
+            </ol>
+          <% end %>
          <% end %>
     </div>
      <div id=<%= "haiku-comment-collapse-#{activity.id}" %> class="collapse" >
        <% if activity.trackable != nil  %>
-         
+              <% commentActivity = HaikuComment.find_by(id: activity.trackable_id)%>
+              <% haikuActivity = Haiku.find_by(id: commentActivity.id)%>
+              destroyed comment from <%= link_to 'this', activity.trackable %> post
          <% end %>
     </div>
     <% end %> 
