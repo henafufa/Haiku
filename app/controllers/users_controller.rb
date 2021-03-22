@@ -20,6 +20,7 @@ class UsersController < ApplicationController
     end
   end
 
+
   def show
     @comment = Comment.new
     @haiku_comment = HaikuComment.new

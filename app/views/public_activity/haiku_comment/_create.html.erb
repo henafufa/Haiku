@@ -1,6 +1,10 @@
 
 <% if activity.trackable %>
-    added comment to this post
+    <% if activity.trackable_id != nil %>
+        <% commentActivity = HaikuComment.find_by(id: activity.trackable_id)%>
+        <% haikuActivity = Haiku.find_by(id: commentActivity.id)%>
+    <%end%>
+    added comment to <%= link_to "this" ,haikuActivity %> post
 <% else %>
     comment that is currently deleted was added.
 <% end %>
