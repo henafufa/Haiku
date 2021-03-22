@@ -169,8 +169,7 @@
     </div>
      <div id=<%= "haiku-comment-collapse-#{activity.id}" %> class="collapse" >
        <% if activity.trackable != nil  %>
-          <p class="card-text text-center"><%= activity.trackable.verse_1%></p>
-          <%= render 'haiku_comments/haiku_comment', haiku_comment: activity.trackable %>
+         
          <% end %>
     </div>
     <% end %> 
