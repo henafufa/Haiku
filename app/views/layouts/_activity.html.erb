@@ -12,9 +12,6 @@
             <div class="col-md-12" style="border-bottom:1px solid #eee; margin-bottom: 25px; margin-top: 25px"> </div>
             <h5 class="card-title">
               <% if activity.trackable != nil %>
-                <% commentActivity = HaikuComment.find_by(id: activity.trackable_id)%>
-                <% commentedObject = commentActivity.haiku %>
-                <%= commentedObject %>
                 <% activityOwner = User.find_by(id: activity.owner_id)%>
                 <%= link_to gravatar_for(activityOwner, size: 30, email: activityOwner.email),activityOwner %>
               <%end%>
