@@ -65,4 +65,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get followers_user_path(@user)
     assert_redirected_to login_url
   end
+
+  test "should not show private post of other user" do
+    log_in_as(@other_user)
+    get "#{user_path(@other_user)}/private_post"
+    assert_redirected_to root_url
+  end
 end
