@@ -171,7 +171,18 @@
          <% end %>
     </div>
      <div id=<%= "haiku-comment-collapse-#{activity.id}" %> class="collapse" >
-       <% if activity.trackable != nil  %>
+       <% if activity.trackable_id != nil %>
+        <% commentActivity = HaikuComment.find_by(id: activity.trackable_id)%>
+         <% if commentActivity != nil %>
+            <% haikuActivity = Haiku.find_by(id: commentActivity.haiku_id)%>
+         <% end %>
+          <% if haikuActivity != nil %>
+          <ol class="microposts">
+            <%  haikuActivity.haiku_reactions.each do |haikuComments|%>
+              <%= render 'haiku_comments/haiku_comment', haiku_comment: haikuComments %>
+            <% end %>
+            </ol>
+          <% end %>
          <% end %>
     </div>
     <% end %> 
