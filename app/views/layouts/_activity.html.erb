@@ -163,7 +163,7 @@
          <% end %>
           <% if haikuActivity != nil %>
           <ol class="microposts">
-            <% haikuActivity.each do |haikuComments|%>
+            <%  haikuActivity.haiku_reactions.each do |haikuComments|%>
               <%= render 'haiku_comments/haiku_comment', haiku_comment: haikuComments %>
             <% end %>
             </ol>
