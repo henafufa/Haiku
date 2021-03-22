@@ -228,11 +228,13 @@ class UsersController < ApplicationController
     @challenge = current_user.challenges.last
     @challenges = current_user.challenges
     @after_search_user = true
-    @challenged_users_for_this_challenge = ChallengeUser.where("challenge_id = ?", @challenge.id)
-    @challenged_users_for_this_challenge_name = []
-    @challenged_users_for_this_challenge.each do |challenge_user| 
+    if @challenge
+      @challenged_users_for_this_challenge = ChallengeUser.where("challenge_id = ?", @challenge.id)
+      @challenged_users_for_this_challenge_name = []
+      @challenged_users_for_this_challenge.each do |challenge_user| 
       user = User.find_by(id: challenge_user.user_id)
       @challenged_users_for_this_challenge_name.push(user.name)
+    end
     end
     if(params[:from_my_challenge] === "true")
       render 'challenges/show'
