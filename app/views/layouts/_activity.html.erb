@@ -161,7 +161,7 @@
          <% if commentActivity != nil %>
             <% haikuActivity = Haiku.find_by(id: commentActivity.haiku_id)%>
          <% end %>
-          <% if haikuActivity != nil %>
+          <% if haikuActivity.haiku_reactions != nil %>
           <ol class="microposts">
             <%  haikuActivity.haiku_reactions.each do |haikuComments|%>
               <%= render 'haiku_comments/haiku_comment', haiku_comment: haikuComments %>
