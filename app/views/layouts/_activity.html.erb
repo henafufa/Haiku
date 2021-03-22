@@ -170,9 +170,6 @@
     </div>
      <div id=<%= "haiku-comment-collapse-#{activity.id}" %> class="collapse" >
        <% if activity.trackable != nil  %>
-              <% commentActivity = HaikuComment.find_by(id: activity.trackable_id)%>
-              <% haikuActivity = Haiku.find_by(id: commentActivity.id)%>
-              destroyed comment from <%= link_to 'this', activity.trackable %> post
          <% end %>
     </div>
     <% end %> 
