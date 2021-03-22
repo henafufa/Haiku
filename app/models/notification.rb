@@ -4,4 +4,6 @@ class Notification < ApplicationRecord
   belongs_to :haiku_comment, optional: true
   belongs_to :challenge_user, optional: true
   belongs_to :relationship, optional: true
+
+  default_scope -> { order(created_at: :desc) }
 end

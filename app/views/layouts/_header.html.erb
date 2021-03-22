@@ -39,19 +39,20 @@
             <% end %>
           </li>
           <li class="dropdown navlinkdrop-down">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id= "navlink">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id= "navlink" >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
                 <% if count_notification > 0 %>
-                  <span id="notification-badge" class="badge badge-light">
+                  <span id="notification-badge" class="badge badge-light" style="margin-top: -25px;">
                     <%=count_notification %>
                   </span>
                 <% end %>
               </svg>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu col-md-3" style="width: 400px; box-shadow: 5px 10px #dddddd">
+            <div style="text-decoration: none; padding-left: 20px; font-size: 20px">
               <li>Notifications</li>
-              <li class="divider"></li>
+              </div>
               <%= render 'notifications/notification' %>
             </ul>
           </li>
@@ -91,19 +92,18 @@
         <li><%= link_to "Help", help_path, id: "navlink" %></li>
         <% if logged_in? %>
           <li><%= link_to "Users", users_path, id: "navlink" %></li>
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id= "navlink">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
-              <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-              <% if count_notification > 0 %>
-                <span id="notification-badge" class="badge badge-light">
-                  <%=count_notification %>
-                </span>
-              <% end %>
-            </svg>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id= "navlink" style="padding-left: 15px;">
+            <p>Notification <% if count_notification > 0 %>
+              <span id="notification-badge" class="badge badge-light" style="margin-top: -25px;">
+                <%=count_notification %>
+              </span>
+            <% end %>
+            </p>
             </a>
             <ul class="dropdown-menu">
-              <li>Notifications</li>
-              <li class="divider"></li>
+            <div style="text-decoration: none; padding-left: 20px; font-size: 30px">
+                <li>Notifications</li>
+              </div>
               <%= render 'notifications/notification' %> 
             </ul>
           </li>
