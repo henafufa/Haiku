@@ -152,11 +152,18 @@
         </div>
       </div>
       
-    <% end %>
-    <div id=<%= "haiku-collapse-#{activity.id}" %> class="collapse">
+       <div id=<%= "haiku-collapse-#{activity.id}" %> class="collapse">
+        <% if activity.trackable_id != nil %>
+          <% commentActivity = HaikuComment.find_by(id: activity.trackable_id)%>
+        
+        <% end %>
+    </div>
+
+     <div id=<%= "haiku-comment-collapse-#{activity.id}" %> class="collapse" >
       <% if logged_in? %>
         <%= render 'haiku_comments/haiku_comment_form', haiku_id: activity.id %>
       <% end %>
      
     </div>
+    <% end %>
     <% end %>
