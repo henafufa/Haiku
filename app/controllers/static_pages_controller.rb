@@ -5,9 +5,9 @@ class StaticPagesController < ApplicationController
       today = Time.zone.now.to_date
       @postStatus = DailyChallenge.where(user_id: current_user.id, thirtyDates: today.midnight..today.end_of_day)
       # p "postStatus#{@postStatus.first.postStatus}"
-      if current_user.challenge_mode && !@postStatus.first.postStatus
-       ActionCable.server.broadcast("remainder_channel_#{current_user.id}","Hi #{current_user.name}, You didin't post today, dont forgot to post your haiku!")
-      end
+      # if current_user.challenge_mode && !@postStatus.first.postStatus
+      #  ActionCable.server.broadcast("remainder_channel_#{current_user.id}","Hi #{current_user.name}, You didin't post today, dont forgot to post your haiku!")
+      # end
       @reaction = Reaction.new
       @haiku_reaction = HaikuReaction.new
 
